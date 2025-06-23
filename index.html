@@ -56,6 +56,19 @@
     #ana-icerik {
       display: none;
     }
+    #istatistikler {
+      background: #fff;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px #0001;
+    }
+    #istatistikler ul {
+      margin: 8px 0 0 10px;
+      padding: 0;
+      list-style: square;
+      font-size: 15px;
+    }
   </style>
 </head>
 <body>
@@ -74,6 +87,16 @@
     <textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
     <button onclick="ekle()">Ekle</button>
     <p id="sonuc"></p>
+
+    <!-- İstatistik Paneli -->
+    <div id="istatistikler">
+      <strong>Toplam Kayıt:</strong> <span id="toplamSayi">0</span>
+      |
+      <strong>Bugün Eklenen:</strong> <span id="bugunSayi">0</span>
+      <br>
+      <strong>Son Eklenenler:</strong>
+      <ul id="sonEklenenler"></ul>
+    </div>
 
     <h2>Liste</h2>
     <input
@@ -168,18 +191,10 @@
         return;
       }
 
-      const { data: mevcut } = await supabase
-        .from("blacklist")
-        .select("id")
-        .eq("tc", tc);
-      if (mevcut.length > 0) {
-        document.getElementById("sonuc").innerText = "⚠️ Bu TC zaten kayıtlı.";
-        return;
-      }
-
+      // Eğer eklenme_tarihi alanın tablon yoksa Supabase'de bu alanı ekle: eklenme_tarihi TIMESTAMP DEFAULT now()
       const { error } = await supabase
         .from("blacklist")
-        .insert([{ isim, tc, telefon, neden }]);
+        .insert([{ isim, tc, telefon, neden, eklenme_tarihi: new Date().toISOString() }]);
       if (error) {
         document.getElementById("sonuc").innerText = "Hata: " + error.message;
       } else {
@@ -194,9 +209,10 @@
     }
 
     async function listele() {
-      const { data } = await supabase.from("blacklist").select("*");
+      const { data } = await supabase.from("blacklist").select("*").order('eklenme_tarihi', { ascending: false });
       kisiler = data || [];
       tabloyuYaz(kisiler);
+      istatistikleriGuncelle(kisiler);
     }
 
     async function gecmisiYukle() {
@@ -252,7 +268,7 @@
       gecmisiYukle();
     }
 
-    // --- SADECE BU FONKSİYON FARKLI ---
+    // DOM tablosunda filtreleme (sadece satır gizle/göster)
     function filtreleGercek() {
       const arama = document.getElementById('arama').value.toLowerCase();
       const satirlar = document.querySelectorAll("#listeTablosu tbody tr");
@@ -264,6 +280,40 @@
           tr.style.display = "none";
         }
       });
+    }
+
+    // KAYIT SAYACI ve SON İŞLEMLER PANELİ
+    function istatistikleriGuncelle(liste) {
+      // Toplam kayıt
+      document.getElementById("toplamSayi").innerText = liste.length;
+
+      // Bugün eklenenler
+      const bugun = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+      let bugunSayi = 0;
+      let sonlar = [];
+
+      liste.forEach(kisi => {
+        if (kisi.eklenme_tarihi) {
+          const kayitTarihi = kisi.eklenme_tarihi.slice(0, 10);
+          if (kayitTarihi === bugun) bugunSayi++;
+          sonlar.push({
+            isim: kisi.isim,
+            saat: new Date(kisi.eklenme_tarihi).toLocaleTimeString([], {hour: "2-digit", minute:"2-digit"})
+          });
+        } else {
+          // Eski kayıtsa saat yoksa
+          sonlar.push({
+            isim: kisi.isim,
+            saat: "-"
+          });
+        }
+      });
+
+      document.getElementById("bugunSayi").innerText = bugunSayi;
+
+      // Son 5 eklenen
+      let sonListe = sonlar.slice(0, 5).map(k => `<li>${k.isim} <small style="color:#888">(${k.saat})</small></li>`).join("");
+      document.getElementById("sonEklenenler").innerHTML = sonListe || "<li>-</li>";
     }
   </script>
 </body>
