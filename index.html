@@ -251,13 +251,15 @@
       gecmisiYukle();
     }
 
+    // SADECE BURASI DEĞİŞTİ!
     function filtrele() {
       const arama = document.getElementById("arama").value.toLowerCase();
       const filtreli = kisiler.filter(
         (k) =>
-          k.isim.toLowerCase().includes(arama) ||
-          k.tc.includes(arama) ||
-          k.neden.toLowerCase().includes(arama)
+          (k.isim && k.isim.toLowerCase().includes(arama)) ||
+          (k.tc && k.tc.includes(arama)) ||
+          (k.telefon && k.telefon.toLowerCase().includes(arama)) ||
+          (k.neden && k.neden.toLowerCase().includes(arama))
       );
       tabloyuYaz(filtreli);
     }
