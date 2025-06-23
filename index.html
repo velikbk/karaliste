@@ -79,7 +79,7 @@
     <input
       type="text"
       id="arama"
-      placeholder="İsim, TC veya neden ara..."
+      placeholder="İsim, TC, telefon veya neden ara..."
       onkeyup="filtrele()"
     />
     <button onclick="filtrele()">Ara</button>
@@ -113,7 +113,16 @@
   </div>
 
   <script>
+    // GLOBAL değişkenler EN BAŞTA!
+    let kisiler = [];
+    let gecmisKisiler = [];
     const sifreDogru = "12345";
+
+    // Supabase bağlantısı
+    const supabase = window.supabase.createClient(
+      "https://agfeuszcreycpandzfij.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZmV1c3pjcmV5Y3BhbmR6ZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MjA3NDYsImV4cCI6MjA2NjE5Njc0Nn0.ap9UUJfPECk0Xysn53q8WIBaH1QDKMPrGTCrGzfEn_s"
+    );
 
     function kontrolEt() {
       const girilen = document.getElementById("sifre").value;
@@ -141,14 +150,6 @@
         }
       }, 200);
     };
-
-    const supabase = window.supabase.createClient(
-      "https://agfeuszcreycpandzfij.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZmV1c3pjcmV5Y3BhbmR6ZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MjA3NDYsImV4cCI6MjA2NjE5Njc0Nn0.ap9UUJfPECk0Xysn53q8WIBaH1QDKMPrGTCrGzfEn_s"
-    );
-
-    let kisiler = [];
-    let gecmisKisiler = [];
 
     async function ekle() {
       const isim = document.getElementById("isim").value.trim();
@@ -251,7 +252,7 @@
       gecmisiYukle();
     }
 
-    // SADECE BURASI DEĞİŞTİ!
+    // FİLTRELE fonksiyonu (kesin çalışır)
     function filtrele() {
       const arama = document.getElementById("arama").value.toLowerCase();
       const filtreli = kisiler.filter(
