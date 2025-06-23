@@ -55,7 +55,12 @@
   </table>
 
   <script>
-    const supabase = supabase.createClient('https://[PROJENİZ].supabase.co', '[ANON-KEY]');
+    // 🚨 BURAYI KENDİ BİLGİLERİNLE DOLDUR
+    const supabase = supabase.createClient(
+      'https://SENIN-PROJE.supabase.co', 
+      'SENIN-ANON-KEY'
+    );
+
     let allEntries = [];
     let currentSort = { column: null, ascending: true };
 
