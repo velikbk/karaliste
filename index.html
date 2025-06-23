@@ -45,6 +45,7 @@
     th {
       background: #eee;
       cursor: pointer;
+      user-select: none;
     }
     .sil-btn {
       background: #dc3545;
@@ -86,10 +87,10 @@
     <table id="listeTablosu">
       <thead>
         <tr>
-          <th>İsim</th>
-          <th>TC</th>
-          <th>Telefon</th>
-          <th>Neden</th>
+          <th onclick="sirala('isim')">İsim &#8597;</th>
+          <th onclick="sirala('tc')">TC &#8597;</th>
+          <th onclick="sirala('telefon')">Telefon &#8597;</th>
+          <th onclick="sirala('neden')">Neden &#8597;</th>
           <th>Sil</th>
         </tr>
       </thead>
@@ -252,7 +253,7 @@
       gecmisiYukle();
     }
 
-    // --- SADECE BU FONKSİYON FARKLI ---
+    // --- DOM tablosunda filtreleme (sadece satır gizle/göster) ---
     function filtreleGercek() {
       const arama = document.getElementById('arama').value.toLowerCase();
       const satirlar = document.querySelectorAll("#listeTablosu tbody tr");
@@ -264,6 +265,28 @@
           tr.style.display = "none";
         }
       });
+    }
+
+    // --- SIRALAMA ÖZELLİĞİ ---
+    let siralamaAlan = "";
+    let siralamaTers = false;
+
+    function sirala(alan) {
+      if (siralamaAlan === alan) {
+        siralamaTers = !siralamaTers;
+      } else {
+        siralamaAlan = alan;
+        siralamaTers = false;
+      }
+
+      let sirali = [...kisiler].sort((a, b) => {
+        const valA = (a[alan] || "").toString().toLowerCase();
+        const valB = (b[alan] || "").toString().toLowerCase();
+        if (valA < valB) return siralamaTers ? 1 : -1;
+        if (valA > valB) return siralamaTers ? -1 : 1;
+        return 0;
+      });
+      tabloyuYaz(sirali);
     }
   </script>
 </body>
