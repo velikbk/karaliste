@@ -57,6 +57,13 @@
     #ana-icerik {
       display: none;
     }
+    #yenilendi-bilgi {
+      text-align: right;
+      font-size: 13px;
+      color: #888;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -77,6 +84,7 @@
     <p id="sonuc"></p>
 
     <h2>Liste</h2>
+    <div id="yenilendi-bilgi"></div>
     <input
       type="text"
       id="arama"
@@ -118,6 +126,8 @@
     let kisiler = [];
     let gecmisKisiler = [];
     const sifreDogru = "12345";
+    let siralamaAlan = "";
+    let siralamaTers = false;
 
     // Supabase bağlantısı
     const supabase = window.supabase.createClient(
@@ -134,6 +144,7 @@
           document.getElementById("ana-icerik").style.display = "block";
           listele();
           gecmisiYukle();
+          otomatikYenileBaslat();
         }, 100);
       } else {
         document.getElementById("uyari").innerText = "❌ Hatalı şifre!";
@@ -148,6 +159,7 @@
           document.getElementById("ana-icerik").style.display = "block";
           listele();
           gecmisiYukle();
+          otomatikYenileBaslat();
         }
       }, 200);
     };
@@ -198,6 +210,8 @@
       const { data } = await supabase.from("blacklist").select("*");
       kisiler = data || [];
       tabloyuYaz(kisiler);
+      filtreleGercek(); // Arama aktifse filtre korunsun
+      yenilendiGoster();
     }
 
     async function gecmisiYukle() {
@@ -268,9 +282,6 @@
     }
 
     // --- SIRALAMA ÖZELLİĞİ ---
-    let siralamaAlan = "";
-    let siralamaTers = false;
-
     function sirala(alan) {
       if (siralamaAlan === alan) {
         siralamaTers = !siralamaTers;
@@ -287,6 +298,24 @@
         return 0;
       });
       tabloyuYaz(sirali);
+      filtreleGercek(); // Sıralama sonrası da filtre korunur
+    }
+
+    // --- OTOMATİK YENİLEME ---
+    let yenileInterval = null;
+    function otomatikYenileBaslat() {
+      if (yenileInterval) clearInterval(yenileInterval);
+      yenileInterval = setInterval(() => {
+        listele();
+        gecmisiYukle();
+      }, 180000); // 3 dakika = 180.000 ms
+    }
+
+    // --- YENİLENME BİLGİSİ ---
+    function yenilendiGoster() {
+      const div = document.getElementById("yenilendi-bilgi");
+      const now = new Date();
+      div.textContent = `Son güncelleme: ${now.toLocaleTimeString([], {hour: "2-digit", minute: "2-digit", second: "2-digit"})}`;
     }
   </script>
 </body>
