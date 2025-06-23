@@ -1,269 +1,169 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giriş</title>
+  <meta charset="UTF-8">
+  <title>Kara Liste Yönetimi</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
     body {
       font-family: sans-serif;
+      max-width: 600px;
+      margin: 20px auto;
       padding: 20px;
-      background: #f1f1f1;
-      max-width: 900px;
-      margin: auto;
     }
-    input,
-    textarea,
-    button {
+    input, textarea, button {
       width: 100%;
-      padding: 12px;
-      margin: 8px 0;
+      padding: 10px;
+      margin: 6px 0;
       font-size: 16px;
-      border: 1px solid #ccc;
       border-radius: 6px;
+      border: 1px solid #ccc;
     }
     button {
-      background-color: #007bff;
+      background: #007bff;
       color: white;
+      font-weight: bold;
       border: none;
-    }
-    button:hover {
-      background-color: #0056b3;
     }
     table {
       width: 100%;
       margin-top: 20px;
       border-collapse: collapse;
     }
-    th,
-    td {
-      padding: 10px;
+    th, td {
       border: 1px solid #ccc;
-      font-size: 15px;
-    }
-    th {
-      background: #eee;
-      cursor: pointer;
+      padding: 8px;
+      text-align: left;
     }
     .sil-btn {
       background: #dc3545;
       color: white;
-      padding: 6px 10px;
+      padding: 6px;
       border: none;
       border-radius: 4px;
-    }
-    #ana-icerik {
-      display: none;
     }
   </style>
 </head>
 <body>
-  <div id="giris">
-    <h2>🔐 Giriş</h2>
-    <input type="password" id="sifre" placeholder="Şifre giriniz" />
-    <button onclick="kontrolEt()">Giriş Yap</button>
-    <p id="uyari"></p>
-  </div>
+  <h2>Kara Liste Kayıt Ekle</h2>
+  <input type="text" id="isim" placeholder="İsim">
+  <input type="text" id="tc" placeholder="TC Kimlik No">
+  <input type="text" id="telefon" placeholder="Telefon">
+  <textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
+  <button onclick="ekle()">Ekle</button>
+  <p id="sonuc"></p>
 
-  <div id="ana-icerik">
-    <h2>Kara Listeye Kişi Ekle</h2>
-    <input type="text" id="isim" placeholder="İsim" />
-    <input type="text" id="tc" placeholder="TC Kimlik No" maxlength="11" />
-    <input type="text" id="telefon" placeholder="Telefon" />
-    <textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
-    <button onclick="ekle()">Ekle</button>
-    <p id="sonuc"></p>
+  <h2>Kara Liste</h2>
+  <input type="text" id="arama" placeholder="İsim, TC veya neden ara..." onkeyup="filtrele()">
 
-    <h2>Liste</h2>
-    <input
-      type="text"
-      id="arama"
-      placeholder="İsim, TC, telefon veya neden ara..."
-      onkeyup="filtrele()"
-    />
-    <button onclick="filtrele()">Ara</button>
-    <table id="listeTablosu">
-      <thead>
-        <tr>
-          <th>İsim</th>
-          <th>TC</th>
-          <th>Telefon</th>
-          <th>Neden</th>
-          <th>Sil</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <h2>📜 Silinen Kayıtlar (Geçmiş)</h2>
-    <table id="gecmisTablosu">
-      <thead>
-        <tr>
-          <th>İsim</th>
-          <th>TC</th>
-          <th>Telefon</th>
-          <th>Neden</th>
-          <th>Silme Nedeni</th>
-          <th>Tarih</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
+  <table id="listeTablosu">
+    <thead>
+      <tr>
+        <th>İsim</th>
+        <th>TC</th>
+        <th>Telefon</th>
+        <th>Neden</th>
+        <th>Sil</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
   <script>
-    // GLOBAL değişkenler EN BAŞTA!
-    let kisiler = [];
-    let gecmisKisiler = [];
-    const sifreDogru = "12345";
-
-    // Supabase bağlantısı
-    const supabase = window.supabase.createClient(
-      "https://agfeuszcreycpandzfij.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZmV1c3pjcmV5Y3BhbmR6ZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MjA3NDYsImV4cCI6MjA2NjE5Njc0Nn0.ap9UUJfPECk0Xysn53q8WIBaH1QDKMPrGTCrGzfEn_s"
-    );
-
-    function kontrolEt() {
-      const girilen = document.getElementById("sifre").value;
-      if (girilen === sifreDogru) {
-        localStorage.setItem("giris_onay", Date.now());
-        setTimeout(() => {
-          document.getElementById("giris").style.display = "none";
-          document.getElementById("ana-icerik").style.display = "block";
-          listele();
-          gecmisiYukle();
-        }, 100);
-      } else {
-        document.getElementById("uyari").innerText = "❌ Hatalı şifre!";
-      }
-    }
-
-    window.onload = function () {
-      setTimeout(() => {
-        const girisOnay = localStorage.getItem("giris_onay");
-        if (girisOnay && Date.now() - parseInt(girisOnay) < 3600000) {
-          document.getElementById("giris").style.display = "none";
-          document.getElementById("ana-icerik").style.display = "block";
-          listele();
-          gecmisiYukle();
-        }
-      }, 200);
-    };
+    const supabaseUrl = 'https://agfeuszcreycpandzfij.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZmV1c3pjcmV5Y3BhbmR6ZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MjA3NDYsImV4cCI6MjA2NjE5Njc0Nn0.ap9UUJfPECk0Xysn53q8WIBaH1QDKMPrGTCrGzfEn_s';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     async function ekle() {
-      const isim = document.getElementById("isim").value.trim();
-      const tc = document.getElementById("tc").value.trim();
-      const telefon = document.getElementById("telefon").value.trim();
-      const neden = document.getElementById("neden").value.trim();
+      const isim = document.getElementById('isim').value.trim();
+      const tc = document.getElementById('tc').value.trim();
+      const telefon = document.getElementById('telefon').value.trim();
+      const neden = document.getElementById('neden').value.trim();
 
       if (!isim || !tc || !neden) {
-        document.getElementById("sonuc").innerText = "İsim, TC ve neden zorunludur.";
-        return;
-      }
-
-      if (tc.length !== 11 || isNaN(tc)) {
-        document.getElementById("sonuc").innerText =
-          "TC Kimlik No 11 haneli olmalı.";
-        return;
-      }
-
-      const { data: mevcut } = await supabase
-        .from("blacklist")
-        .select("id")
-        .eq("tc", tc);
-      if (mevcut.length > 0) {
-        document.getElementById("sonuc").innerText = "⚠️ Bu TC zaten kayıtlı.";
+        document.getElementById('sonuc').innerText = "İsim, TC ve neden zorunludur.";
         return;
       }
 
       const { error } = await supabase
-        .from("blacklist")
-        .insert([{ isim, tc, telefon, neden }]);
+        .from('blacklist')
+        .insert([{
+          isim,
+          tc,
+          telefon,
+          neden
+        }]);
+
       if (error) {
-        document.getElementById("sonuc").innerText = "Hata: " + error.message;
+        document.getElementById('sonuc').innerText = "Hata: " + error.message;
       } else {
-        document.getElementById("sonuc").innerText = "✅ Kayıt eklendi.";
-        document.getElementById("isim").value = "";
-        document.getElementById("tc").value = "";
-        document.getElementById("telefon").value = "";
-        document.getElementById("neden").value = "";
+        document.getElementById('sonuc').innerText = "✅ Kayıt eklendi.";
+        document.getElementById('isim').value = "";
+        document.getElementById('tc').value = "";
+        document.getElementById('telefon').value = "";
+        document.getElementById('neden').value = "";
         listele();
-        gecmisiYukle();
       }
     }
 
     async function listele() {
-      const { data } = await supabase.from("blacklist").select("*");
-      kisiler = data || [];
-      tabloyuYaz(kisiler);
-    }
+      const { data, error } = await supabase
+        .from('blacklist')
+        .select('*');
 
-    async function gecmisiYukle() {
-      const { data } = await supabase.from("silinenler").select("*");
-      gecmisKisiler = data || [];
-      gecmisTabloYaz(gecmisKisiler);
-    }
-
-    function tabloyuYaz(liste) {
       const tbody = document.querySelector("#listeTablosu tbody");
       tbody.innerHTML = "";
-      liste.forEach((kisi) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${kisi.isim}</td>
-          <td>${kisi.tc}</td>
-          <td>${kisi.telefon}</td>
-          <td>${kisi.neden}</td>
-          <td><button class="sil-btn" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Sil</button></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
 
-    function gecmisTabloYaz(liste) {
-      const tbody = document.querySelector("#gecmisTablosu tbody");
-      tbody.innerHTML = "";
-      liste.forEach((kisi) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${kisi.isim}</td>
-          <td>${kisi.tc}</td>
-          <td>${kisi.telefon}</td>
-          <td>${kisi.neden}</td>
-          <td>${kisi.silinme_nedeni}</td>
-          <td>${new Date(kisi.silinme_tarihi).toLocaleString()}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    async function sil(id, isim, tc, telefon, neden) {
-      const silmeNedeni = prompt("Bu kişiyi neden siliyorsun?");
-      if (!silmeNedeni || silmeNedeni.trim() === "") {
-        alert("Açıklama zorunludur.");
+      if (error) {
+        tbody.innerHTML = "<tr><td colspan='5'>Hata oluştu</td></tr>";
         return;
       }
-      await supabase
-        .from("silinenler")
-        .insert([{ isim, tc, telefon, neden, silinme_nedeni: silmeNedeni }]);
-      await supabase.from("blacklist").delete().eq("id", id);
-      listele();
-      gecmisiYukle();
+
+      data.forEach(kisi => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${kisi.isim}</td>
+          <td>${kisi.tc}</td>
+          <td>${kisi.telefon}</td>
+          <td>${kisi.neden}</td>
+          <td><button class="sil-btn" onclick="sil('${kisi.id}')">Sil</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
-    // FİLTRELE fonksiyonu (kesin çalışır)
-    function filtrele() {
-      const arama = document.getElementById("arama").value.toLowerCase();
-      const filtreli = kisiler.filter(
-        (k) =>
-          (k.isim && k.isim.toLowerCase().includes(arama)) ||
-          (k.tc && k.tc.includes(arama)) ||
-          (k.telefon && k.telefon.toLowerCase().includes(arama)) ||
-          (k.neden && k.neden.toLowerCase().includes(arama))
-      );
-      tabloyuYaz(filtreli);
+    async function sil(id) {
+      const onay = confirm("Bu kaydı silmek istediğine emin misin?");
+      if (!onay) return;
+
+      const { error } = await supabase
+        .from('blacklist')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        alert("Silme hatası: " + error.message);
+      } else {
+        alert("Kayıt silindi");
+        listele();
+      }
     }
+
+    function filtrele() {
+      const arama = document.getElementById('arama').value.toLowerCase();
+      const satirlar = document.querySelectorAll("#listeTablosu tbody tr");
+
+      satirlar.forEach(tr => {
+        const metin = tr.innerText.toLowerCase();
+        if (metin.includes(arama)) {
+          tr.style.display = "";
+        } else {
+          tr.style.display = "none";
+        }
+      });
+    }
+
+    listele(); // Sayfa yüklenince otomatik listele
   </script>
 </body>
 </html>
