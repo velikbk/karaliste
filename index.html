@@ -6,6 +6,9 @@
   <title>Giriş</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
+    html, body {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
     body {
       font-family: sans-serif;
       padding: 20px;
@@ -13,10 +16,9 @@
       max-width: 900px;
       margin: auto;
     }
-    input,
-    textarea,
-    button {
+    input, textarea, button {
       width: 100%;
+      box-sizing: border-box;
       padding: 12px;
       margin: 8px 0;
       font-size: 16px;
@@ -27,6 +29,7 @@
       background-color: #007bff;
       color: white;
       border: none;
+      font-size: 16px;
     }
     button:hover {
       background-color: #0056b3;
@@ -35,9 +38,9 @@
       width: 100%;
       margin-top: 20px;
       border-collapse: collapse;
+      background: white;
     }
-    th,
-    td {
+    th, td {
       padding: 10px;
       border: 1px solid #ccc;
       font-size: 15px;
@@ -53,6 +56,7 @@
       padding: 6px 10px;
       border: none;
       border-radius: 4px;
+      font-size: 15px;
     }
     #ana-icerik {
       display: none;
@@ -67,6 +71,42 @@
     .sirala-ok {
       font-size: 13px;
       margin-left: 4px;
+    }
+    /* Mobil Uyum */
+    @media (max-width: 650px) {
+      body {
+        padding: 4px;
+        font-size: 15px;
+        max-width: 100vw;
+      }
+      h2 {
+        font-size: 19px;
+      }
+      input, textarea, button {
+        font-size: 15px;
+        padding: 8px;
+        margin: 5px 0;
+      }
+      th, td {
+        font-size: 13px;
+        padding: 5px 4px;
+      }
+      #yenilendi-bilgi {
+        font-size: 11px;
+      }
+      table {
+        font-size: 13px;
+        margin-top: 10px;
+      }
+      .sil-btn {
+        padding: 4px 6px;
+        font-size: 13px;
+      }
+      /* YATAY KAYDIRMA */
+      .tablo-kapsayici {
+        width: 100vw;
+        overflow-x: auto;
+      }
     }
   </style>
 </head>
@@ -96,33 +136,37 @@
       onkeyup="filtreleGercek()"
     />
     <button onclick="filtreleGercek()">Ara</button>
-    <table id="listeTablosu">
-      <thead>
-        <tr>
-          <th onclick="sirala('isim')">İsim <span id="ok-isim" class="sirala-ok"></span></th>
-          <th onclick="sirala('tc')">TC <span id="ok-tc" class="sirala-ok"></span></th>
-          <th onclick="sirala('telefon')">Telefon <span id="ok-telefon" class="sirala-ok"></span></th>
-          <th onclick="sirala('neden')">Neden <span id="ok-neden" class="sirala-ok"></span></th>
-          <th>Sil</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="tablo-kapsayici">
+      <table id="listeTablosu">
+        <thead>
+          <tr>
+            <th onclick="sirala('isim')">İsim <span id="ok-isim" class="sirala-ok"></span></th>
+            <th onclick="sirala('tc')">TC <span id="ok-tc" class="sirala-ok"></span></th>
+            <th onclick="sirala('telefon')">Telefon <span id="ok-telefon" class="sirala-ok"></span></th>
+            <th onclick="sirala('neden')">Neden <span id="ok-neden" class="sirala-ok"></span></th>
+            <th>Sil</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
     <h2>📜 Silinen Kayıtlar (Geçmiş)</h2>
-    <table id="gecmisTablosu">
-      <thead>
-        <tr>
-          <th>İsim</th>
-          <th>TC</th>
-          <th>Telefon</th>
-          <th>Neden</th>
-          <th>Silme Nedeni</th>
-          <th>Tarih</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="tablo-kapsayici">
+      <table id="gecmisTablosu">
+        <thead>
+          <tr>
+            <th>İsim</th>
+            <th>TC</th>
+            <th>Telefon</th>
+            <th>Neden</th>
+            <th>Silme Nedeni</th>
+            <th>Tarih</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 
   <script>
