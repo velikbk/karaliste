@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Giriş</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f1f1f1;
+      max-width: 900px;
+      margin: auto;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+    th {
+      background: #eee;
+      cursor: pointer;
+    }
+    .sil-btn {
+      background: #dc3545;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+    }
+    #ana-icerik { display: none; }
+  </style>
+</head>
+<body>
+  <div id="giris">
+    <h2>🔐 Giriş</h2>
+    <input type="password" id="sifre" placeholder="Şifre giriniz">
+    <button onclick="kontrolEt()">Giriş Yap</button>
+    <p id="uyari"></p>
+  </div>
+
+  <div id="ana-icerik">
+    <h2>Kara Listeye Kişi Ekle</h2>
+    <input type="text" id="isim" placeholder="İsim">
+    <input type="text" id="tc" placeholder="TC Kimlik No" maxlength="11">
+    <input type="text" id="telefon" placeholder="Telefon">
+    <textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
+    <button onclick="ekle()">Ekle</button>
+    <p id="sonuc"></p>
+
+    <h2>Liste</h2>
+    <input type="text" id="arama" placeholder="İsim, TC veya neden ara..." onkeyup="filtrele()">
+    <table id="listeTablosu">
+      <thead>
+        <tr>
+          <th>İsim</th>
+          <th>TC</th>
+          <th>Telefon</th>
+          <th>Neden</th>
+          <th>Sil</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>📜 Silinen Kayıtlar (Geçmiş)</h2>
+    <table id="gecmisTablosu">
+      <thead>
+        <tr>
+          <th>İsim</th>
+          <th>TC</th>
+          <th>Telefon</th>
+          <th>Neden</th>
+          <th>Silme Nedeni</th>
+          <th>Tarih</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+<script>
+  const sifreDogru = "12345";
+
+  function kontrolEt() {
+    const girilen = document.getElementById('sifre').value;
+    if (girilen === sifreDogru) {
+      localStorage.setItem('giris_onay', Date.now());
+      setTimeout(() => {
+        document.getElementById('giris').style.display = 'none';
+        document.getElementById('ana-icerik').style.display = 'block';
+        listele();
+        gecmisiYukle();
+      }, 100);
+    } else {
+      document.getElementById('uyari').innerText = "❌ Hatalı şifre!";
+    }
+  }
+
+  window.onload = function() {
+    setTimeout(() => {
+      const girisOnay = localStorage.getItem('giris_onay');
+      if (girisOnay && (Date.now() - parseInt(girisOnay) < 3600000)) {
+        document.getElementById('giris').style.display = 'none';
+        document.getElementById('ana-icerik').style.display = 'block';
+        listele();
+        gecmisiYukle();
+      }
+    }, 200);
+  };
+</script>
+</body>
+</html>
