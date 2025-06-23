@@ -64,6 +64,10 @@
       margin-top: -10px;
       margin-bottom: 10px;
     }
+    .sirala-ok {
+      font-size: 13px;
+      margin-left: 4px;
+    }
   </style>
 </head>
 <body>
@@ -95,10 +99,10 @@
     <table id="listeTablosu">
       <thead>
         <tr>
-          <th onclick="sirala('isim')">İsim &#8597;</th>
-          <th onclick="sirala('tc')">TC &#8597;</th>
-          <th onclick="sirala('telefon')">Telefon &#8597;</th>
-          <th onclick="sirala('neden')">Neden &#8597;</th>
+          <th onclick="sirala('isim')">İsim <span id="ok-isim" class="sirala-ok"></span></th>
+          <th onclick="sirala('tc')">TC <span id="ok-tc" class="sirala-ok"></span></th>
+          <th onclick="sirala('telefon')">Telefon <span id="ok-telefon" class="sirala-ok"></span></th>
+          <th onclick="sirala('neden')">Neden <span id="ok-neden" class="sirala-ok"></span></th>
           <th>Sil</th>
         </tr>
       </thead>
@@ -128,6 +132,7 @@
     const sifreDogru = "12345";
     let siralamaAlan = "";
     let siralamaTers = false;
+    let yenileInterval = null;
 
     // Supabase bağlantısı
     const supabase = window.supabase.createClient(
@@ -209,9 +214,15 @@
     async function listele() {
       const { data } = await supabase.from("blacklist").select("*");
       kisiler = data || [];
-      tabloyuYaz(kisiler);
+      // Otomatik sıralama uygula
+      let liste = [...kisiler];
+      if (siralamaAlan) {
+        liste = siraliDizi(liste, siralamaAlan, siralamaTers);
+      }
+      tabloyuYaz(liste);
       filtreleGercek(); // Arama aktifse filtre korunsun
       yenilendiGoster();
+      siralamaOklariniGuncelle();
     }
 
     async function gecmisiYukle() {
@@ -289,20 +300,35 @@
         siralamaAlan = alan;
         siralamaTers = false;
       }
+      let sirali = siraliDizi(kisiler, siralamaAlan, siralamaTers);
+      tabloyuYaz(sirali);
+      filtreleGercek();
+      siralamaOklariniGuncelle();
+    }
 
-      let sirali = [...kisiler].sort((a, b) => {
+    function siraliDizi(liste, alan, ters) {
+      return [...liste].sort((a, b) => {
         const valA = (a[alan] || "").toString().toLowerCase();
         const valB = (b[alan] || "").toString().toLowerCase();
-        if (valA < valB) return siralamaTers ? 1 : -1;
-        if (valA > valB) return siralamaTers ? -1 : 1;
+        if (valA < valB) return ters ? 1 : -1;
+        if (valA > valB) return ters ? -1 : 1;
         return 0;
       });
-      tabloyuYaz(sirali);
-      filtreleGercek(); // Sıralama sonrası da filtre korunur
+    }
+
+    // --- Ok işareti güncelleme ---
+    function siralamaOklariniGuncelle() {
+      ["isim", "tc", "telefon", "neden"].forEach(alan => {
+        const ok = document.getElementById("ok-" + alan);
+        if (siralamaAlan === alan) {
+          ok.innerHTML = siralamaTers ? "&#8595;" : "&#8593;";
+        } else {
+          ok.innerHTML = "";
+        }
+      });
     }
 
     // --- OTOMATİK YENİLEME ---
-    let yenileInterval = null;
     function otomatikYenileBaslat() {
       if (yenileInterval) clearInterval(yenileInterval);
       yenileInterval = setInterval(() => {
