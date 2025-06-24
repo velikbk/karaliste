@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Kara Liste Sistemi</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <style>
+<meta charset="utf-8"/>
+<title>Kara Liste Sistemi</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<style>
     body {
       font-family: sans-serif;
       max-width: 900px;
@@ -86,101 +87,116 @@
       table {font-size: 12px; min-width: 540px; margin-top: 10px;}
       .tablo-kapsayici {width: 100vw; max-width: 100vw; overflow-x: auto;}
     }
-  </style>
+  
+@media (max-width: 500px) {
+  html, body {
+    font-size: 13px;
+    padding: 10px;
+  }
+  table {
+    font-size: 12px;
+    min-width: 100%;
+  }
+  th, td {
+    padding: 6px 4px;
+  }
+  .admin-btn, .sil-btn {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+  input, textarea, button {
+    font-size: 14px;
+  }
+}
+</style>
 </head>
 <body>
-  <!-- Giriş Bölümü -->
-  <div id="giris-bolumu" class="active">
-    <h2>🔐 Kullanıcı Girişi</h2>
-    <input type="text" id="kullaniciAdi" placeholder="Kullanıcı Adı" autocomplete="username"/>
-    <input type="password" id="sifre" placeholder="Şifre" autocomplete="current-password"/>
-    <button id="girisBtn">Giriş Yap</button>
-    <p id="giris-mesaj"></p>
-  </div>
-
-  <!-- Panel Bölümü -->
-  <div id="panel-bolumu">
-    <h2>Kara Liste Yönetim Paneli</h2>
-    <p><strong>Hoşgeldin:</strong> <span id="girenKullanici"></span> (<span id="girenRol"></span>)</p>
-    <button id="cikisBtn">Çıkış Yap</button>
-
-    <!-- Admin Panel: Kullanıcı Yönetimi -->
-    <div id="admin-yonetim" style="display:none;">
-      <h3>Kullanıcı Yönetimi</h3>
-      <button class="admin-btn" onclick="yeniKullaniciFormGoster()">+ Kullanıcı Ekle</button>
-      <table>
-        <thead>
-          <tr>
-            <th>Kullanıcı Adı</th>
-            <th>Rol</th>
-            <th>Son Giriş</th>
-            <th>Oturum</th>
-            <th>İşlem</th>
-          </tr>
-        </thead>
-        <tbody id="kullaniciListesi"></tbody>
-      </table>
-      <div id="yeniKullaniciForm">
-        <input type="text" id="yeni_kullanici_adi" placeholder="Kullanıcı adı">
-        <input type="password" id="yeni_kullanici_sifre" placeholder="Şifre">
-        <select id="yeni_kullanici_rol">
-          <option value="user">user</option>
-          <option value="admin">admin</option>
-        </select>
-        <button onclick="yeniKullaniciEkle()" class="admin-btn">Kaydet</button>
-        <button onclick="yeniKullaniciFormGizle()" class="admin-btn" style="background:#ccc;color:#222;">Vazgeç</button>
-        <div id="yeniKullaniciHata" style="color:#b00;font-size:15px;text-align:center"></div>
-      </div>
-    </div>
-
-    <div id="eklemeAlani">
-      <h3>Kara Listeye Kişi Ekle</h3>
-      <input type="text" id="isim" placeholder="İsim" />
-      <input type="text" id="tc" placeholder="TC Kimlik No" maxlength="11" />
-      <input type="text" id="telefon" placeholder="Telefon" />
-      <textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
-      <button id="ekleBtn">Ekle</button>
-      <p id="sonuc"></p>
-    </div>
-
-    <h3>Liste</h3>
-    <input type="text" id="arama" placeholder="İsim, TC, telefon veya neden ara..." oninput="filtreleGercek()"/>
-    <div class="tablo-kapsayici">
-      <table id="listeTablosu">
-        <thead>
-          <tr>
-            <th data-alan="isim">İsim <span id="ok-isim"></span></th>
-            <th data-alan="tc">TC <span id="ok-tc"></span></th>
-            <th data-alan="telefon">Telefon <span id="ok-telefon"></span></th>
-            <th data-alan="neden">Neden <span id="ok-neden"></span></th>
-            <th id="ekleyen_th" style="display:none">Ekleyen</th>
-            <th>Sil</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <h3>📜 Silinen Kayıtlar (Geçmiş)</h3>
-    <div class="tablo-kapsayici">
-      <table id="gecmisTablosu">
-        <thead>
-          <tr>
-            <th>İsim</th>
-            <th>TC</th>
-            <th>Telefon</th>
-            <th>Neden</th>
-            <th>Silme Nedeni</th>
-            <th>Tarih</th>
-            <th id="silen_th" style="display:none">Silen</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
-
-  <script>
+<!-- Giriş Bölümü -->
+<div class="active" id="giris-bolumu">
+<h2>🔐 Kullanıcı Girişi</h2>
+<input autocomplete="username" id="kullaniciAdi" placeholder="Kullanıcı Adı" type="text"/>
+<input autocomplete="current-password" id="sifre" placeholder="Şifre" type="password"/>
+<button id="girisBtn">Giriş Yap</button>
+<p id="giris-mesaj"></p>
+</div>
+<!-- Panel Bölümü -->
+<div id="panel-bolumu">
+<h2>Kara Liste Yönetim Paneli</h2>
+<p><strong>Hoşgeldin:</strong> <span id="girenKullanici"></span> (<span id="girenRol"></span>)</p>
+<button id="cikisBtn">Çıkış Yap</button>
+<!-- Admin Panel: Kullanıcı Yönetimi -->
+<div id="admin-yonetim" style="display:none;">
+<h3>Kullanıcı Yönetimi</h3>
+<button class="admin-btn" onclick="yeniKullaniciFormGoster()">+ Kullanıcı Ekle</button>
+<table>
+<thead>
+<tr>
+<th>Kullanıcı Adı</th>
+<th>Rol</th>
+<th>Son Giriş</th>
+<th>Oturum</th>
+<th>İşlem</th>
+</tr>
+</thead>
+<tbody id="kullaniciListesi"></tbody>
+</table>
+<div id="yeniKullaniciForm">
+<input id="yeni_kullanici_adi" placeholder="Kullanıcı adı" type="text"/>
+<input id="yeni_kullanici_sifre" placeholder="Şifre" type="password"/>
+<select id="yeni_kullanici_rol">
+<option value="user">user</option>
+<option value="admin">admin</option>
+</select>
+<button class="admin-btn" onclick="yeniKullaniciEkle()">Kaydet</button>
+<button class="admin-btn" onclick="yeniKullaniciFormGizle()" style="background:#ccc;color:#222;">Vazgeç</button>
+<div id="yeniKullaniciHata" style="color:#b00;font-size:15px;text-align:center"></div>
+</div>
+</div>
+<div id="eklemeAlani">
+<h3>Kara Listeye Kişi Ekle</h3>
+<input id="isim" placeholder="İsim" type="text">
+<input id="tc" maxlength="11" placeholder="TC Kimlik No" type="text">
+<input id="telefon" placeholder="Telefon" type="text"/>
+<textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
+<button id="ekleBtn">Ekle</button>
+<p id="sonuc"></p>
+</input></input></div>
+<h3>Liste</h3>
+<input id="arama" oninput="filtreleGercek()" placeholder="İsim, TC, telefon veya neden ara..." type="text"/>
+<div class="tablo-kapsayici">
+<table id="listeTablosu">
+<thead>
+<tr>
+<th data-alan="isim">İsim <span id="ok-isim"></span></th>
+<th data-alan="tc">TC <span id="ok-tc"></span></th>
+<th data-alan="telefon">Telefon <span id="ok-telefon"></span></th>
+<th data-alan="neden">Neden <span id="ok-neden"></span></th>
+<th id="ekleyen_th" style="display:none">Ekleyen</th>
+<th>Sil</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+<h3>📜 Silinen Kayıtlar (Geçmiş)</h3>
+<div class="tablo-kapsayici">
+<table id="gecmisTablosu">
+<thead>
+<tr>
+<th>İsim</th>
+<th>TC</th>
+<th>Telefon</th>
+<th>Neden</th>
+<th>Silme Nedeni</th>
+<th>Tarih</th>
+<th id="silen_th" style="display:none">Silen</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</div>
+<script>
     // --- SUPABASE AYAR ---
     const supabaseUrl = "https://agfeuszcreycpandzfij.supabase.co";
     const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZmV1c3pjcmV5Y3BhbmR6ZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MjA3NDYsImV4cCI6MjA2NjE5Njc0Nn0.ap9UUJfPECk0Xysn53q8WIBaH1QDKMPrGTCrGzfEn_s";
