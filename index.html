@@ -88,24 +88,34 @@
       .tablo-kapsayici {width: 100vw; max-width: 100vw; overflow-x: auto;}
     }
   
-@media (max-width: 500px) {
-  html, body {
-    font-size: 13px;
-    padding: 10px;
-  }
-  table {
-    font-size: 12px;
-    min-width: 100%;
+.tablo-kapsayici {
+  overflow-x: auto;
+  width: 100%;
+}
+
+table {
+  white-space: nowrap;
+}
+
+.admin-btn, .sil-btn {
+  font-size: 12px !important;
+  padding: 4px 6px !important;
+  min-width: 80px;
+}
+
+@media (max-width: 600px) {
+  td button {
+    display: block;
+    width: 100% !important;
+    margin-bottom: 4px;
   }
   th, td {
-    padding: 6px 4px;
-  }
-  .admin-btn, .sil-btn {
-    font-size: 12px;
-    padding: 6px 8px;
+    font-size: 12px !important;
+    padding: 6px 4px !important;
   }
   input, textarea, button {
-    font-size: 14px;
+    font-size: 14px !important;
+    padding: 8px !important;
   }
 }
 </style>
