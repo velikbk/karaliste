@@ -1,76 +1,25 @@
 <!DOCTYPE html>
-
 <html lang="tr">
 <head>
-<meta charset="utf-8"/>
-<title>Kara Liste Sistemi</title>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<style>
-    body {
-      font-family: sans-serif;
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-      background: #f1f1f1;
-    }
-    input, textarea, button {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 12px;
-      margin: 8px 0;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      font-size: 16px;
-    }
-    button:hover:not(:disabled) {
-      background-color: #0056b3;
-      cursor: pointer;
-    }
-    button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-    .tablo-kapsayici {
-      width: 100%;
-      overflow-x: auto;
-    }
-    table {
-      width: 100%;
-      margin-top: 20px;
-      border-collapse: collapse;
-      background: white;
-      min-width: 650px; /* Mobilde sağa kaydırma */
-    }
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-      font-size: 15px;
-      white-space: nowrap;
-    }
-    th {
-      background: #eee;
-      cursor: pointer;
-      user-select: none;
-    }
-    .sil-btn {
-      background: #dc3545;
-      color: white;
-      padding: 6px 10px;
-      border: none;
-      border-radius: 4px;
-      font-size: 15px;
-    }
+  <meta charset="UTF-8" />
+  <title>Kara Liste Sistemi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: auto; padding: 20px; background: #f1f1f1;}
+    input, textarea, button {width: 100%; box-sizing: border-box; padding: 12px; margin: 8px 0; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;}
+    button {background-color: #007bff; color: white; border: none; font-size: 16px;}
+    button:hover:not(:disabled) {background-color: #0056b3; cursor: pointer;}
+    button:disabled {background-color: #ccc; cursor: not-allowed;}
+    table {width: 100%; margin-top: 20px; border-collapse: collapse; background: white;}
+    th, td {padding: 10px; border: 1px solid #ccc; font-size: 15px;}
+    th {background: #eee; cursor: pointer; user-select: none;}
+    .sil-btn {background: #dc3545; color: white; padding: 6px 10px; border: none; border-radius: 4px; font-size: 15px;}
     .admin-btn {background: #007bff; color: white; padding: 6px 10px; border: none; border-radius: 4px; margin-right: 3px;}
     .admin-btn.sifirla {background: #ffc107; color: #333;}
     .admin-btn.rol {background: #17a2b8;}
     .aktif-oturum {color: green; font-weight: bold;}
+    .tablo-kapsayici {overflow-x: auto;}
     #cikisBtn {margin-top: 15px; background: #555;}
     #giris-bolumu, #panel-bolumu {display: none;}
     #giris-bolumu.active, #panel-bolumu.active {display: block;}
@@ -80,183 +29,106 @@
     .islem-td {color: #444; font-size: 13px;}
     #admin-yonetim {margin-top: 40px;}
     #yeniKullaniciForm {margin: 10px 0; background: #f7f7fc; border-radius: 7px; padding: 10px; display: none;}
-    @media (max-width: 700px) {
-      body { padding: 4px; font-size: 15px; max-width: 100vw;}
-      input, textarea, button {font-size: 14px; padding: 7px; margin: 5px 0;}
-      th, td {font-size: 12px; padding: 5px 3px;}
-      table {font-size: 12px; min-width: 540px; margin-top: 10px;}
-      .tablo-kapsayici {width: 100vw; max-width: 100vw; overflow-x: auto;}
-    }
-  
-@media (max-width: 768px) {
-  html, body {
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-    width: 100%;
-  }
-
-  .tablo-kapsayici {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  table {
-    width: 100% !important;
-    display: block;
-    overflow-x: auto;
-    font-size: 14px;
-    white-space: nowrap;
-  }
-
-  th, td {
-    font-size: 13px !important;
-    padding: 6px 8px !important;
-  }
-
-  input, textarea, button {
-    font-size: 14px !important;
-    padding: 8px !important;
-  }
-
-  h2, h3 {
-    font-size: 18px !important;
-  }
-
-  .admin-btn, .sil-btn {
-    font-size: 13px !important;
-    padding: 5px 8px !important;
-  }
-}
-
-@media (max-width: 700px) {
-  .tablo-kapsayici {
-    overflow-x: auto;
-    width: 100%;
-  }
-  table {
-    width: 100%;
-    display: block;
-    overflow-x: auto;
-  }
-  th, td {
-    font-size: 13px;
-    padding: 6px 4px;
-    white-space: normal;
-  }
-  td button {
-    display: block;
-    width: 100%;
-    margin-bottom: 6px;
-  }
-  .admin-btn, .sil-btn {
-    font-size: 13px;
-    padding: 6px;
-    min-width: auto;
-  }
-}
-
-</style>
+    @media (max-width:650px){ th,td{font-size:13px; padding:4px;} }
+  </style>
 </head>
 <body>
-<!-- Giriş Bölümü -->
-<div class="active" id="giris-bolumu">
-<h2>🔐 Kullanıcı Girişi</h2>
-<input autocomplete="username" id="kullaniciAdi" placeholder="Kullanıcı Adı" type="text"/>
-<input autocomplete="current-password" id="sifre" placeholder="Şifre" type="password"/>
-<button id="girisBtn">Giriş Yap</button>
-<p id="giris-mesaj"></p>
-</div>
-<!-- Panel Bölümü -->
-<div id="panel-bolumu">
-<h2>Kara Liste Yönetim Paneli</h2>
-<p><strong>Hoşgeldin:</strong> <span id="girenKullanici"></span> (<span id="girenRol"></span>)</p>
-<button id="cikisBtn">Çıkış Yap</button>
-<!-- Admin Panel: Kullanıcı Yönetimi -->
-<div id="admin-yonetim" style="display:none;">
-<h3>Kullanıcı Yönetimi</h3>
-<button class="admin-btn" onclick="yeniKullaniciFormGoster()">+ Kullanıcı Ekle</button>
-<table>
-<thead>
-<tr>
-<th>Kullanıcı Adı</th>
-<th>Rol</th>
-<th>Son Giriş</th>
-<th>Oturum</th>
-<th>İşlem</th>
-</tr>
-</thead>
-<tbody id="kullaniciListesi"></tbody>
-</table>
-<div id="yeniKullaniciForm">
-<input id="yeni_kullanici_adi" placeholder="Kullanıcı adı" type="text"/>
-<input id="yeni_kullanici_sifre" placeholder="Şifre" type="password"/>
-<select id="yeni_kullanici_rol">
-<option value="user">user</option>
-<option value="admin">admin</option>
-</select>
-<button class="admin-btn" onclick="yeniKullaniciEkle()">Kaydet</button>
-<button class="admin-btn" onclick="yeniKullaniciFormGizle()" style="background:#ccc;color:#222;">Vazgeç</button>
-<div id="yeniKullaniciHata" style="color:#b00;font-size:15px;text-align:center"></div>
-</div>
-</div>
-<div id="eklemeAlani">
-<h3>Kara Listeye Kişi Ekle</h3>
-<input id="isim" placeholder="İsim" type="text">
-<input id="tc" maxlength="11" placeholder="TC Kimlik No" type="text">
-<input id="telefon" placeholder="Telefon" type="text"/>
-<textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
-<button id="ekleBtn">Ekle</button>
-<p id="sonuc"></p>
-</input></input></div>
-<h3>Liste</h3>
-<input id="arama" oninput="filtreleGercek()" placeholder="İsim, TC, telefon veya neden ara..." type="text"/>
-<div class="tablo-kapsayici">
-<table id="listeTablosu">
-<thead>
-<tr>
-<th data-alan="isim">İsim <span id="ok-isim"></span></th>
-<th data-alan="tc">TC <span id="ok-tc"></span></th>
-<th data-alan="telefon">Telefon <span id="ok-telefon"></span></th>
-<th data-alan="neden">Neden <span id="ok-neden"></span></th>
-<th id="ekleyen_th" style="display:none">Ekleyen</th>
-<th>Sil</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
-<h3>📜 Silinen Kayıtlar (Geçmiş)</h3>
-<div class="tablo-kapsayici">
-<table id="gecmisTablosu">
-<thead>
-<tr>
-<th>İsim</th>
-<th>TC</th>
-<th>Telefon</th>
-<th>Neden</th>
-<th>Silme Nedeni</th>
-<th>Tarih</th>
-<th id="silen_th" style="display:none">Silen</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
-</div>
-<script>
+  <!-- Giriş Bölümü -->
+  <div id="giris-bolumu" class="active">
+    <h2>🔐 Kullanıcı Girişi</h2>
+    <input type="text" id="kullaniciAdi" placeholder="Kullanıcı Adı" autocomplete="username"/>
+    <input type="password" id="sifre" placeholder="Şifre" autocomplete="current-password"/>
+    <button id="girisBtn">Giriş Yap</button>
+    <p id="giris-mesaj"></p>
+  </div>
+
+  <!-- Panel Bölümü -->
+  <div id="panel-bolumu">
+    <h2>Kara Liste Yönetim Paneli</h2>
+    <p><strong>Hoşgeldin:</strong> <span id="girenKullanici"></span> (<span id="girenRol"></span>)</p>
+    <button id="cikisBtn">Çıkış Yap</button>
+
+    <!-- Admin Panel: Kullanıcı Yönetimi -->
+    <div id="admin-yonetim" style="display:none;">
+      <h3>Kullanıcı Yönetimi</h3>
+      <button class="admin-btn" onclick="yeniKullaniciFormGoster()">+ Kullanıcı Ekle</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Kullanıcı Adı</th>
+            <th>Rol</th>
+            <th>Son Giriş</th>
+            <th>Oturum</th>
+            <th>İşlem</th>
+          </tr>
+        </thead>
+        <tbody id="kullaniciListesi"></tbody>
+      </table>
+      <div id="yeniKullaniciForm">
+        <input type="text" id="yeni_kullanici_adi" placeholder="Kullanıcı adı">
+        <input type="password" id="yeni_kullanici_sifre" placeholder="Şifre">
+        <select id="yeni_kullanici_rol">
+          <option value="user">user</option>
+          <option value="admin">admin</option>
+        </select>
+        <button onclick="yeniKullaniciEkle()" class="admin-btn">Kaydet</button>
+        <button onclick="yeniKullaniciFormGizle()" class="admin-btn" style="background:#ccc;color:#222;">Vazgeç</button>
+        <div id="yeniKullaniciHata" style="color:#b00;font-size:15px;text-align:center"></div>
+      </div>
+    </div>
+
+    <div id="eklemeAlani">
+      <h3>Kara Listeye Kişi Ekle</h3>
+      <input type="text" id="isim" placeholder="İsim" />
+      <input type="text" id="tc" placeholder="TC Kimlik No" maxlength="11" />
+      <input type="text" id="telefon" placeholder="Telefon" />
+      <textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
+      <button id="ekleBtn">Ekle</button>
+      <p id="sonuc"></p>
+    </div>
+
+    <h3>Liste</h3>
+    <input type="text" id="arama" placeholder="İsim, TC, telefon veya neden ara..." oninput="filtreleGercek()"/>
+    <div class="tablo-kapsayici">
+      <table id="listeTablosu">
+        <thead>
+          <tr>
+            <th data-alan="isim">İsim <span id="ok-isim"></span></th>
+            <th data-alan="tc">TC <span id="ok-tc"></span></th>
+            <th data-alan="telefon">Telefon <span id="ok-telefon"></span></th>
+            <th data-alan="neden">Neden <span id="ok-neden"></span></th>
+            <th id="ekleyen_th" style="display:none">Ekleyen</th>
+            <th>Sil</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <h3>📜 Silinen Kayıtlar (Geçmiş)</h3>
+    <div class="tablo-kapsayici">
+      <table id="gecmisTablosu">
+        <thead>
+          <tr>
+            <th>İsim</th>
+            <th>TC</th>
+            <th>Telefon</th>
+            <th>Neden</th>
+            <th>Silme Nedeni</th>
+            <th>Tarih</th>
+            <th id="silen_th" style="display:none">Silen</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
     // --- SUPABASE AYAR ---
     const supabaseUrl = "https://agfeuszcreycpandzfij.supabase.co";
     const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZmV1c3pjcmV5Y3BhbmR6ZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MjA3NDYsImV4cCI6MjA2NjE5Njc0Nn0.ap9UUJfPECk0Xysn53q8WIBaH1QDKMPrGTCrGzfEn_s";
-    
-function turkiyeSaatiISOString(date) {
-  const d = new Date(date instanceof Date ? date : new Date(date));
-  d.setHours(d.getHours() + 3);
-  return d.toISOString();
-}
-
-
-const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     let kisiler = [];
     let gecmisKisiler = [];
@@ -273,16 +145,12 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     window.onload = () => {
       const kayitliKullanici = localStorage.getItem("kullanici");
-      const girisZamani = localStorage.getItem("giris_zamani");
-      const UcSaat = 3 * 60 * 60 * 1000; // 3 saat milisaniye
-      if (kayitliKullanici && girisZamani && (Date.now() - parseInt(girisZamani) < UcSaat)) {
+      if (kayitliKullanici) {
         kullanici = JSON.parse(kayitliKullanici);
         girisBolumu.classList.remove("active");
         panelBolumu.classList.add("active");
         panelHazirla();
       } else {
-        localStorage.removeItem("kullanici");
-        localStorage.removeItem("giris_zamani");
         girisBolumu.classList.add("active");
         panelBolumu.classList.remove("active");
       }
@@ -310,9 +178,8 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
         return;
       }
       kullanici = data;
-      await supabaseClient.from("kullanicilar").update({ son_giris: turkiyeSaatiISOString(new Date()) }).eq("id", data.id);
+      await supabaseClient.from("kullanicilar").update({ son_giris: new Date().toISOString() }).eq("id", data.id);
       localStorage.setItem("kullanici", JSON.stringify(kullanici));
-      localStorage.setItem("giris_zamani", Date.now());
       girisBolumu.classList.remove("active");
       panelBolumu.classList.add("active");
       panelHazirla();
@@ -320,7 +187,6 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     document.getElementById("cikisBtn").onclick = () => {
       localStorage.removeItem("kullanici");
-      localStorage.removeItem("giris_zamani");
       kullanici = null;
       panelBolumu.classList.remove("active");
       girisBolumu.classList.add("active");
@@ -354,7 +220,7 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
       const tbody = document.getElementById("kullaniciListesi");
       tbody.innerHTML = "";
       kullanicilar.forEach(k => {
-        const sonGiris = k.son_giris ? new Date(k.son_giris).toLocaleString('tr-TR', { hour12: false }) : "-";
+        const sonGiris = k.son_giris ? new Date(k.son_giris).toLocaleString() : "-";
         const aktif = (kullanici && k.kullanici_adi===k.kullanici_adi) ? '<span class="aktif-oturum">AKTİF</span>' : '';
         tbody.innerHTML += `<tr>
           <td>${k.kullanici_adi}</td>
@@ -490,9 +356,6 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
       const tbody = document.querySelector("#gecmisTablosu tbody");
       tbody.innerHTML = "";
       liste.forEach((kisi) => {
-        const tarihStr = kisi.silinme_tarihi
-          ? new Date(kisi.silinme_tarihi).toLocaleString('tr-TR', { hour12: false })
-          : "-";
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${kisi.isim}</td>
@@ -500,7 +363,7 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
           <td>${kisi.telefon}</td>
           <td>${kisi.neden}</td>
           <td>${kisi.silinme_nedeni}</td>
-          <td>${tarihStr}</td>
+          <td>${new Date(kisi.silinme_tarihi).toLocaleString()}</td>
           <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.silen || '-'}</td>
         `;
         tbody.appendChild(tr);
