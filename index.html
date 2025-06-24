@@ -6,20 +6,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
-    body { font-family: sans-serif; max-width: 900px; margin: auto; padding: 20px; background: #f1f1f1;}
-    input, textarea, button {width: 100%; box-sizing: border-box; padding: 12px; margin: 8px 0; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;}
-    button {background-color: #007bff; color: white; border: none; font-size: 16px;}
-    button:hover:not(:disabled) {background-color: #0056b3; cursor: pointer;}
-    button:disabled {background-color: #ccc; cursor: not-allowed;}
-    table {width: 100%; margin-top: 20px; border-collapse: collapse; background: white;}
-    th, td {padding: 10px; border: 1px solid #ccc; font-size: 15px;}
-    th {background: #eee; cursor: pointer; user-select: none;}
-    .sil-btn {background: #dc3545; color: white; padding: 6px 10px; border: none; border-radius: 4px; font-size: 15px;}
+    body {
+      font-family: sans-serif;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background: #f1f1f1;
+    }
+    input, textarea, button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      font-size: 16px;
+    }
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .tablo-kapsayici {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background: white;
+      min-width: 650px; /* Mobilde sağa kaydırma */
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+    th {
+      background: #eee;
+      cursor: pointer;
+      user-select: none;
+    }
+    .sil-btn {
+      background: #dc3545;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 15px;
+    }
     .admin-btn {background: #007bff; color: white; padding: 6px 10px; border: none; border-radius: 4px; margin-right: 3px;}
     .admin-btn.sifirla {background: #ffc107; color: #333;}
     .admin-btn.rol {background: #17a2b8;}
     .aktif-oturum {color: green; font-weight: bold;}
-    .tablo-kapsayici {overflow-x: auto;}
     #cikisBtn {margin-top: 15px; background: #555;}
     #giris-bolumu, #panel-bolumu {display: none;}
     #giris-bolumu.active, #panel-bolumu.active {display: block;}
@@ -29,7 +79,13 @@
     .islem-td {color: #444; font-size: 13px;}
     #admin-yonetim {margin-top: 40px;}
     #yeniKullaniciForm {margin: 10px 0; background: #f7f7fc; border-radius: 7px; padding: 10px; display: none;}
-    @media (max-width:650px){ th,td{font-size:13px; padding:4px;} }
+    @media (max-width: 700px) {
+      body { padding: 4px; font-size: 15px; max-width: 100vw;}
+      input, textarea, button {font-size: 14px; padding: 7px; margin: 5px 0;}
+      th, td {font-size: 12px; padding: 5px 3px;}
+      table {font-size: 12px; min-width: 540px; margin-top: 10px;}
+      .tablo-kapsayici {width: 100vw; max-width: 100vw; overflow-x: auto;}
+    }
   </style>
 </head>
 <body>
@@ -128,7 +184,15 @@
     // --- SUPABASE AYAR ---
     const supabaseUrl = "https://agfeuszcreycpandzfij.supabase.co";
     const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZmV1c3pjcmV5Y3BhbmR6ZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MjA3NDYsImV4cCI6MjA2NjE5Njc0Nn0.ap9UUJfPECk0Xysn53q8WIBaH1QDKMPrGTCrGzfEn_s";
-    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+    
+function turkiyeSaatiISOString(date) {
+  const d = new Date(date instanceof Date ? date : new Date(date));
+  d.setHours(d.getHours() + 3);
+  return d.toISOString();
+}
+
+
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     let kisiler = [];
     let gecmisKisiler = [];
@@ -145,12 +209,16 @@
 
     window.onload = () => {
       const kayitliKullanici = localStorage.getItem("kullanici");
-      if (kayitliKullanici) {
+      const girisZamani = localStorage.getItem("giris_zamani");
+      const UcSaat = 3 * 60 * 60 * 1000; // 3 saat milisaniye
+      if (kayitliKullanici && girisZamani && (Date.now() - parseInt(girisZamani) < UcSaat)) {
         kullanici = JSON.parse(kayitliKullanici);
         girisBolumu.classList.remove("active");
         panelBolumu.classList.add("active");
         panelHazirla();
       } else {
+        localStorage.removeItem("kullanici");
+        localStorage.removeItem("giris_zamani");
         girisBolumu.classList.add("active");
         panelBolumu.classList.remove("active");
       }
@@ -178,8 +246,9 @@
         return;
       }
       kullanici = data;
-      await supabaseClient.from("kullanicilar").update({ son_giris: new Date().toISOString() }).eq("id", data.id);
+      await supabaseClient.from("kullanicilar").update({ son_giris: turkiyeSaatiISOString(new Date()) }).eq("id", data.id);
       localStorage.setItem("kullanici", JSON.stringify(kullanici));
+      localStorage.setItem("giris_zamani", Date.now());
       girisBolumu.classList.remove("active");
       panelBolumu.classList.add("active");
       panelHazirla();
@@ -187,6 +256,7 @@
 
     document.getElementById("cikisBtn").onclick = () => {
       localStorage.removeItem("kullanici");
+      localStorage.removeItem("giris_zamani");
       kullanici = null;
       panelBolumu.classList.remove("active");
       girisBolumu.classList.add("active");
@@ -220,7 +290,7 @@
       const tbody = document.getElementById("kullaniciListesi");
       tbody.innerHTML = "";
       kullanicilar.forEach(k => {
-        const sonGiris = k.son_giris ? new Date(k.son_giris).toLocaleString() : "-";
+        const sonGiris = k.son_giris ? new Date(k.son_giris).toLocaleString('tr-TR', { hour12: false }) : "-";
         const aktif = (kullanici && k.kullanici_adi===k.kullanici_adi) ? '<span class="aktif-oturum">AKTİF</span>' : '';
         tbody.innerHTML += `<tr>
           <td>${k.kullanici_adi}</td>
@@ -356,6 +426,9 @@
       const tbody = document.querySelector("#gecmisTablosu tbody");
       tbody.innerHTML = "";
       liste.forEach((kisi) => {
+        const tarihStr = kisi.silinme_tarihi
+          ? new Date(kisi.silinme_tarihi).toLocaleString('tr-TR', { hour12: false })
+          : "-";
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${kisi.isim}</td>
@@ -363,7 +436,7 @@
           <td>${kisi.telefon}</td>
           <td>${kisi.neden}</td>
           <td>${kisi.silinme_nedeni}</td>
-          <td>${new Date(kisi.silinme_tarihi).toLocaleString()}</td>
+          <td>${tarihStr}</td>
           <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.silen || '-'}</td>
         `;
         tbody.appendChild(tr);
