@@ -19,49 +19,58 @@
     }
     
     table {
-      width: 100%;
+      width: 100% !important;
       margin-top: 20px;
       border-collapse: collapse;
       background: white;
-      table-layout: fixed; /* Tablo genişliğini sabitler */
     }
-    
-    /* Sütun genişliklerini belirle */
-    th:nth-child(1), td:nth-child(1) { width: 25%; } /* İsim */
-    th:nth-child(2), td:nth-child(2) { width: 15%; } /* TC */
-    th:nth-child(3), td:nth-child(3) { width: 15%; } /* Telefon */
-    th:nth-child(4), td:nth-child(4) { width: 30%; } /* Neden */
-    th:nth-child(5), td:nth-child(5) { width: 10%; } /* Ekleyen (admin) */
-    th:nth-child(6), td:nth-child(6) { width: 10%; } /* Sil butonu */
     
     th, td {
       padding: 10px;
       border: 1px solid #ccc;
       font-size: 15px;
       white-space: normal !important;
-      overflow: hidden;
-      text-overflow: ellipsis; /* Uzun metinler için ... */
-      word-wrap: break-word; /* Kelimeleri satır sonunda kes */
+      word-wrap: break-word;
     }
     
-    th {
-      background: #eee;
-      cursor: pointer;
-      user-select: none;
-    }
-    
-    .sil-btn {background: #dc3545; color: white; padding: 6px 10px; border: none; border-radius: 4px; font-size: 15px;}
-    .admin-btn {background: #007bff; color: white; padding: 6px 10px; border: none; border-radius: 4px; margin-right: 3px;}
-    .admin-btn.sifirla {background: #ffc107; color: #333;}
-    .admin-btn.rol {background: #17a2b8;}
-    .aktif-oturum {color: green; font-weight: bold;}
-    
-    /* Mobil için daha küçük font */
+    /* Mobilde tabloyu dikey yap */
     @media (max-width: 650px) {
-      th, td {
-        font-size: 13px;
-        padding: 4px;
+      table, thead, tbody, th, td, tr {
+        display: block !important;
+        width: 100% !important;
       }
+      
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      
+      tr {
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+      }
+      
+      td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50% !important;
+      }
+      
+      td:before::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 6px;
+        font-weight: bold;
+      }
+      
+      td:nth-of-type(1)::before { content: "İsim"; }
+      td:nth-of-type(2)::before { content: "TC"; }
+      td:nth-of-type(3)::before { content: "Telefon"; }
+      td:nth-of-type(4)::before { content: "Neden"; }
+      td:nth-of-type(5)::before { content: "Ekleyen"; }
+      td:nth-of-type(6)::before { content: "Sil"; }
     }
     
     #cikisBtn {margin-top: 15px; background: #555;}
@@ -384,12 +393,12 @@
       liste.forEach((kisi) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${kisi.isim}
+          <td data-label="İsim">${kisi.isim}
           ${kisi.tc}</td>
-          <td>${kisi.telefon}
+          <td data-label="Telefon">${kisi.telefon}
           ${kisi.neden}</td>
-          <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.ekleyen || '-'}</td>
-          <td><button class="sil-btn" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Sil
+          <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}" data-label="Ekleyen">${kisi.ekleyen || '-'}</td>
+          <td data-label="Sil"><button class="sil-btn" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Sil
         `;
         tbody.appendChild(tr);
       });
@@ -402,11 +411,11 @@
         const tr = document.createElement("tr");
         tr.innerHTML = `
           ${kisi.isim}</td>
-          <td>${kisi.tc}
+          <td data-label="TC">${kisi.tc}
           ${kisi.telefon}</td>
-          <td>${kisi.neden}
+          <td data-label="Neden">${kisi.neden}
           ${kisi.silinme_nedeni}</td>
-          <td>${new Date(kisi.silinme_tarihi).toLocaleString()}
+          <td data-label="Tarih">${new Date(kisi.silinme_tarihi).toLocaleString()}
           ${kisi.silen || '-'}</td>
         `;
         tbody.appendChild(tr);
