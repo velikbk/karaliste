@@ -11,15 +11,48 @@
     button {background-color: #007bff; color: white; border: none; font-size: 16px;}
     button:hover:not(:disabled) {background-color: #0056b3; cursor: pointer;}
     button:disabled {background-color: #ccc; cursor: not-allowed;}
-    table {width: 100%; margin-top: 20px; border-collapse: collapse; background: white;}
-    th, td {padding: 10px; border: 1px solid #ccc; font-size: 15px;}
-    th {background: #eee; cursor: pointer; user-select: none;}
+    
+    /* Düzeltme: Tabloyu responsive yap */
+    .tablo-kapsayici {
+      overflow-x: hidden !important; /* Yatay kaydırma çubuğunu kaldır */
+    }
+    
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background: white;
+    }
+    
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      white-space: normal !important; /* Metni alt satıra geçir */
+      max-width: 150px; /* Sütun genişliğini sınırla */
+    }
+    
+    th {
+      background: #eee;
+      cursor: pointer;
+      user-select: none;
+    }
+    
     .sil-btn {background: #dc3545; color: white; padding: 6px 10px; border: none; border-radius: 4px; font-size: 15px;}
     .admin-btn {background: #007bff; color: white; padding: 6px 10px; border: none; border-radius: 4px; margin-right: 3px;}
     .admin-btn.sifirla {background: #ffc107; color: #333;}
     .admin-btn.rol {background: #17a2b8;}
     .aktif-oturum {color: green; font-weight: bold;}
-    .tablo-kapsayici {overflow-x: auto;}
+    
+    /* Mobil için daha küçük font */
+    @media (max-width: 650px) {
+      th, td {
+        font-size: 13px;
+        padding: 4px;
+        max-width: 120px; /* Mobilde daha dar */
+      }
+    }
+    
     #cikisBtn {margin-top: 15px; background: #555;}
     #giris-bolumu, #panel-bolumu {display: none;}
     #giris-bolumu.active, #panel-bolumu.active {display: block;}
@@ -29,7 +62,6 @@
     .islem-td {color: #444; font-size: 13px;}
     #admin-yonetim {margin-top: 40px;}
     #yeniKullaniciForm {margin: 10px 0; background: #f7f7fc; border-radius: 7px; padding: 10px; display: none;}
-    @media (max-width:650px){ th,td{font-size:13px; padding:4px;} }
   </style>
 </head>
 <body>
@@ -137,7 +169,7 @@
     let kullanici = null;
     let kullanicilar = [];
 
-    // ---- GİRİŞ & ÇIKIŞ
+    // --- GİRİŞ & ÇIKIŞ ---
     const girisBolumu = document.getElementById("giris-bolumu");
     const panelBolumu = document.getElementById("panel-bolumu");
     const girisMesaj = document.getElementById("giris-mesaj");
@@ -196,7 +228,7 @@
       sonucMesaj.innerText = "";
     };
 
-    // ---- PANEL HAZIRLA
+    // --- PANEL HAZIRLA ---
     async function panelHazirla() {
       document.getElementById("girenKullanici").innerText = kullanici.kullanici_adi;
       document.getElementById("girenRol").innerText = kullanici.rol;
@@ -213,7 +245,7 @@
       otomatikYenileBaslat();
     }
 
-    // --- KULLANICI YÖNETİMİ (Admin)
+    // --- KULLANICI YÖNETİMİ (Admin) ---
     async function kullaniciListesiGuncelle() {
       const { data } = await supabaseClient.from("kullanicilar").select("*");
       kullanicilar = data || [];
@@ -223,14 +255,14 @@
         const sonGiris = k.son_giris ? new Date(k.son_giris).toLocaleString() : "-";
         const aktif = (kullanici && k.kullanici_adi===k.kullanici_adi) ? '<span class="aktif-oturum">AKTİF</span>' : '';
         tbody.innerHTML += `<tr>
-          <td>${k.kullanici_adi}</td>
-          <td>${k.rol}</td>
-          <td>${sonGiris}</td>
-          <td>${aktif}</td>
+          <td>${k.kullanici_adi}
+          ${k.rol}</td>
+          <td>${sonGiris}
+          ${aktif}</td>
           <td>
-            <button onclick="kullaniciSifirla('${k.id}')" class="admin-btn sifirla">Şifre Sıfırla</button>
-            <button onclick="rolDegistir('${k.id}', '${k.rol}')" class="admin-btn rol">Rolü Değiştir</button>
-            <button onclick="kullaniciSil('${k.id}')" class="admin-btn sil-btn">Sil</button>
+            <button onclick="kullaniciSifirla('${k.id}')" class="admin-btn sifirla">Şifre Sıfırla
+            Rolü Değiştir
+            Sil</button>
           </td>
         </tr>`;
       });
@@ -253,7 +285,7 @@
       await kullaniciListesiGuncelle();
     };
 
-    // --- YENİ KULLANICI FORM
+    // --- YENİ KULLANICI FORM ---
     window.yeniKullaniciFormGoster = function() {
       document.getElementById("yeniKullaniciForm").style.display = "";
       document.getElementById("yeni_kullanici_adi").value = "";
@@ -279,7 +311,7 @@
       await kullaniciListesiGuncelle();
     };
 
-    // ---- KARA LİSTE BÖLÜMÜ
+    // --- KARA LİSTE BÖLÜMÜ ---
     document.getElementById("ekleBtn").onclick = async () => {
       const isim = document.getElementById("isim").value.trim();
       const tc = document.getElementById("tc").value.trim();
@@ -341,12 +373,12 @@
       liste.forEach((kisi) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${kisi.isim}</td>
-          <td>${kisi.tc}</td>
-          <td>${kisi.telefon}</td>
-          <td>${kisi.neden}</td>
+          <td>${kisi.isim}
+          ${kisi.tc}</td>
+          <td>${kisi.telefon}
+          ${kisi.neden}</td>
           <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.ekleyen || '-'}</td>
-          <td><button class="sil-btn" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Sil</button></td>
+          <td><button class="sil-btn" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Sil
         `;
         tbody.appendChild(tr);
       });
@@ -358,13 +390,13 @@
       liste.forEach((kisi) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${kisi.isim}</td>
-          <td>${kisi.tc}</td>
-          <td>${kisi.telefon}</td>
-          <td>${kisi.neden}</td>
-          <td>${kisi.silinme_nedeni}</td>
-          <td>${new Date(kisi.silinme_tarihi).toLocaleString()}</td>
-          <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.silen || '-'}</td>
+          ${kisi.isim}</td>
+          <td>${kisi.tc}
+          ${kisi.telefon}</td>
+          <td>${kisi.neden}
+          ${kisi.silinme_nedeni}</td>
+          <td>${new Date(kisi.silinme_tarihi).toLocaleString()}
+          ${kisi.silen || '-'}</td>
         `;
         tbody.appendChild(tr);
       });
