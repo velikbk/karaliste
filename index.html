@@ -1,127 +1,700 @@
+  <meta name="viewport" content="width=device-width, HTML:
+
+```html name=kara-liste-mobil-duzeltme.html
+<!DOCTYPE html>
+<html lang="tr">html name=improved-mobile-blacklist.html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
   <title>Kara Liste Sistemi</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width
+<head>
+  <meta charset="UTF-8" />
+  <title>Kara Liste Sistemi</title>
+  <meta name=" initial-scale=1" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
-    body { font-family: sans-serif; max-width: 900px; margin: auto; padding: 20px; background: #f1f1f1;}
-    input, textarea, button {width: 100%; box-sizing: border-box; padding: 12px; margin: 8px 0; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;}
+    body { font-family: sansviewport" content="width=device-width, initial-scale=1" />
+  <script-serif; max-width: 900px; margin: auto; padding: 10px; background: #f1f1f1;}
+    input, textarea, button {width: 100%; box-sizing: border-box; padding=device-width, initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: auto; padding: 10px; background: #f1f1f1;}: 12px; margin: 8px 0; font-size: 16px; border: 1px solid #ccc; border-radius: 6 src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  px;}
     button {background-color: #007bff; color: white; border: none; font-size: 16px;}
+    input, textarea, button {width: 100%; box-sizing: border-box; padding: 12px; margin: 8px 0; font-size: 16px; border: 1px solid #ccc; border-radius<style>
+    body { 
+      font-family: sans-serif; 
+      max-width: 900px; 
+      margin: auto; 
+      padding: 10px; 
+      background: #f1f1f1;
+    }
+    
     button:hover:not(:disabled) {background-color: #0056b3; cursor: pointer;}
+    button:disabled {
+    input, textarea, button {
+      width: 100%; 
+      box-sizing: border-box; 
+      padding: 12px; 
+      : 6px;}
+    button {background-color: #007bff; color: whitebackground-color: #ccc; cursor: not-allowed;}
+    
+    /* Masaüstü Tablo Stilleri */
+    .desktop-table {width: 100%; marginmargin: 8px 0; 
+      font-size: 16px; 
+      border: 1px solid #ccc; 
+      border-radius: 6px;
+    }; border: none; font-size: 16px;}
+    button:hover:not(:disabled) {background-color: #0-top: 20px; border-collapse: collapse; background: white;}
+    .desktop056b3; cursor: pointer;}
     button:disabled {background-color: #ccc; cursor: not-allowed;}
-    table {width: 100%; margin-top: 20px; border-collapse: collapse; background: white;}
-    th, td {padding: 10px; border: 1px solid #ccc; font-size: 15px;}
-    th {background: #eee; cursor: pointer; user-select: none;}
-    .sil-btn {background: #dc3545; color: white; padding: 6px 10px; border: none; border-radius: 4px; font-size: 15px;}
-    .admin-btn {background: #007bff; color: white; padding: 6px 10px; border: none; border-radius: 4px; margin-right: 3px;}
+    
+    /* Masaüstü t-table th, .desktop-table td {padding: 10
+    
+    button {
+      background-color: #007bff; 
+      color: white; 
+      border: none; 
+      font-size: 16px;
+    }
+    
+    button:hover:ablo stilleri */
+    .desktop-table {width: 100%; marginpx; border: 1px solid #c-top: 20px; border-collapse: collapse; background: white;}
+    .desktop-not(:disabled) {
+      background-color: #0056b3; 
+      cursor: pointer;
+    }
+    cc; font-size: 15px;}
+    .desktop-table th {background: #eee; cursor: pointer; user-select: none;}
+    
+    /* Mobil Kart Stilleri */
+    .mobile-cards
+    button:disabled {
+      background-color: #ccc; 
+      cursor: {display: none;}
+    .card {background: white; margin: 10px 0; padding: table th, .desktop-table td {padding: 10px; border: 1px solid #ccc; font-size: 15px;}
+    .desktop-table th {background:15px; border-radius: 8px not-allowed;
+    }
+    
+    .tablo-kapsayici {
+      overflow-x: auto; #eee; cursor: pointer; user-select: none;}
+    
+    /* Mobil tablo stilleri */
+    .mobile-table {display: none; margin-top: 20px;}
+    .mobile-; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+    .card-header {font-weight: bold; font-size: 18
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+    }
+    
+    table {
+      width:card {background: white; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 4px; margin-bottom: 10px; color: #333;}
+    .card-row {display: flex; justify-content: space-between; margin:px rgba(0,0,0,0 8px 0; padding: 5.1); padding: 15px;}
+    .mobile-card h4 {margin: 0 0 10px 0; color: #333; font-size: px 0; border-bottom: 1px solid #eee;}
+    .card-label {font-weight: bold; color 100%; 
+      min-width: 600px; /* Minimum genişlik */
+      margin-top: 20px; 
+      border-collapse: collapse; 
+      background: white;
+    }
+    
+    th, td {
+      padding: 8px; 
+      border: 1px soli: #666; min-width: 80px;}
+    .card-value {flex: 1; text-align: right; word-break: break-word;}
+    .16px;}
+    .mobile-card .detail {margin: 5px 0; font-size: 14px;}
+    .mobile-card .detail strong {color: #666card-button {margin-top: 10px;}
+    
+    .sil-btn {background: #dc3545; color: white; padding: 8px 16px; border: none; border-radiusd #ccc; 
+      font-size: 14px;
+      text-align: left;
+      word-wrap: break-word;
+    }
+    
+    th {
+      background: #eee; 
+      cursor: pointer; 
+      user; min-width: 70px; display: inline-block;}
+    .mobile-card .actions {margin-top: 15px; text-align: center;}
+    
+    .sil-btn {background: #dc3545;: 4px; font-size: 14px; width: 100%;}
+    .admin-btn {background: #007bff; color: white; padding: -select: none;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .sil-btn {
+      background: #dc3545; 
+      color: white; 
+       color: white; padding: 8px 15px; border: none; border-radius: 4px; font-size: 14px;}
+    .admin-btn {background: #007bff; color: white; padding: 6px 10px; border: none; border-radius: 4px; marginpadding: 4px 8px; 
+      border: none; 
+      border-radius: 4px; 6px 10px; border: none; border-radius: 4px; margin: 2px; font-size: 14px;}
+    .admin-btn.sif
+      font-size: 12px;
+      min-width: 40px;
+    irla {background: #ffc107; color: #333;}
+    .admin-btn-right: 3px;}
     .admin-btn.sifirla {background: #ffc107; color: #333;}
-    .admin-btn.rol {background: #17a2b8;}
+    .admin}
+    
+    .admin-btn {
+      background: #007bff; 
+      color: white; 
+      padding: 4px 8px; 
+      .rol {background: #17a2b8;}
+    .aktif-oturum {color-btn.rol {background: #17a2b8;}
     .aktif-oturum {color: green; font-weight: bold;}
-    .tablo-kapsayici {overflow-x: auto;}
+    .t: green; font-weight: bold;}
+    .border: none; 
+      border-radius: 4px; 
+      marginablo-kapsayici {overflow-x: auto;}: 2px;
+      font-size: 12px;
+    }
+    
+    tablo-kapsayici {overflow-x: auto;}
+    #cikisBtn {margin-top: 15px; background: #555;}
+    #giris-bolumu,
     #cikisBtn {margin-top: 15px; background: #555;}
     #giris-bolumu, #panel-bolumu {display: none;}
-    #giris-bolumu.active, #panel-bolumu.active {display: block;}
-    #giris-mesaj, #sonuc {text-align: center; font-weight: bold; margin-top: 10px;}
-    #giris-mesaj {color: darkred;}
+    #giris-bolumu.active.admin-btn.sifirla { background: #ffc107; color: #333; }
+    . #panel-bolumu {display: none;}
+    #giris-bolumu.active,admin-btn.rol { background: #17a2b8; }
+    .akt #panel-bolumu.active {display: block;}
+    #, #panel-bolumu.active {display: block;}
+    #giris-mesaj, #sonif-oturum { coloruc {textgiris-mesaj, #sonuc {text: green; font-weight: bold; }
+    
+    #cikisBtn { 
+      margin-top: 15px; 
+      -align: center; font-weight: bold; margin-background: #555; 
+    }
+    
+    #giris-bolumu, #panel-bolumu { 
+      display: none; 
+    }
+    
+    -align: center; font-weight: bold; margin-top: 10px;}
+    #top: 10px;}
+    #giris-mesgiris-mesaj {color: darkred;}#giris-bolumu.aj {color: darkred;}
+    #sonuc {color: darkred;}
+    .islem-td {color: #444active, #panel-bolumu.active { 
+      display: block; 
+    }
+    
+    #giris-mesaj, #sonuc { 
+      text
     #sonuc {color: darkred;}
     .islem-td {color: #444; font-size: 13px;}
+    #admin-yonetim {margin-; font-size: 13px;}
     #admin-yonetim {margin-top: 40px;}
+    #yeniKullaniciForm {margin: 10px 0; background: #f7f7fc; border-radius: 7px; padding: top: 40px;}
     #yeniKullaniciForm {margin: 10px 0; background: #f7f7fc; border-radius: 7px; padding: 10px; display: none;}
-    @media (max-width:650px){ th,td{font-size:13px; padding:4px;} }
+    
+    /* Mobil responsive-align: center; 
+      font-weight: bold; 
+      margin-top: 10px; 
+    }
+    
+     kuralları */
+    @media (max-width: 768px) {
+      body { padding: 510px; display: none;}
+    
+    /* Mobil Media Query */
+    @media (max-width: 768px) {
+      body { padding: 5px; }
+      
+      /* Masaüstü tabloları gpx; }
+      
+      /* Masaüstü tabloyu gizle */
+      .desktop-table { display: none !important; }
+      #giris-mesaj { color: darkred; }
+    #sonuc { color: darkred; }
+    
+    .islem-td { 
+      color: #444; 
+      font
+      /* Mobil tabloyu göizle */
+      .desktop-table { display: none !important; }
+      
+      /* Mobil kartları gö-size: 12px; 
+    }
+    
+    #admin-yonetim { 
+      margin-top: 40ster */
+      .mobile-cards { display: block !importantster */
+      .mobile-table { display: block; }
+      
+      px; 
+    }
+    
+    #yeniKul/* Form elemanları için mobil ayarları */
+      input, textarea; }
+      
+      /* Form optimizasyonu */laniciForm { 
+      margin: 10px 0; 
+      background: #f7f7fc; 
+      border-radius: 7px; 
+      padding:
+      input, textarea, button {, button { font-size: 16px; padding: 10px; }
+      
+       font-size: 16px; padding: 14px; }
+      
+      /* Admin butonları düzeni */
+      .admin 10px; 
+      display: none; 
+    }
+
+    /* MOBİL RESPONSIVE */
+    @media/* Admin butonları için mobil ayar */
+      .admin-btn { 
+        display (max-width:: block; 
+        width: 100%; 
+        margin: 5px 0;  768px) {
+      body {
+        padding: 5px;
+      }
+      
+      h
+        padding: 10px; -controls { display: flex; flex-wrap: wrap; gap: 5px; }
+      .admin-btn { flex: 1; min-width: 120px; margin: 2px; }
+      
+      /* Başlıklar */
+      h2, h3 { font-size: 20px; margin: 15px 0 10px 0; }
+      
+      /* Kullanıcı bilgisi */
+      #2, h3 {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+      }
+      
+      /* Sil butonu için mobil ayar */
+      .sil-btn { 
+        width: 100%; 
+        padding: 12px; 
+        girenKullanici, #girenRfont-size: 16px; 
+      }
+      
+      /* Başlıklar için mobil ayar */
+      h2, h3 { font-size: 18px; margin: 15px 0 10px 0;ol { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- G
+      
+      input, textarea, button {
+        padding: 10px;
+        font-size: 16px; /* iOS zoom'u ön }
+      
+      /* Kullanıcı yönetimi tablosu için özel mobil görünüm */
+      #kullaniciListlemek için */
+      }
+      
+      table {
+        min-width: 500px;
+      }
+      
+      th, td {
+        padding: 6px 4px;
+        iriş Bölümü -->
+  <div id="giris-bolumu" class="active">
+    <h2>🔐 Kullanıcıfont-size: 12px;
+      }
+      
+      /* Tablo kolonlarını küçültesi tr {
+        display: block;
+        background: white;
+         Girişi</h2>
+    <input type="text" id="kullaniciAdi" placeholder="Kullanıcı Adı" autocomplete="username"/>
+    <input type="password" id="sifre" placeholder="Şifre" autocomplete="current */
+      .tc-kolon {
+        max-width: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .telefon-kolon {margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        -password"/>
+    <button id="girisBtn">Giriş Yap</button>
+    <ppadding: 15px;
+        border: none;
+      }
+      
+      #kullaniciListesi td {
+        display: block;
+        
+        max-width: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .neden-kolon { id="giris-mesaj"></p>
+  
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        </div>
+
+  <!-- Panel Bölümü -->
+  <div id="panel-bolumu">
+    <h2>Kara Liste Yönetim Panborder: none;
+        padding: 5px 0;
+        text-align: left;
+      }
+      
+      #kullaniciListesi td:before {
+        content: attr(data-labelwhite-space: nowrap;
+      }eli</h2>
+    <p>
+      
+      .sil-btn {
+        padding: 6px;) ": ";
+        font-weight: bold;
+        color: #666;
+      }
+    }
+    
+    /* Çok küçük ekranlar için ek ayarlar */
+    @media (max-<strong>Hoşgeldin:</strong> <span id="girenKullanici"></span> (
+        font-size: 11px;
+        min-width: 35px;
+      }
+      
+      .admin-btn {
+        padding: 4px 6px;<span id="girenRol"></span>)</p>
+        font-size: 10px;
+        margin: 1px;
+      }
+      
+      /*width: 480px) {
+      .mobile-card { padding: 10px; margin-bottom: 10px; }
+      .mobile-card h4 { font
+    <button id="cikisBtn">Çıkış Yap</button> Arama çubuğu */
+      #arama {
+        margin-bottom: 10px;
+      }
+      
+      /* Yatay kaydırma ipucu */
+      .tablo-kapsayici::before {
+        content: "← Kaydırabilirsiniz →-size: 14px; }
+      .mobile-card .detail { font-size: 13px; }
+    }
   </style>
 </head>
 <body>
   <!-- Giriş Bölümü -->
-  <div id="giris-bolumu" class="active">
+  
+
+    <!-- Admin Panel: Kullanıcı Yönetimi -->
+    <div id="admin-yonetim" style="display:none;">
+      <h3>Kullanıcı Yönetimi</h3>";
+        display: block;
+        text-align: center;<div id="giris-bolumu" class="active">
+    <h2>🔐 Kullanıcı Girişi</h2>
+    <input type="text" id="kul
+        font-size: 11px;
+        color: #666;
+      <button class="admin-btn" onclick="yeniKullaniciFormGoster()">+ Kullanıcı Ekle</button>laniciAdi" placeholder="Kullanıcı Adı" autocomplete="username"/>
+    <input type
+      
+      <!-- Masaüstü Kullanıcı Tablosu -->
+      <table class="desktop-table">
+        <thead>
+          <tr>
+            <th>Kullanıcı Adı
+        padding: 5px;
+        background: #f8f9fa;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+
+    @="password" id="sifre" placeholder="Şifre"</th>
+            <th>Rol</th>
+            <th>Son G autocomplete="current-password"/>
+    <button id="girisBtn">Giriş Yap</button>
+    media (max-width: 480px) {
+      th, td {
+        padding: 4px 2px;
+        font-size: 11px;
+      }
+      
+      .neden-kolon {
+        max-width: 100px;
+      }
+      
+      iriş</th>
+            <th>Oturum</th>
+            <th>İşlem</th><p id="giris-mesaj"></p>
+  </div>
+
+  <!-- Panel Bölümü -->
+  <div
+          </tr>
+        </thead>
+        <tbody i.tc-kolon {
+        max-width: 70px;
+      }
+      
+      .telefon-kolond="kullaniciListesi"></tbody>
+      </table>
+      
+      <!-- Mobil Kullanıcı Kart {
+        max-width: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Giriş Bölümü -->
+   id="panel-bolumu">
+    <h2>Kara Liste Yönetim Paneli</h2>
+    <p><strong>Hoşgeldinları -->
+      <div class="mobile-cards" id="kullaniciKartlari"></div>
+      
+      <div id="yeniKullaniciForm">
+        <input type="text" id="yeni_kullanici_:</strong> <span id="girenKullanici"></span> (<span id="girenRol"></span>)<div id="giris-bolumu" class="active">
     <h2>🔐 Kullanıcı Girişi</h2>
     <input type="text" id="kullaniciAdi" placeholder="Kullanıcı Adı" autocomplete="username"/>
-    <input type="password" id="sifre" placeholder="Şifre" autocomplete="current-password"/>
+    <input typeadi" placeholder="Kullanıcı adı">
+        <input type="password" id="sifre" placeholder="Şifre" autocomplete="current-</p>
+    <button id="cikisBtn">Çıkış Yap</button>
+
+    <!-- Admin Panel: Kullanıcı Yönet="password" id="yeni_kullanici_sifre" placeholder="Şifre">
+        <select id="yeni_kullanici_rol">
+          <option value="user">user</option>
+          <option value="adminpassword"/>
     <button id="girisBtn">Giriş Yap</button>
     <p id="giris-mesaj"></p>
   </div>
 
-  <!-- Panel Bölümü -->
-  <div id="panel-bolumu">
-    <h2>Kara Liste Yönetim Paneli</h2>
-    <p><strong>Hoşgeldin:</strong> <span id="girenKullanici"></span> (<span id="girenRol"></span>)</p>
-    <button id="cikisBtn">Çıkış Yap</button>
-
-    <!-- Admin Panel: Kullanıcı Yönetimi -->
+  <!-- Panel Bölimi -->
     <div id="admin-yonetim" style="display:none;">
       <h3>Kullanıcı Yönetimi</h3>
-      <button class="admin-btn" onclick="yeniKullaniciFormGoster()">+ Kullanıcı Ekle</button>
-      <table>
+      <button class="admin-btn" onclick="yeniKullaniciFormGoster()">+">admin</option>
+        </select>
+        <button onclick="yeniKullaniciEkle()" class="admin-btn">Kaydet</button>
+        ümü -->
+  <div id="panel-bolumu">
+    <h2>Kara Liste Yö Kullanıcı Ekle</button>
+      <table class="desktop-table">
         <thead>
           <tr>
             <th>Kullanıcı Adı</th>
-            <th>Rol</th>
+            netim Paneli</h2>
+    <p><strong>Hoşgeldin:</strong> <th>Rol</th>
             <th>Son Giriş</th>
             <th>Oturum</th>
-            <th>İşlem</th>
-          </tr>
-        </thead>
-        <tbody id="kullaniciListesi"></tbody>
-      </table>
-      <div id="yeniKullaniciForm">
-        <input type="text" id="yeni_kullanici_adi" placeholder="Kullanıcı adı">
-        <input type="password" id="yeni_kullanici_sifre" placeholder="Şifre">
-        <select id="yeni_kullanici_rol">
-          <option value="user">user</option>
-          <option value="admin">admin</option>
-        </select>
-        <button onclick="yeniKullaniciEkle()" class="admin-btn">Kaydet</button>
-        <button onclick="yeniKullaniciFormGizle()" class="admin-btn" style="background:#ccc;color:#222;">Vazgeç</button>
+            <th>İ<button onclick="yeniKullaniciFormGizle()" class="admin-btn" style="background:#ccc;color:#<span id="girenKullanici"></span> (<span id="girenRol"></span>)</p>
+    <button id="cikisBtn">Çıkış Yap</button>222;">Vazgeç</button>
         <div id="yeniKullaniciHata" style="color:#b00;font-size:15px;text-align:center"></div>
       </div>
     </div>
 
     <div id="eklemeAlani">
-      <h3>Kara Listeye Kişi Ekle</h3>
-      <input type="text" id="isim" placeholder="İsim" />
+      <h3şlem</th>
+          </tr>
+        </thead>
+        <tbody id="kullaniciListesi"></tbody>
+      </table>
+      <div id="yeniKullaniciForm">>Kara Listeye Kişi Ekle</h3>
+      <input type
+
+    <!-- Admin Panel: Kullanıcı Yönetimi -->
+    <div id="admin-yonetim" style="display:none;">
+      <h3>Kullanıcı Yönetimi</h3>
+      <button class="admin-btn" onclick="yeniKullanici="text" id="isim" placeholder="İsim" />
       <input type="text" id="tc" placeholder="TC Kimlik No" maxlength="11" />
-      <input type="text" id="telefon" placeholder="Telefon" />
+      <input
+        <input type="text" id="yeni_kullanici_adi" placeholder="Kullanıcı adı">
+        <input type="password" id="yeni_kullanici_sifre" placeholder="Şifre">
+        <select id="yeni_kullanici_rol">
+          <option value="user">user</option>
+          <option value="adminFormGoster()">+ Kullanıcı Ekle</button>
+      <div class="tablo-kapsayici">
+        <table>
+          <thead>
+            <tr>
+              <th>Kullanıcı Adı</th>
+               type="text" id="telefon" placeholder="Telefon" />
       <textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
-      <button id="ekleBtn">Ekle</button>
+      <button id="ekleBtn">Ekle</button">admin</option>
+        </select>
+        <button onclick="yeniKullaniciEkle()" class="admin-btn">Kaydet</button>
+        <button onclick="yeniKullaniciFormGizle()" class="<th>Rol</th>
+              <th>Son Giriş</th>
+              <th>Oturum</th>
+              >
+      <p id="sonadmin-btn" style="backgroun<th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="kullaniciListesi"></tbody>uc"></p>
+    </div>
+
+    <h3>Liste</h3>
+    <input type="text" id:#ccc;color:#222;">Vazgeç</button>
+        <div id="yeniKullaniciHata" style="color:#b00;font-size:15
+        </table>
+      </div>
+      <div id="yeniKullaniciForm">
+        <input type="text" id="yeni_kullanici_adi" placeholder="Kullanıcı adı">
+        <input type="password" id="yeni_kulpx;text-align:center"></div>
+      </div>
+    </div>
+
+    <div id="eklemeAlani">d="arama" placeholder="İsim, TC, telefon veya neden ara..." oninput="filtreleGercek()"/>
+    
+    <!-- Masaüstü Ana Tablo -->
+    <div class="tlanici_sifre" placeholder="Şifre">
+        <select id="yeni_kullanici_rol
+      <h3>Kara Listeye Kişi Ekle</h3>
+      ablo-kapsayici">
+      <table id="listeTablosu" class="desktop-table">
+        <thead>
+          <tr>
+            <th data-alan="is">
+          <option value="user">user</option>
+          <option value="adminim">İsim <span id="ok-isim"></span></th><input type="text" id="isim" placeholder="İsim" />
+      <input type
+            <th data-alan="tc">TC <span id="ok-="text" id="tc" placeholder="TCtc"></span></th>
+            <th data-alan="telef Kimlik No" maxlength="11" />
+      <input type="text" id="telefon" placeholder="Telefon" />">admin</option>
+        </select>
+        <button onclick="yeniKullaniciEkle()" class="admin-btn">Kaydet</button>
+        <button onclick="yeniKullaniciFormGizle()" class="admin-btn"
+      <textarea id="non">Telefon <span id="ok-telefon"></spaneden" placeholder="Neden kara listeye alındı?"></textarea>
+      <button id="ekleBtn">></th>
+            <th data-alan="neden">Neden <span id="ok-neden"></span></th>
+            <th id="ekleyen_ style="background:#ccc;color:#222;">Vazgeç</button>
+        <div id="yeniKullaniciHata" style="color:#b00;font-size:15px;textEkle</button>
       <p id="sonuc"></p>
     </div>
 
     <h3>Liste</h3>
-    <input type="text" id="arama" placeholder="İsim, TC, telefon veya neden ara..." oninput="filtreleGercek()"/>
+    th" style="display:none">Ekleyen-align:center"></div>
+      </div>
+    </div>
+
+    <input type="text" i</th>
+            <th>Sil</th>
+          </tr><div id="eklemeAlani">
+      <h3>Kara Listeye Kişi Ekle
+        </thead>
+        <tbody></tbody>
+      </h3>
+      <input type="d="arama" placeholder="İsim, TC, telefon veya neden aratext" id="isim" placeholder="İsim" />..." oninput="filtreleGercek()"/>
+    
+    <!-- Masaüstü Tablo -->
+    <div class="tablo-kapsayici">
+      <table id="listeTablosu" class="desktop-table</table>
+    </div>
+    
+    <!-- Mobil Ana Kartlar -->
+    <div class="mobile-cards" id="anaListeKartlari"></div>">
+        <thead>
+          <tr>
+            <th data-alan="isim">İsim <span id="ok
+      <input type="text" id="tc" placeholder="TC Kimlik No" maxlength="11" />
+      
+
+    <h3>📜 Silinen Kayıtlar (Geçmiş)</h3>
+    
+    <!-- Masaüstü Geçmiş Tab<input type="text" id="telefon" placeholder="Telefon" />
+      <textarea id="neden" placeholder="Neden-isim"></span></th>
+            <th data-alan="tc">TC <span id="ok-tc"></span></th>
+            <th data-alan="teleflosu -->
+    <div class="tablo-kapsayici">
+      <table id="gecmisTablosu" class="desktop-table kara listeye alındı?"></textarea>
+      ">
+        <thead>
+          <tr>
+            <th>İsim</th>
+            <th><button id="ekleBtn">Ekle</button>
+      <p id="sonuc"></p>
+    </div>TC</th>
+            <th>Telefon</th>
+            <th>Neden</th>
+            <th>Silme Nedeni</th>
+            <th>Tarih</th>
+            <th id="silenon">Telefon <span id="ok-telefon"></span></th>
+            <th data-alan="neden">Neden <span id="ok-neden
+
+    <h3>Liste</h3>
+    <input type="text" id="arama" placeholder="İsim, TC, telefon veya neden ara_th" style="display:none">Silen</th>"></span></th>
+            <th id="ekleyen_th" style="display:none">Ekle
+          </tr>
+        </thead>
+        <tbody>yen</th>
+            <th>S..." oninput="filtreleGercek()"/>
     <div class="tablo-kapsayici">
       <table id="listeTablosu">
         <thead>
           <tr>
-            <th data-alan="isim">İsim <span id="ok-isim"></span></th>
-            <th data-alan="tc">TC <span id="ok-tc"></span></th>
-            <th data-alan="telefon">Telefon <span id="ok-telefon"></span></th>
-            <th data-alan="neden">Neden <span id="ok-neden"></span></th>
-            <th id="ekleyen_th" style="display:none">Ekleyen</th>
-            <th>Sil</th>
+            <th data-alan</tbody>
+      </table>
+    il</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
-    </div>
+    ="isim">İsim <span id="ok-isim"></span></th>
+            <th data-alan="tc" class="tc-kolon">TC <span id="ok-tc"></span></th>
+            <th</div>
+    
+    <!-- Mobil Tablo -->
+    <div id="mobilListeTablosu" class="mobile-table"></div>
 
     <h3>📜 Silinen Kayıtlar (Geçmiş)</h3>
+    
+    <!-- Masaüstü Geçmiş Tablo -->
+    <div class="tablo data-alan="telefon" class="telefon-kolon">Telefon <span id="ok-telefon"></span></th>
+            <th data-alan="neden" class="neden-kolon">-kapsayici">
+      <table id="gecmisTablosu" class="desktop-table">
+        <thead>
+          <tr>
+            <th>İsim</th>
+            <th>TC</th>
+            <th>Telefon</thNeden <span id="ok-neden"></span></th>
+            <th id="ekleyen_>
+            <th>Neden</th>
+            <th>Silme Nedeni</th>
+            <th>Tarih</th>
+            <th id="sth" style="display:none">Ekleyen</th>
+            <th>Sil</th>
+          </tr>
+        </thead>
+        <tbody>ilen_th" style="display:none">Silen</th>
+          </tr>
+        </thead></div>
+    
+    <!-- Mobil</tbody>
+      </table>
+    </div>
+
+    <h3>📜 Silinen Kayıtlar (
+        <tbody></tbody>
+      </table>
+    Geçmiş)</h3>
     <div class="tablo-kapsayici">
       <table id="gecmisTablosu">
         <thead>
           <tr>
             <th>İsim</th>
-            <th>TC</th>
-            <th>Telefon</th>
-            <th>Neden</th>
-            <th>Silme Nedeni</th>
-            <th>Tarih</th>
-            <th id="silen_th" style="display:none">Silen</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+            <th class="tc-kolon">TC</th>
+            <th class="telefon-kolon">Telefon</th>
+            <th class="neden-kolon">Neden</th>
+            <th class="neden-kolon">Silme Nedeni</th>
+            <th>Tarih</th> Geçmiş
+            <th id="silen_th" style="display:none"> Kartları -->
+    <div class="mobile-cards" id="gecmisKartlari"></div>
   </div>
 
   <script>
@@ -140,15 +713,23 @@
     // ---- GİRİŞ & ÇIKIŞ
     const girisBolumu = document.getElementById("giris-bolumu");
     const panelBolumu = document.getElementById("panel-bolumu");
-    const girisMesaj = document.getElementById("giris-mesaj");
+    const girisMesaj =</div>
+    
+    <!-- Mobil Geçmi document.getElementById("giris-mesaj");
     const sonucMesaj = document.getElementById("sonuc");
 
-    window.onload = () => {
+    window.onload = ()ş Tablo -->
+    <div id="mobilGecmisTablosu" class="mobile-table"></div>
+  </div>
+
+  <script>
+    // --- => {
       const kayitliKullanici = localStorage.getItem("kullanici");
       if (kayitliKullanici) {
         kullanici = JSON.parse(kayitliKullanici);
         girisBolumu.classList.remove("active");
-        panelBolumu.classList.add("active");
+        panelBolumu SUPABASE AYAR ---
+    const su.classList.add("active");
         panelHazirla();
       } else {
         girisBolumu.classList.add("active");
@@ -156,30 +737,206 @@
       }
     };
 
-    document.getElementById("girisBtn").onclick = async () => {
-      const kullaniciAdi = document.getElementById("kullaniciAdi").value.trim().toLowerCase();
+    document.getElementById("girisBtn").onclick = asyncSilen</th>
+          </tr>
+        </thead>
+        <tbody>pabaseUrl = "https://agfeuszcreycpandzfij.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZmV1c3pjcmV5Y3BhbmR6ZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MjA3NDYsImV4cCI6MjA2NjE5Njc0Nn0.ap9UUJfPECk0Xysn53q8WIBaH1QDKMPrGTCrGzfEn_s";
+    const supabaseClient = window () => {
+      const kullaniciAdi = document.getElementById("kullaniciAdi").value</tbody>
+      .trim().toLowerCase();
       const sifre = document.getElementById("sifre").value.trim();
-      girisMesaj.style.color = "black";
-      girisMesaj.innerText = "🔄 Giriş yapılıyor...";
+      g.supabase.createClient(supabaseUrl, supabaseKey);
+
+    let kisiler = [];
+    let gecmisKisiler = [];
+    let siralamaAlan = "";
+    let siralamaTers = false;
+    let kullanici = null;
+    let kullanicilaririsMesaj.style.color = "black";
+      girisMesaj.innerText = "🔄 G</table>
+    </div>
+  </div>
+
+  <script>
+    // --- SUPABASE AYAR ---
+    const supa = [];
+
+    // ---- GİRİŞ & ÇIKIŞ
+    const girisBolumu = document.iriş yapılıyor...";
       const { data, error } = await supabaseClient
         .from("kullanicilar")
         .select("*")
         .eq("kullanici_adi", kullaniciAdi)
-        .eq("sifre", sifre)
+        .eq("sifre",getElementById("giris-bolumu");
+    const panelBolumu = document.getElementById("panel-bolumu");
+    const girisMesaj =baseUrl = "https://agfeuszcreycpandzfij.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZmV1c3pjcmV5Y3BhbmR6ZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MjA3NDYsImV4 document.getElementById("giris-mesaj");
+    const sonucMesaj = document. sifre)
         .maybeSingle();
+      if (error) {
+        giricCI6MjA2NjE5Njc0Nn0.ap9UUJfPECk0Xysn53q8WIBaH1QDKMPrGTCrGzfEn_s";
+    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    let kisiler = [];
+    let gecmisKisilergetElementById("sonuc");
+
+    window.onload = () => {
+      const kayitliKullanici = localStorage.getItem("kullanici");
+      if (kayitliKullanici) {
+        kullanici = JSON.parse(kayitliKullanici);
+        girisBolumu = [];
+    let siralamaAlan = "";
+    let siralamaTers = false;
+    let kullanici = null;
+    let kullanicilar = [];sMesaj.style.color = "darkred";
+        girisMesaj.innerText = "❌ Hata oluştu: " + error.message;
+        return;
+      }
+      if (!data) {
+        girisMesaj.style.color =.classList.remove("active");
+        panelBolumu.classList.add("active");
+        panelHazirla();
+      } else {
+        girisBolumu. "darkred";
+        girisMesaj.innerText = "❌ Hatalı kullanıcı adı veya şifre!";
+        return;
+      }
+      kullanici = data;
+      await supabaseClient.from("kullanicilar
+
+    // ---- GİRİŞ & ÇIKIŞ
+    const girisBolumu = document.getElementById("giris-bolumu");
+    classList.add("active");
+        panelBolumu.classList.remove("active");
+      }
+    };
+
+    document.getElementById("girisBtn").onclick = async () => {
+      const kullaniciAdi = document.getElementByI").update({ son_giris: new Date().toISOString() }).eq("id", data.id);
+      localStorage.setItem("kullanici", JSON.stringify(kullanici));
+      girisBolumu.classList.remove("active");
+      const panelBolumu = document.getElementById("panel-bolumu");
+    const girisMesaj = document.getElementById("giris-mesaj");
+    const sonucMesaj = document.getElementById("sonuc");
+
+    window.onload = ()d("kullaniciAdi").value.trim().toLowerCase();
+      const sifre = document.getElementById("sifre").value.trim();
+      girisM => {
+      const kayitliKullanici = localStorage.getItem("kullanici");
+      if (kayitliKullanici) {
+        kullanici = JSON.parse(kayitliKullanici);
+        girisBolumu.classList.remove("active");
+        panelBolumupanelBolumu.classList.add("active");
+      panelHazirla();
+    };
+
+    document.getElementById("cikisBtn").onclick = () => {
+      localStorage.removeItem("kullanici");
+      .classList.add("active");
+        esaj.style.color = "black";
+      girisMesaj.innerText = "🔄kullanici = null;
+      panelBolumu.classList.remove("active");
+      girisBolumu.panelHazirla();
+      } else {
+        girisBolumu.classList.add("active");
+        panelBolumu.classList.remove("active");
+      }
+    classList.add("active");
+      document.getElementById("kullaniciAdi").value = "";
+      document.getElementById("s Giriş yapılıyor...";
+      const { data, error } = await supabaseClient
+        .from("kullanicilar")
+        .select("*")
+        .eq("kullanici_adi", kullaniciAdiifre").value = "";
+      girisMesaj.innerText = "";
+      sonucMesaj.innerText = "";
+    };
+
+    // ---- PANEL HAZIRLA
+    async function panelHazirla() {
+      };
+
+    document.getElementById("girisBtn").onclick = async () => {
+      const kullaniciAdi = document.getElementById("kullaniciA)
+        .eq("sifre", sifre)
+        .madocument.getElementById("girenKullanici").innerText = kullanici.kullanici_adi;
+      document.getElementById("girenRol").innerText = kullanici.rol;
+      document.getElementById("ekleyen_th").style.display = (kullanici.rol === "admin") ?ybeSingle();
       if (error) {
         girisMesaj.style.color = "darkred";
         girisMesaj.innerText = "❌ Hata oluştu: " + error.message;
         return;
       }
-      if (!data) {
-        girisMesaj.style.color = "darkred";
+      ifdi").value.trim().toLowerCase();
+      const sifre = document.getElementById("sifre").value.trim();
+      girisMesaj.style.color = "black";
+      girisMesaj.innerText = "🔄 Giriş (!data) {
+        girisMesaj.style.color = "" : "none";
+      document.getElementById("silen_th").style.display = (kullanici.rol === "admin") ? "" : "none";
+      if (kullanici. yapılıyor...";
+      const { data, error } = await supabaseClient
+        .from("kullanicilar")
+        .select("*")
+        .eq("kullanici "darkred";
         girisMesaj.innerText = "❌ Hatalı kullanıcı adı veya şifre!";
         return;
       }
       kullanici = data;
-      await supabaseClient.from("kullanicilar").update({ son_giris: new Date().toISOString() }).eq("id", data.id);
+      await supabaseClient.from("kullanicilar").update({ son_giris: new Date().rol === "admin") {
+        document._adi", kullaniciAdi)
+        .eq("sifre", sifre)
+        .maybeSingle();
+      if (error) {toISOString() }).eq("id", data.id);
       localStorage.setItem("kullanici", JSON.stringify(kullanici));
+      girisBolumu.classList.remove("active");
+      panelBolumu.classList.add("active");
+      panelHazirla();
+    };
+
+    document.getElementById("cikisBtn").onclick = ()getElementById("admin-yonetim").style.display = "";
+        await kullaniciListesiGuncelle();
+      } else {
+        document.getElementById("admin-yonetim").
+        girisMesaj.style.color = "darkred";
+        girisMesaj.innerText = "❌ Hata oluştu: " + error.message;
+        return;
+      }
+      if (!data) {
+        girisMesaj.style.color =style.display = "none";
+      }
+      listele();
+      gecmisiYukle();
+      otomatikYenileBaslat();
+    }
+
+    // --- => {
+      localStorage.removeItem("kullanici");
+      kullanici = null;
+      panelBolumu.classList.remove("active");
+      giri "darkred";
+        girisMesaj.innerText = "❌ Hatalı kullanıcı adı veya şifre!";
+        return;
+      }
+      kullanici = data;
+      await supabaseClient.from("kullanicilar KULLANICI YÖNETİMİ (Admin)
+    async function kullaniciListesiGuncelle() {
+      const { data } = await supabaseClient.from("kullanicilar").select("*").update({ son_giris: new Date().toISOString() }).eq("id", data.id);
+      localStorage.setItem("kulsBolumu.classList.add("active");
+      document.getElementById("kullaniciAdi").value = "";
+      document.getElementById("sifre").value = "";
+      girisMesaj.innerText = "";
+      sonucMesaj.");
+      kullanicilar = data || [];
+      
+      // Masaüstü Tablo
+      const tbodyinnerText = "";
+    };
+
+    // ---- PANEL HAZIRLA
+    async function panelHazirla() {
+      document.getElementById("girenKullanici").innerText = kullanici.kullanici_adi;
+      document.getElementById("lanici", JSON.stringify(kullanici));
       girisBolumu.classList.remove("active");
       panelBolumu.classList.add("active");
       panelHazirla();
@@ -188,25 +945,45 @@
     document.getElementById("cikisBtn").onclick = () => {
       localStorage.removeItem("kullanici");
       kullanici = null;
-      panelBolumu.classList.remove("active");
+      panelBolumu.classList.remove("active = document.getElementById("kullaniciListesi");
+      tbody.innerHTML = "";
+      
+      // Mobil Kartlar
+      const kartlar = document.getElementById("kullaniciKartlari");
+      kartlar.innerHTML = "";
+      
+      kullanicilar.forEachgirenRol").innerText = kullanici.rol;
+      document.getElementById("ekleyen_th").style.display = (kullanici.rol === "admin") ? "" : "none";
+      document.getElementById("silen_th").style.display = (kullanici.rol ===");
       girisBolumu.classList.add("active");
       document.getElementById("kullaniciAdi").value = "";
-      document.getElementById("sifre").value = "";
+      (k => {
+        const sonGiris = k.son_giris ? new Date(k.son_giris).toLocaleString() : "-";
+        const aktif = (kullanici && k.kullanici_ "admin") ? "" : "none";
+      if (kullanici.adi === kullanici.kullanici_adi) ? '<span class="aktif-oturum">AKTİF</span>' : '';
+        
+        // Masaüstü satır
+        tbody.innerHTML += `<tr>
+          document.getElementById("sifre").value = "";
       girisMesaj.innerText = "";
       sonucMesaj.innerText = "";
     };
 
     // ---- PANEL HAZIRLA
-    async function panelHazirla() {
-      document.getElementById("girenKullanici").innerText = kullanici.kullanici_adi;
-      document.getElementById("girenRol").innerText = kullanici.rol;
-      document.getElementById("ekleyen_th").style.display = (kullanici.rol === "admin") ? "" : "none";
-      document.getElementById("silen_th").style.display = (kullanici.rol === "admin") ? "" : "none";
-      if (kullanici.rol === "admin") {
+    async function panelHazirla() {rol === "admin")<td>${k.kullanici_adi}</td>
+           {
         document.getElementById("admin-yonetim").style.display = "";
         await kullaniciListesiGuncelle();
       } else {
-        document.getElementById("admin-yonetim").style.display = "none";
+        document.getElementById("admin-yonetim").style.display = "
+      document.getElementById("girenKullanici").innerText = kullanici.kullanici_adi;
+      document.getElementById("girenRol").innerText<td>${k.rol}</td>
+          <td>${sonGiris}</td>
+          <td>${aktif}</td>
+          <td>
+            <button onclick="kullaniciS = kullanici.rol;
+      document.getElementById("ekleyen_th").style.display = (kullanici.rol === "admin") ? "" : "none";
+      document.getElementById("silen_th").style.display = (kullanici.rol === "admin") ? "" : "none";none";
       }
       listele();
       gecmisiYukle();
@@ -215,36 +992,112 @@
 
     // --- KULLANICI YÖNETİMİ (Admin)
     async function kullaniciListesiGuncelle() {
-      const { data } = await supabaseClient.from("kullanicilar").select("*");
+      const {ifirla('${k.id}')" class="admin-btn sifirla">Şifre Sıfırla</button>
+            <button onclick="rolDegistir('${k.id}', '${k.
+      if (kullanici.rol === "admin") {
+        document.getElementById("admin-yonetim").style.display = "";
+        await kullaniciListesiGuncelle();
+      } else {
+        rol}')" class="admin-btn rol">Rolü Değiştir</button>
+            <button onclick="kullaniciSil('${k.id}')" class="admin-btn sil-btn">Sil</button>
+          </td>
+        </tr>`;
+        
+        // Mobil kart
+        kartlar.innerHTML += `
+          <div class=" data } = await supabaseClient.from("kullanicilar").select("*");
       kullanicilar = data || [];
       const tbody = document.getElementById("kullaniciListesi");
       tbody.innerHTML = "";
-      kullanicilar.forEach(k => {
+      kullanicilar.forEach(kdocument.getElementById("admin-yonetim").style.display = "none";
+      } => {
         const sonGiris = k.son_giris ? new Date(k.son_giris).toLocaleString() : "-";
-        const aktif = (kullanici && k.kullanici_adi===k.kullanici_adi) ? '<span class="aktif-oturum">AKTİF</span>' : '';
+        const aktcard">
+            <div class="card-header">${k.kullanici_adi}</div>
+            <div class="card-row">
+              <span class="card-label">Rol:</span>
+              <span class="card-value">${k.rol}if = (kullanici && k.kullanici_adi===kullanici.kullanici_adi) ? '<span class="aktif-oturum">
+      listele();
+      gecmisiYukle();
+      otomatikYenileBaslat();
+    }
+
+    // --- KULLANICI YÖNETİMİ (Admin)
+    async function kullaniciListesiGuncelle() {
+      const { data }AKTİF</span>' : '';
+        tbody.innerHTML += `<tr>
+           = await supabaseClient.from("kullanicilar").select("*</span>
+            </div>
+            <div class="card-row">
+              <span class="card-label">Son Giriş:</span>
+              <span class="card-value"");
+      kullanicilar = data || [];
+      const tbody = document.getElementById("kullaniciListesi");
+      tbody.innerHTML = "";
+      kullanicilar<td data-label="Kullanıcı">${k.kullanici_adi}</td>
+          <td data-label="Rol">${k.rol}</td>
+          <td data>${sonGiris}</span>
+            </div>
+            <div class="card-row">
+              <span class="card-label">Oturum:</span>
+              <span class="card-value">${aktif}</span>
+            </div>
+            <div class="admin.forEach(k => {
+        const sonGiris = k.son_giris ? new Date(k.son_giris-controls">
+              <button onclick="kullaniciSifir-label="Son Giriş">${sonGiris}).toLocaleString() : "-";
+        const aktif = (kullanici && k.kullanici_adi===kullanici.kullanici_adi) ? '<span class="aktif-oturum">AKTİF</span>' :</td>
+          <td data-label="Oturum">${aktif}</td>
+          <td data-label="İşlem">
+            <button onclick="kullaniciSifirla('la('${k.id}')" class="admin-btn sifirla">Şifre Sıfırla</button>
+              <button onclick="rolDegistir('${${k.id}')" class="admin-btn sifirla">Şifre Sıfırla</button>
+            <button onclick=" '';
         tbody.innerHTML += `<tr>
           <td>${k.kullanici_adi}</td>
-          <td>${k.rol}</td>
+          <td>${k.rol}</td>k.id}', '${k.rol}')" class="admin-btn rol">Rolü Değiştir</button>
+              <button onclick="kullaniciSil('${k.id}')" class="admin-btn silrolDegistir('${k.id}', '${k.rol}')" class="admin-btn rol">Rol-btn">Sil</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    window.kullaniciSifirla = async
           <td>${sonGiris}</td>
           <td>${aktif}</td>
           <td>
             <button onclick="kullaniciSifirla('${k.id}')" class="admin-btn sifirla">Şifre Sıfırla</button>
-            <button onclick="rolDegistir('${k.id}', '${k.rol}')" class="admin-btn rol">Rolü Değiştir</button>
+            <button onclick="rolDegistir('${k.id}', function(id) {
+      const sifre = prompt("Yeni şifreyi gir:");
+      if (!sifre) return;
+      await supabaseClient.from("kullanicilar").update({ sifre }).eq("id", id);
+      await kullaniciListesiGü Değiştir</button>
             <button onclick="kullaniciSil('${k.id}')" class="admin-btn sil-btn">Sil</button>
           </td>
         </tr>`;
       });
     }
 
-    window.kullaniciSifirla = async function(id) {
+    window.kullaniciSifir '${k.rol}')" class="admin-btn rol">la = async function(id) {
       const sifre = prompt("Yeni şifreyi gir:");
       if (!sifre) return;
-      await supabaseClient.from("kullanicilar").update({ sifre }).eq("id", id);
-      await kullaniciListesiGuncelle();
+      await supabaseClient.from("kullanicilaruncelle();
     };
     window.rolDegistir = async function(id, rol) {
       const yeniRol = rol === "admin" ? "user" : "admin";
+      await supabaseClient.").update({ sifre }).eq("id", id);
+      await kullaniciListesiGuncelle();
+    };
+    window.rolDegistir = async function(id, rol) {
+      const yeniRol = rolfrom("kullanicilar").update({ rol: yeniRol }).eq("id", iRolü Değiştir</button>
+            <button onclick="kullaniciSil('${k.id}')" class="admin-btn sil-btn">Sil === "admin" ? "user" : "admin";
       await supabaseClient.from("kullanicilar").update({ rol: yeniRol }).eq("id", id);
+      await kullaniciListesi</button>
+          </td>
+        </tr>`;
+      });
+    }
+
+    window.kullaniciSifirla = async function(id) {d);
       await kullaniciListesiGuncelle();
     };
     window.kullaniciSil = async function(id) {
@@ -253,10 +1106,63 @@
       await kullaniciListesiGuncelle();
     };
 
+    Guncelle();
+    };
+    window.kullaniciSil = async function(id) {
+      
+      const sifre = prompt("Yeni şifreyi gir:");
+      if (!sifre) return;
+      await supabaseClient.from("kullanicilar").update({ sifre }).eq("id", id);
+      await kullaniciListesiG// --- YENİ KULLANICI FORM
+    window.yeniKullaniciFormGosteruncelle();
+    };
+    window.rolDegistir = async function(id, rol) {
+      const yeniRol = rol === "admin" ? "user" : "admin = function() {
+      document.getElementById("yeniKullaniciForm").style.display = "";
+      document.getElementById("yeni_kullanici_adi").value = "";
+      document.getElementById("yeni_kullanici_sifreif (!confirm("Kullanıcı silinsin mi?")) return;
+      await supabaseClient.from("kullanicilar").delete().eq("id", id);
+      await kullan").value = "";
+      document.getElementById("yeniKullaniciHata").innerText = "";
+    };";
+      await supabaseClient.from("kullanicilar").update({ rol: yeniRol }).eq("id", id);
+      await kullaniciListesiGiciListesiGuncelle();
+    };
+
     // --- YENİ KULLANICI FORM
     window.yeniKullaniciFormGoster = function() {
       document.getElementById("yeniKullaniciForm").style.display = "";
-      document.getElementById("yeni_kullanici_adi").value = "";
+      document.getElementById("yeni_kullanici_adiuncelle();
+    };
+    window.kullaniciSil = async function(id) {
+      if (!confirm("Kullanıcı silinsin mi?"))
+    window.yeniKullaniciFormGizle = function() {
+      document.getElementById("yeniKullaniciForm").style.display = "none";
+    };
+    window.yeniKullaniciEkle = async function() {
+      const adi = document.getElementById("yeni_kullanici_adi return;
+      await supabaseClient.from("kullanicilar").delete().eq("id", id);
+      await kullaniciListesiGuncelle();
+    };
+
+    // --- YENİ KULLANICI FORM
+    window.yeniKul").value = "";
+      document.getElementById("yeni_kullanici_sifre").value = "";
+      document.getElementById("yeniKullaniciHata").innerText = "";
+    };
+    window.yeniKullaniciFormGizle = function() {
+      document.getElementById("yeniKullaniciFormlaniciFormGoster = function() {
+      document.getElementById("yeniKullaniciForm").style.display = "";
+      document.getElementById("yeni_kullanici_").style.display = "none";
+    };
+    window.yeniKullaniciEkle = async function() {
+      const adi = document.getElementByI").value.trim().toLowerCase();
+      const sifre = document.getElementById("yeni_kullanici_sifre").value;
+      const rol = document.getElementById("yeni_kullanici_rol").value;d("yeni_kullanici_adi
+      if (!adi || !sifre) {
+        document.getElementById("yeniKullaniciHata").innerText = "Boş alan bırakmayın."; return;
+      }
+      if (kullanicilar.finadi").value = "";
       document.getElementById("yeni_kullanici_sifre").value = "";
       document.getElementById("yeniKullaniciHata").innerText = "";
     };
@@ -264,7 +1170,7 @@
       document.getElementById("yeniKullaniciForm").style.display = "none";
     };
     window.yeniKullaniciEkle = async function() {
-      const adi = document.getElementById("yeni_kullanici_adi").value.trim().toLowerCase();
+      const adi = document.getElementById("yeni_kul").value.trim().toLowerCase();
       const sifre = document.getElementById("yeni_kullanici_sifre").value;
       const rol = document.getElementById("yeni_kullanici_rol").value;
       if (!adi || !sifre) {
@@ -281,24 +1187,90 @@
 
     // ---- KARA LİSTE BÖLÜMÜ
     document.getElementById("ekleBtn").onclick = async () => {
-      const isim = document.getElementById("isim").value.trim();
+      const isim =d(k=>k.kullanici_adi===adi)) {
+        document.getElementById("yeniKullaniciHata").innerText = "Bu kullanıcı zaten var!"; return;
+      }
+      const { error } = await supabaseClient.from("kullanicilarlanici_adi").value.trim().toLowerCase();
+      const sifre = document.getElementById("yeni_kullanici_sifre").value;
+      const rol = document.getElementById("yeni_kullanici_rol").value;
+      if document.getElementById("isim").value.trim").insert([{ kullanici_adi: adi, sifre, rol }]);
+      if (error) { document.getElementById("yeniKullaniciHata").innerText = "Hata: " + error.message; return;}
+      window.yeniKullaniciFormGizle();
+      await kullaniciListesiGuncelle(); (!adi || !sifre) {
+        document.getElementByI();
+      const tc = document.getElementById("tc").value.trim();
+      const telefon = document.getElementById("d("yeniKullaniciHata").innerText = "Boş alan bırakmayın."; return;
+      }
+      if (kullanicilar.find(k=>k.kullanici_adi===adi)) {
+        document.getElementById("yeniKullaniciHata").innerText = "Bu kullanıcı zaten var
+    };
+
+    // ---- KARA LİSTE BÖLÜMÜ
+    document.getElementById("ekleBtn").onclick = async () => {
+      const isim =telefon").value.trim();
+      const neden = document.getElementById("neden").value.trim();
+      sonucMesaj.!"; return;
+      }
+      const { error } = await supa document.getElementById("isim").value.trim();
       const tc = document.getElementById("tc").value.trim();
       const telefon = document.getElementById("telefon").value.trim();
-      const neden = document.getElementById("neden").value.trim();
-      sonucMesaj.style.color = "darkred";
+      const neden = document.getElementById("nedenstyle.color = "darkred";
       sonucMesaj.innerText = "";
+      if (!isim || !tc || !neden) {
+        sonucMesaj.innerText = "İsim, TC ve neden zobaseClient.from("kullanicilar").insert([{ kullanici_adi: adi, sifre, rol }]);
+      if (error) { document.getElementById("yeniKullaniciHata").innerText = "Hata: " + error.message;runludur."; return;
+      }
+      if (tc").value.trim();
+      sonucMesaj.style.color = "darkred";
+      sonucMesaj.innerText = "";.length !== 11 || isNaN(tc)) {
+        sonucMesaj.innerText = "TC Kimlik No 11 haneli olmalı."; return;
+      }
+      const { data: mevcut } = await su
       if (!isim || !tc || !neden) {
         sonucMesaj.innerText = "İsim, TC ve neden zorunludur."; return;
       }
-      if (tc.length !== 11 || isNaN(tc)) {
-        sonucMesaj.innerText = "TC Kimlik No 11 haneli olmalı."; return;
+      if (tc return;}
+      window.yeniKullaniciFormGizle();
+      await kullaniciListesiGuncelle();
+    };
+
+    // ---- KARA LİSTE BÖLÜMÜ
+    document.getElementById("ekleBtn").onclick = async () => {
+      const isim = document.getElementById("isim").value.trim.length !== 11 || isNaN(tc)) {
+        sonucMesaj.innerText = "TC Kimlik No 11 haneli olmalı."; return;pabaseClient
+        .from("blacklist")
+        .select("id")
+        .eq("tc", tc);
+      if (mevcut.length > 0) {
+        sonucMesaj.innerText =();
+      const tc = document.getElementById("tc").value.trim();
+      const telefon = document.getElementById("telefon").value.trim();
+      const neden = document.getElementById("neden").value.trim();
+      sonucMesaj.style
       }
       const { data: mevcut } = await supabaseClient
         .from("blacklist")
         .select("id")
         .eq("tc", tc);
       if (mevcut.length > 0) {
-        sonucMesaj.innerText = "⚠️ Bu TC zaten kayıtlı."; return;
+        sonucMesaj.innerText = "⚠️ Bu "⚠️ Bu TC zaten kayıtlı."; return;
+      }
+      const { error } = await supabaseClient
+        .from("blacklist")
+        .insert([{ isim, tc, telefon, neden, ekleyen: kullanici.kullanici_adi }]);
+      if (error) {.color = "darkred";
+      sonucMesaj.
+        sonucMesaj.innerText = "Hata: " + error.message;
+      } else {
+        sonucMesaj.style.color = "green";
+        sonucMesaj.innerText = "✅ Kayıt eklendi.";
+        document.getElementById("isim").value = "";
+        document.getElementById("tc").value = "";
+        document.innerText = "";
+      if (!isim || !tc || !neden) {
+        sonucMesaj.innerText = "İsim, TC ve neden zorunludur."; return;
+      }
+      if (tc TC zaten kayıtlı."; return;
       }
       const { error } = await supabaseClient
         .from("blacklist")
@@ -308,6 +1280,58 @@
       } else {
         sonucMesaj.style.color = "green";
         sonucMesaj.innerText = "✅ Kayıt eklendi.";
+        document.getElementById("isimgetElementById("telefon").value = "";
+        document.getElementById("n.length !== 11 || isNaN(tc)) {
+        sonucMesaj.innerText = "TC Kimlik No 11 haneli olmalı."; return;
+      }
+      const { data: mevcut } = await supabaseClient
+        .from("blacklist")
+        .select("id")
+        .eq("tc", tc);
+      if (mevcut.length > 0) {
+        sonucMesaj.innerText = "⚠️ Bu TC zaten kayıtlı."; return;
+      }
+      const {").value = "";
+        document.getElementById("tc").value = "";
+        document.getElementById("telefon").value = "";
+        document.getElementById("neden").value = "";
+        listele();
+        gecmisiYukle();
+      }
+    };
+
+    asynceden").value = "";
+        listele();
+        gecmisiYukle();
+      }
+    };
+
+    async function listele() { function listele() {
+      const { data error } = await supabaseClient
+        .from("blacklist")
+        .insert([{ isim, tc, telefon, neden, ekleyen: kullanici.kullanici_adi }]);
+      if (error) {
+        sonucMesaj.innerText = "Hata: " + error.message;
+      } else {
+        sonucMesaj.style.color = "green";
+        sonucMesaj.innerText = "✅ Kay
+      const { data } = await supabaseClient.from("blacklist").select("*");
+      kisiler = data || [];
+      let liste = [...kisiler];
+      if (siralamaAlan) {
+        liste = siraliDizi(liste, siralamaAlan, siralamaTers);
+      }
+      tabloyuYaz(liste);
+      kartlariYaz(liste);
+      filtreleGercek();
+      siralamaOklariniGuncelle();
+    }
+
+    async function gecmisiYukle } = await supabaseClient.from("blacklist").select("*");
+      kisiler = data || [];
+      let liste = [...kisiler];
+      if (siralamaAlan) {
+        liste =ıt eklendi.";
         document.getElementById("isim").value = "";
         document.getElementById("tc").value = "";
         document.getElementById("telefon").value = "";
@@ -317,12 +1341,55 @@
       }
     };
 
-    async function listele() {
-      const { data } = await supabaseClient.from("blacklist").select("*");
+    async function listele siraliDizi(liste, siralamaAlan, s() {
+      const { data } = await supabaseClient.from("silinenler").select("*");
+      gecmisKisiler = datairalamaTers);
+      }
+      tabloyuYaz(liste);
+      mobilTabloyuYaz(liste);
+      filtreleGercek();
+      siralamaOklariniGuncelle();
+    }
+
+    async function gecmisiYukle() {
+      const { data } = await supabaseClient.from("silinenler").select("*");
+      gecmisKisiler = data || [];
+      gecmisTabloYaz(gecmisKisiler);
+      mobilGecmisTabloY || [];
+      gecmisTabloYaz(gecmisKisiler);
+      gecmisKartlariYaz(gecmisKisiler);
+    }
+
+    function tabloyuYaz(liste) {
+      const tbody = document.querySelector("#listeTablosu tbody");
+      tbody.innerHTML = "";
+      liste.forEach((kisi) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${kisi.isim}() {
+      const { data } = await supabaseClient.</td>
+          <td>${kisi.tc}</td>az(gecmisKisiler);
+    }
+
+    function tabloyuYaz(liste) {
+      from("blacklist").select("*");
       kisiler = data || [];
+          <td>${kisi.telefon}</td>
+          <td>${kisi.
       let liste = [...kisiler];
       if (siralamaAlan) {
-        liste = siraliDizi(liste, siralamaAlan, siralamaTers);
+        liste =const tbody = document.querySelector("#listeTablosu tbody");
+      tbody.innerHTML = "";
+      liste.forEach((kisi) => {
+        const tr = document.createElement("tr");
+        trneden}</td>
+          <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.ekleyen || '-'}</td>
+          <td><button class="sil-btn" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${.innerHTML = `
+          <td>${kisi.isim}</td>
+          <td>${kisi.tc}</td>
+          <td>${kisi.telefon}</td>
+          <td>${kisi.neden}</td>
+          <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' siraliDizi(liste, siralamaAlan, siralamaTers);
       }
       tabloyuYaz(liste);
       filtreleGercek();
@@ -336,19 +1403,84 @@
     }
 
     function tabloyuYaz(liste) {
-      const tbody = document.querySelector("#listeTablosu tbody");
+      const tbody = document.querySelector("#listeTablosukisi.telefon}', '${kisi.neden}')">Sil</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function kartlariY : 'none'}">${kisi.ekleyen || '-'}</td>
+          <td><button class="sil-btn" onclick="sil('${kisi. tbody");
       tbody.innerHTML = "";
       liste.forEach((kisi) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${kisi.isim}</td>
-          <td>${kisi.tc}</td>
-          <td>${kisi.telefon}</td>
-          <td>${kisi.neden}</td>
-          <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.ekleyen || '-'}</td>
+          <td>${kaz(liste) {
+      const kartlar = document.getElementById("anaListeKartlari");
+      kartlar.innerHTML = "";
+      liste.forEach((kisi) => {
+        kartlar.innerHTML += `
+          <div class="card">
+            <div class="card-header">${kisi.isim}</div>
+            <div class="card-row">
+              <span class="card-label">TC:</span>
+              <spanid}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Silisi.isim}</td>
+          <td class="tc-kolon">${kisi.tc}</td>
+          <td class="telefon-kolon">${kisi.telefon}</td>
+          <td class="neden-kolon" title="${kisi.neden}">${kisi.neden}</td>
+          <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function mobilTabloyuYaz(liste) {
+      const mobilTablosu = document.getElementById("mobilListeTablosu");
+      mobilTablosu.innerHTML = "";
+      liste.forEach((kisi) => {
+        const car class="card-value">${kisi.tc}</span>
+            </div>
+            <div class="card-row">
+              <span class="card-label">Telefon:</span>
+              <span class="card-value">${kisi.telefon}</span>
+            </div>
+            <div class="card-row">
+              <span class="card-label">Neden:</span>
+              <span class="card-value">${kisi.neden}</span>
+            </div>
+            ${kullanici.rol === 'admin' ? `<div class="card-d = document.createElement("div");
+        card.className = "mobile-card";
+        card.innerHTML = `
+          <h4>${kisi.isim}</h4>
+          <div class="detail"><strong>TC:</strong> ${kisi.tc}</div>
+          <div class="detail"><strong>ekleyen || '-'}</td>
           <td><button class="sil-btn" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Sil</button></td>
         `;
         tbody.appendChild(tr);
+      });
+    }
+
+    row">
+              <span class="card-label">Ekleyen:</span>
+              <span class="card-value">${kisi.ekleyen || '-'}Telefon:</strong> ${kisi.telefon}</div>
+          <div class="detail"><strong>Neden:</strong> ${kisi.neden}</div>
+          ${(kullanici.rol==='admin') ? `<div class="detail">function gecmisTabloYaz(liste) {
+      const tbody = document.querySelector("#gecmisTablosu tbody");
+      tbody.innerHTML = "";
+      liste.forEach((kisi) => {
+        const tr =<strong>Ekleyen:</strong> ${kisi.ekleyen || '-'}</div>` : ''}
+          <div class="actions">
+            <button class="sil-btn" onclick document.createElement("tr");
+        tr.innerHTML = `
+          <td>${kisi.isim}</td>
+          <td class="tc-kolon">${kisi.tc}</td>
+          <td class</span>
+            </div>` : ''}
+            <div class="card-button">
+              <button class="sil-btn" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Sil</button>
+            </div>
+          </div>
+        `;
       });
     }
 
@@ -358,13 +1490,43 @@
       liste.forEach((kisi) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${kisi.isim}</td>
+          ="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Sil</button>
+          </div>
+        `;
+        mobilTablosu.appendChild(card);
+      });
+    }
+
+    function gecmisTabloYaz(liste) {
+      const tbody = document.querySelector("#gecmisTablosu tbody");
+      tbody.innerHTML = "";="telefon-kolon">${kisi.telefon}</td>
+          <td class="neden-kolon" title="${kisi.neden}">${kisi.neden}</td>
+          <td class="neden-kolon" title="${kisi.silinme_nedeni}">${kisi.silinme_nedeni}</td>
+          <td>${new Date(kisi.silinme_tarihi).toLocale<td>${kisi.isim}</td>
           <td>${kisi.tc}</td>
           <td>${kisi.telefon}</td>
           <td>${kisi.neden}</td>
           <td>${kisi.silinme_nedeni}</td>
-          <td>${new Date(kisi.silinme_tarihi).toLocaleString()}</td>
+          <td>${newString()}</td>
+          <td class="islem-td" style="display:${(kullanici.rol==='admin
+      liste.forEach((kisi) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${kisi.isim}</td>
+          <td>${kisi.tc}</td>
+          <td>${k Date(kisi.silinme_tarihi).toLocaleString()}</td>
           <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.silen || '-'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function gecmisKartlariYaz(liste) {
+      const kartlar = document.getElementById("gecmisKartlari");
+      kartlar.innerHTML = "";
+      liste.forEach((kisi) => {
+        kartlar.innerHTML += `
+          <div class="card">') ? '' : 'none'}">${kisi.silen || '-'}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -376,20 +1538,69 @@
         alert("Açıklama zorunludur.");
         return;
       }
-      await supabaseClient
+      awaitisi.telefon}</td>
+          <td>${kisi.neden}</td>
+          <td>${kisi.silinme_nedeni}</td>
+          <td>${new Date(kisi.silinme_tarihi).toLocaleString()}</td>
+          <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.silen || '-'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function mobilGecmisTabloYaz(liste) {
+      const mobilTablosu = document.getElementById("mobilGecmisTablosu");
+      mobilTablosu.innerHTML = "";
+      liste.forEach
+            <div class="card-header">${kisi.isim}</div>
+            <div class="card-row">
+               supabaseClient
         .from("silinenler")
         .insert([{ isim, tc, telefon, neden, silinme_nedeni: silmeNedeni, silinme_tarihi: new Date().toISOString(), silen: kullanici.kullanici_adi }]);
       await supabaseClient.from("blacklist").delete().eq("id", id);
       listele();
-      gecmisiYukle();
+      gecmisiYukle((kisi) => {
+        const card = document.createElement("div");
+        card.className = "mobile-card";
+        card.innerHTML = `
+          <h4>${kisi.isim}</h4>
+          <div class="detail"><strong>TC:</strong> ${kisi.tc}</div>
+          <div class="detail"><strong>Telefon:</strong> ${kisi.telefon}<span class="card-label">TC:</span>
+              <span class="card-value">${kisi.tc}</span>
+            </div>
+            <div class="card-row">
+              <span class="card-label">Telefon:</span>
+              <span class="card-value">${kisi.telefon}</span>
+            </div></div>
+          <div class="detail"><strong>Neden:</strong> ${kisi.neden}();
     }
 
     function filtreleGercek() {
-      const arama = document.getElementById("arama").value.toLowerCase();
+      const arama = document.getElementById("arama").value</div>
+          <div class="detail"><strong>Silme Nedeni:</strong> ${kisi.silinme_nedeni}</div>
+          <div class="detail"><strong>Tarih:</strong> ${new Date(kisi.silinme_tarihi).toLocaleString()}</div>
+          ${(kullanici.rol==='admin') ? `<div class="
+            <div class="card-row">
+              <span class="card-label">Neden:</span>
+              <span class="card-value">${kisi.neden}</span>
+            </div>
+            <div class="card-row">
+              <span class="card-label">Silme Nedeni:</span>
+              <span class="card-value">${kisi.silinme_nedeni}</span>
+            </div>
+            <div class="card-row">
+              <span.toLowerCase();
       const satirlar = document.querySelectorAll("#listeTablosu tbody tr");
       satirlar.forEach(tr => {
         const metin = tr.innerText.toLowerCase();
-        tr.style.display = metin.includes(arama) ? "" : "none";
+        tr.style.display =detail"><strong>Silen:</strong> ${kisi.silen || '-'}</div>` : ''}
+        `;
+        mobilTablosu.appendChil class="card-label">Tarih:</span>
+              <span class="card-value">${new Date(kisi.silinme_tarihi).toLocaleString()}</span>
+            </div>
+            ${kullanici.rol === 'admin' ? `<div class="card-row">
+              <span class="card-label">Silen:</span>
+              <span metin.includes(arama) ? "" : "none";
       });
     }
 
@@ -407,7 +1618,32 @@
     }
 
     function siraliDizi(liste, alan, ters) {
-      return [...liste].sort((a, b) => {
+      return [...liste].sortd(card);
+      });
+    }
+
+    async function sil(id, isim, tc, telefon, neden) {
+      const silmeNedeni = prompt("Bu kişiyi neden siliyorsun?");
+      if (!silmeNedeni || silmeNedeni.trim() === "") {
+        alert("Açıklama zorunludur.");
+        return;
+      }
+      await supabaseClient
+        .from("silinenler")
+        .insert([{ isim, tc, telefon, neden, silinme_nedeni: silmeNedeni, silinme_tarihi: new Date().toISOString(), class="card-value">${kisi.silen || '-'}</span>
+            </div>` : ''}
+          </div>
+        `;
+      });
+    }
+
+    async function sil(id, isim, tc, telefon, neden) {
+      const silmeNedeni = prompt("Bu kişiyi neden siliyorsun?");
+      if (!silmeNedeni || silmeNedeni.trim() === "") {
+        alert("Açıklama zorunludur.");
+        return;
+      }
+      await((a, b) => {
         const valA = (a[alan] || "").toString().toLowerCase();
         const valB = (b[alan] || "").toString().toLowerCase();
         if (valA < valB) return ters ? 1 : -1;
@@ -417,10 +1653,39 @@
     }
 
     function siralamaOklariniGuncelle() {
-      ["isim", "tc", "telefon", "neden"].forEach(alan => {
+      ["isim", "tc", "telefon", "neden"].forEach supabaseClient
+        .from("silinenler")
+        .insert([{ isim, tc, telefon, neden, silinme_nedeni: silmeNedeni silen: kullanici.kullanici_adi }]);
+      await supabaseClient.from("blacklist").delete().eq("id", id);
+      listele();
+      gecmisiYukle();
+    }(alan => {
         const ok = document.getElementById("ok-" + alan);
         if (siralamaAlan === alan) {
-          ok.innerHTML = siralamaTers ? "&#8595;" : "&#8593;";
+          ok
+
+    function filtreleGercek() {
+      const arama = document.getElementById("arama").value.toLowerCase();
+      
+      // Masaüstü tablo filtreleme
+      const satirlar = document.quer, silinme_tarihi: new Date().toISOString(), silen: kullanici.kullanici_adi }]);ySelectorAll("#listeTablosu tbody tr");
+      satirlar.forEach(tr => {
+        const metin = tr.innerText.toLowerCase();
+        tr.style.display = metin.includes(arama) ? "" : "none";
+      });
+      
+      // Mobil tablo filtreleme
+      const mobilKartlar = document.querySelectorAll("#mobilListeTablosu
+      await supabaseClient.from("blacklist").delete().eq("id", id);
+      listele();
+      gecmisiYukle();
+    }
+
+    function filtreleGercek() {
+      const arama = document.getElementById("arama").value.toLowerCase();
+      
+      // Masaüstü tablo filtresi
+      const satirlar = document.querySelectorAll("#listeTablosu tbody.innerHTML = siralamaTers ? "&#8595;" : "&#8593;";
         } else {
           ok.innerHTML = "";
         }
@@ -436,7 +1701,17 @@
     }
 
     document.querySelectorAll("#listeTablosu thead th[data-alan]").forEach(th => {
-      th.addEventListener("click", () => {
+      th tr");
+      satirlar.forEach(tr => {
+        const metin = tr.innerText.toLowerCase();
+        tr.style.display = metin.includes(arama) ? "" : "none";
+      });
+      
+      // Mobil kart filtresi
+      const kartlar = document.querySelector .mobile-card");
+      mobilKartlar.forEach(card => {
+        const metin = card.innerText.toLowerCase();
+        card.style.display = metin..addEventListener("click", () => {
         sirala(th.dataset.alan);
       });
     });
