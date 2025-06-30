@@ -1,1016 +1,181 @@
-
-        <!-- Login Screen -->
-        <div id="loginScreen">
-            <div class="login-form">
-                <h2 style="text-align: center; margin-bottom: 30px; color: #333;">🔐 Giriş Yap</h2>
-                <divhtml name=index.html
-<!DOCTYPE html> class="form-group">
-                    <label>Kullanıcı Adı:</label>
-                    <input type="text" id="loginUsername" placeholder="KullanıPanel').classList.remove('hidden');
-        
-        document.getElementById('currentUser').textContent = currentUser.username;
-        document.getElementById('currentRole').textContent = currentUser.role;
-        
-        if (currentUser.role === 'admin') {
-          document.getElementById('adminSection').cı adınızı girin">
-                </div>
-                <div class="form-group">
-                    
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>Kara Liste Sistemi</title>classList.remove('hidden');
-          document.getElementById('addedByHeader').classList.remove('hidden');
-          document.getElementById('delet
+  <title>Kara Liste Sistemi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    * {
-      box<label>Şifre:</label>
-                    <input type="password" id="loginPassword" placeholder="Şifrenizi girin">
-                </div>
-                <button class="edByHeader').classList.remove('hidden');
-          updateUsersList();
-        } else {
-          document.getElementById('adminSection').classList.add('hidden');
-          document.getElementById('addedByHeader').classList.adbtn" onclick="handleLogin()">d('hidden');
-          document.getElementById('delet-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     
     body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-edByHeader').classList.add('hidden');
-        }
-        
-        updateBlacklistTable();
-        updateHistoryTable();
-        
-      } catch (error) {
-        console.error('❌ Panel gösterme hatası:', error);
-      }
-    }
-
-    //Giriş Yap</button>
-                <div id="loginMessage"></div>
-                
-                <div style="margin-top: 30px; padding: 15px; background: #f8f9fc; border-radius: 8px;">
-                    <h4 Utility functions
-    function showMessage(elementId, message, type) {
-      const element = document.getElementById(elementId);
-      element.innerHTML = `<div class="text-${serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       max-width: 1000px; 
       margin: 0 auto; 
-      paddingtype}">${message}</div>`;
-      : 10px; 
+      padding: 10px; 
       background: #f8f9fa;
       color: #333;
-    } style="color: #667eea; margin-bottom: 10px;">Demo Hesaplar:</h4>
-                    <p><strong>Admin:</strong> admin / 123456</p>
-                    setTimeout(() => {
-        element.innerHTML = '';
-      }, 5000);
     }
-
-    function clearMessages<p><strong>Kullanıcı() {
-      document.getElementById('loginMessage').innerHTML = '';
-      document.getElementById('addPersonMessage').innerHTML = '';
-      document.getElementById('addUserMessage').innerHTML = '';
-    }
-
-    // User Management (
     
     .container {
       background: white;
       border-radius: 8px;
       padding: 20px;
-      margin-bottom:</strong> user / 123456</p>
-                </div>
-            </div>
-        Admin)
-    function showAddUserForm() {
-      document.getElementById('addUserForm').: 20px;
+      margin-bottom: 20px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
-    input, textarea</div>
-
-        <!-- Main Panel -->
-        <div id="mainPanel" class="hidden">
-            <div class="content">
-                <!-- User Info -->
-                <div class="user-info">classList.remove('hidden');
-      document.getElementById('newUsername').value = '';
-      document.getElementById('newPassword').value = '';
-      document.getElementById('newRole').value = 'user';
-      document.getElementById('addUserMessage').innerHTML = '';
-    }
-
-    function hideAddUserForm() {
-      document.getElementById('addUserForm')., button, select {
+    input, textarea, button, select {
       width: 100%; 
       padding: 12px; 
       margin: 8px 0; 
       font-size: 16px; 
-      borderclassList.add('hidden');
-    }
-
-    function addUser() {
-      try {
-        const username =
-                    <h3>Hoş Geldin, <span id="currentUserName"></span>!</h: 1px solid #ddd; 
+      border: 1px solid #ddd; 
       border-radius: 6px;
-      font-family: inherit;
     }
     
     button {
-      background-color: #007bff; 
+      background: #007bff; 
       color: white; 
-      border: document.getElementById('newUsername').value.trim().toLowerCase();
-        const password = document.getElementById('newPassword').value.trim();
-        const role = document.getElementById('newRole').value;
-        
-        if (!username || !password) {
-          showMessage3>
-                    <p>Rol: <strong id="currentUserRole"></strong> | Son Giriş: <span id="lastLogin"></span></p>
-                    <button class="btn btn-danger btn-small" onclick="handleLogout()">Çıkış Yap</button>('addUserMessage', 'Kullanıcı adı ve şifre gerekli.', 'danger');
-          return;
-        }
-        
-        if (users.fin
-                </div>
-
-                <!-- Statisticsd(u => u. -->
-                <div class="statsusername.toLowerCase() === username))">
-                    <div class="stat-card">
-                         {
-          showMessage('addUserMessage', 'Bu kullanıcı adı zaten mevcut.', 'danger');
-          return;
-        }
-        
-        const<div class="stat-number" id="totalBlacklist">0</div>
-                        <div>Toplam Kayıt</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalDeleted">0</div>
-                        <div>Silinen Kayıt</div>
-                    </div>
-                 newUser = {
-          id: Date.now(),
-          username: username,
-          password: password,
-          role: role,
-          lastLogin: null
-        };
-        
-        users.push(newUser);
-        saveData();
-        updateUsersList();
-        hideAddUserForm();
-        showMessage('addUserMessage', '✅ Kullanıcı eklendi.', 'success');    <div class="stat-card">
-                        <div class="stat-number" id="totalUsers">0</div>
-                        <div>Toplam Kullanıcı</div>
-                    </div
-        
-      } catch (error) {
-        console.error('❌ Kullanıcı ekleme hatası:', error);
-        showMessage('addUserMessage', '❌ Kullanıcı eklenirken hata oluştu.', 'danger');
-      }
-    }
-
-    function deleteUser(userId) {
-      try {
-        if (userId === currentUser.id) {
-          alert('>
-                </div>
-
-                <!-- Admin Panel -->
-                <div id="adminPanel" class="hidden">
-                    <h3>👥 Kullanıcı Yönetimi</h3>❌ Kendi hesabınızı silemezsiniz.');
-          return;
-        }
-        
-        if (confirm('Bu kullanıcıyı silmek istediğinizden emin misiniz?')) {
-          users = users.filter(u => u.id !== userId);
-          saveData();
-          updateUsersList();
-        }
-      } catch none; 
+      border: none; 
       cursor: pointer;
-      transition: background-color 0.2s;
-    }
-     (error) {
-        console.error('❌ Kullanıcı silme hatası:', error);
-      }
-    }
-
-    function
-                    <button class="btn btn-success btn-small" onclick="showAddUserModal()">+ Yeni Kullanıcı</button>
-                    
-                    <div id="addUserModal" class
-    button:hover:not(:disabled) {
-      background-color: #0056b3;
     }
     
-    button:disabled {
-      background-color: #6c757d; toggleUserRole(userId) {
-      try {
-        const user = users.find(u => u.id === userId);
-        if (user) {
-          user.role = user.role === 'admin' ? 'user' : 'admin';
-          saveData();
-          updateUsersList();
-        }
-      } catch (error) {
-        console.error('❌ Rol değiştirme hat 
-      cursor: not-allowed;
-    }
+    button:hover { background: #0056b3; }
     
-    .btn-danger {
-      background-color: #dc3545;
-    }
-    
-    .btn-danger:hover {
-      background-color: #cası:', error);
-      }
-    }
-
-    function resetUserPassword(userId) {
-      try {
-        const newPassword = prompt('Yeni şifreyi girin:');
-        if (newPassword && newPassword.trim())="hidden" style="margin: 20px 0; padding: 20px; background: #f8f9fc; border-radius: 10px;">
-                        <h4>Yeni Kullanıcı Ekle</h4>
-                        <div class="form-group">
-                            <label>Kullanıcı Adı:</label>
-                            <input type="text" id="newUsername" placeholder="Kullanıcı adı">
-                        </div>
-                82333;
-    }
-    
-    .btn-success {
-      background-color: #28a745;
-    }
-    
-    .btn- {
-          const user = users.find(u => u.id === userId);
-          if (user) {
-            user.success:hover {
-      background-color: #218838;
-    }
-    
-    .btn-small {
-      padding: 6px 12px;
-      font-size: 14px;
-      width: auto;
-      displaypassword = newPassword.trim();
-            saveData();
-            updateUsersList();
-            alert('✅ Şifre güncellendi.');
-          }
-        }
-      } catch (error) {
-        console.error('❌ Şifre sıfırlama        <div class="form-group">
-                            <label>Şifre:</label>
-                            <input type="password" id="newPassword" placeholder="Şifre">
-                        </div>
-                        <div class="form-group">
-                            <label: inline-block;
-      margin: 2px;
-    } hatası:', error);
-      }
-    }
-
-    function updateUsersList() {
-      try {
-        const tbody>Rol:</label>
-                            <select id="newUserRole">
-                                <option value="user">Kullanıcı</option>
-                                <option value="admin">Admin
+    .btn-danger { background: #dc3545; }
+    .btn-success { background: #28a745; }
+    .btn-small { padding: 6px 12px; font-size: 14px; width: auto; margin: 2px; }
     
     .table-container {
       overflow-x: auto;
-      - = document.getElementById('usersList');
-        tbody.innerHTML = '';
-        
-        users.forEach(user => {
-          const lastLogin = user.lastLogin ? new Date(user.lastLogin).webkit-overflow-scrolling: touch;
-      </option>
-                            </selecttoLocaleString('tr-TR') : 'Hiç giriş yapmadı';
-          const>
-                        </div>
-                        <button class="btn btnborder: 1px solid #ddd;
-       isActive = user.id === currentUser.id ? '<span style="color: green; font-weight: bol-success btn-small" onclick="addUser()">Kaydet</button>
-                        <button class="btn btn-small" onclick="hideAddUserModal()" style="backgrounborder-radius: 8px;
-      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
       margin-top: 15px;
     }
     
     table {
       width: 100%; 
       min-width: 600px;
-      border-d;">AKTİF</span>' : '';
-          
-          const row = `
-            <tr>
-              <td>${user.username}</td>
-              <td><span style="background: ${user.role === 'admin' ? '#dc3545' : '#d: #6c757d;">17a2b8'}; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px;">${user.role}</span>İptal</button>
-                        <div id="addUserMessage"></div>
-                    </div>
-
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Kullanıcı Adıcollapse: collapse; 
-      background: white;
+      border-collapse: collapse; 
     }
     
     th, td {
       padding: 12px 8px; 
       border-bottom: 1px solid #eee; 
-      text</td>
-              <td style="font-size: 12px;">${lastLogin}</td>
-              <td>${isActive}</td>
-              <td>
-                <button onclick="toggleUserRole(${-align: left;
-      font-size: 14px;
-    user.id})" class="btn-small" style="background: #17a2b8;">Rol Değiştir</button>
-                <button onclick="resetUserPassword(${user.id})" class="btn-small" style="background: #ffc107; color: #333</th>
-                                    <th>Rol</th>
-                                    <th>Son Giriş</th>
-                                    <th>İşlemler</th>
-                                </tr>
-                            </thead>
-                            <tbody id="usersTableBody"></tbody>
-                        </table>
-                    }
+      text-align: left;
+    }
     
     th {
       background: #f8f9fa; 
-      font-weight: 600;
       position: sticky;
       top: 0;
-      z-index: 10;
       cursor: pointer;
-      user-select: none;
     }
     
-    th:hover {
-      background:</div>
-                </div>
-
-                <!-- Ad;">Şifre Sıfırla</button>
-                <button onclick="deleteUser(${user.id})" class #e9ecef;
-    }
+    .hidden { display: none; }
+    .alert { padding: 12px; border-radius: 6px; margin: 10px 0; }
+    .alert-success { background: #d4edda; color: #155724; }
+    .alert-danger { background: #f8d7da; color: #721c24; }
     
-    tr:hover {
-      background: #f8f9fa;
-    }
-    
-    .hidden {
-      display: none;
-    }
-    
-    .textd Person Form -->
-                <div>
-                    <h3>➕ Yeni Kayıt Ekle</h3>
-                    <div style="display: gri="btn-small btn-danger">Sil</button>
-              </td>
-            </tr>
-          `;
-          tbody.innerHTML += row;
-        });
-      } catch (error) {
-        console.error('❌ Kullanıcı listesi güncelleme hatası:', error);
-      }
-    }
-
-    // Blacklist Managementd; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                        <div class="form-group">
-                            <label>İsim Soyisim-center {
-      text-align: center;
-    }
-    
-    .text-success {
-      color
-    function addPerson() {
-      try {
-        const name = document.getElementById('personName').value.trim();
-        const tc = document.getElementById('personTC').value.: #28a745;
-    }
-    
-    .text-danger {
-      color: #dc3545;
-    }
-    
-    .text-warning {
-      color: #ffc107;
-    }
-    
-    .mb-3 {
-      margin-bottom: 1rem;
-    }
-    :</label>
-                            <input type="text" id="personName" placeholder="Ad Soyad">
-                        </div>
-                        <div class="form-group">
-                            <label>TC Kimlik Notrim();
-        const phone = document.getElementById('personPhone').value.trim();
-        const reason = document.getElementById('personReason').value.trim();
-        
-        if (!name || !tc || !reason) {
-          showMessage('addPersonMessage', 'İs
-    .alert {
-      padding: 12px;
-      border-radius: :</label>
-                            <input type="text" id="personTC" placeholder="11 haneli TC no" maxlength="11">
-                        </div>
-                        <div class="form-group">
-                            <label>Telef6px;
-      margin: 10px 0;
-    }
-    
-    .alert-success {
-      background: #d4edda;
-      color: #155724;
-      im, TC ve neden alanları zorunludur.', 'danger');
-          return;
-        }
-        
-        if (tc.length !== 11 || isNaN(tc)) {
-          showMessage('addPersonMessage', 'TC kimlik numarası 11 haneli sayıborder: 1px solid #c3e6cb;
-    }
-    
-    .alert-danger {
-      backgroun olmalıdır.', 'danger');
-          return;
-        }
-        
-        // Check if TC already exists
-        if (blacklist.finon:</label>
-                            <input type="text" id="personPhone" placeholder="Telefon numarası">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Kayd: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-    }
-    
-    .loading {
-      text-align: center;
-      padding: 20pxd(p => p.tc === tc)) {
-          showMessage('addPersonMessage', '⚠️ Bu TC kimlik numarası zaten kayıtlı.', 'danger');
-          return;
-        }
-        
-        const newPerson = {
-          id: Date.now(),
-          name: name,
-          tc: tc,
-          phone: phone,
-          reason: reason,
-          addedBy: currentUser.username,
-          addedDate: new Date().toıt Nedeni:</label>
-                        <textarea id="personReason" placeholder="Neden kara listeye alındı?" rows="3"></textarea>
-                    </div>
-                    <button class="btn" onclick="addPerson()">Kayıt Ekle</button>
-                    <div id="addPersonMessage"></divISOString()
-        };
-        
-        blacklist.push(newPerson);
-        saveData();
-        updateBlacklistTable();
-        
-        // Clear form
-        document.getElementById('personName').value = '';
-        document.getElementById('personTC').value = '';
-        document.getElementById('personPhone').value = '';
-        ;
-      color: #6c757d;
-    }
-    
-    /* Mobile Responsive */
+    /* Mobile */
     @media (max-width: 768px) {
-      body {
-        padding: 5px;
-      }
+      body { padding: 5px; }
+      .container { padding: 15px; }
       
-      .container {
-        padding: 15document.getElementById('personReason').value =>
-                </div>
-
-                <!-- Searchpx;
-        margin-bottom: 15px;
-      }
+      table { min-width: 500px; }
+      th, td { padding: 8px 4px; font-size: 13px; }
       
-      h1, h2, h3 {
-        font-size: 1.5rem;
-        margin: 15px 0;
-      }
+      .col-tc { max-width: 80px; overflow: hidden; text-overflow: ellipsis; }
+      .col-phone { max-width: 90px; overflow: hidden; text-overflow: ellipsis; }
+      .col-reason { max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
       
-      input, textarea, button, select {
-        font-size: 16px; /* and List -->
-                <div>
-                    <h3>🔍 Kayıt Listesi</h3>
-                    <div class="form-group">
-                        <input type="text" id="searchInput" placeholder="İsim, TC, telefon veya neden ara..." oninput="filter '';
-        
-        showMessage('addPersonMessage', '✅ Kişi kara listeye eklendi.', 'success');
-        
-      } catch (error) {
-        console.error('❌ Kişi ekleme hatası:', error);
-        showMessage('addPersonMessage', '❌ Kişi eklenirken hata oluştu.', 'danger');
-      }
-    }
-
-    function deletePerson(personId) {
-      try {
-        const person iOS zoom prevention */
-        padding: 14px;
-      }
-      
-      table {
-        min-width: 500px;
-      }
-      
-      th, td {
-        padding: 8Records()">
-                    </div>
-                    
-                    <div class="table-container">
-                        <table id="blacklistTable">
-                            <thead>
-                                <tr>
-                                    <th onclick="sortTable('name')">İsim <span id="sortName">⇅</span></th>
-                                 = blacklist.find(p => p.id === personId);
-        if (!person) return;
-        
-        const deleteReason = prompt('Bu kişiyi neden siliyorsunuz?');    <th onclick="sortTable('tc')" class="col-tc">TC <span id="sortTC">⇅</span></th>
-                                    
-        if (!deleteReason || !deleteReason.trim()) {
-          alert('Silme nedeni zorunludur.');
-          return;
-        }
-        
-        // Move to deleted records
-        const deletedRecord = {
-          ...px 4px;
-        font-size: 13px;
-      }
-      
-      .btn-small {
-        padding: 4px 8px;
-        font-size: 12px;
-      }
-      
-      /* Column width limits */
-      .person,
-          deleteReason: deleteReason.trim(),
-          deletedBy: currentUser.username,
-          deletedDate: new Date().toISOString()
-        };
-        
-        deletedRecords.pushcol-tc {
-        max-width: 80px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      <th onclick="sortTable('phone')" class="col-phone">Telefon <span id="sortPhone">⇅</span></th>
-                                    <th onclick(deletedRecord);
-        blacklist = blacklist.filter(p => p.id !== personId);
-        saveData();
-        updateBlacklistTable();
-        updateHistoryTable();
-        
-      } catch (error) {
-        console.error('❌ Kişi silme hatası:', error);
-      }
-    }
-
-    function updateBlacklistTable}
-      
-      .col-phone {
-        max-width: 90px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      
-      .col-() {
-      try {
-        const tbody = document.getElementById('blacklistBody');
-        tbody.innerHTML = '';
-        
-        blacklist.forEach(person => {
-          const row = `
-            <tr>
-              <td>${person.name}</td>="sortTable('reason')" class="col-reason">Neden <span id="sortReason">⇅</span></th>
-                                    <threason {
-        max-width: 120px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-       id="addedByCol" class="hidden">Ekleyen</th>
-                                    <th>İşlemler</th>
-                                </tr>
-                            </thead>
-                            <tbody id="blacklistTable
-              <td class="col-tc">${person.tc}</td>
-              <td class="col-phone">${person.phone}</td>
-              <td class="col-reason" title="${person.reason}">${person.reason}</td>
-              <td class="hidden" id="addedByColBody"></tbody>
-                        
-      /* Scroll hint */
       .table-container::before {
-        content: "←</table>
-                    </div>
-                </div>
-
-                <!-- Deleted Records -->
-                <div>
-                    <h3>🗑️ Silinen Kayıtlar</h3>
-                    <div class="table-container"> Kaydırabilirsiniz →";
+        content: "← Kaydırabilirsiniz →";
         display: block;
         text-align: center;
         font-size: 12px;
-        color: #6">${person.addedBy || '-'}</td>
-              <td>
-                <button onclick="deletePerson(${person.id})" class="btn-small btn-danger">Sil</button>
-              </td>
-            </tr>
-          `;
-          tbody.innerHTML +=
-                        <table>
-                            <thead>
-                                <tr>c757d;
+        color: #666;
         padding: 8px;
         background: #f8f9fa;
-        border-bottom: 1px solid # row;
-        });
-        
-        // Show/hide added by column based on user role
-        const addedByCols = document.querySelectorAll('#addedByCol');
-        addeddd;
       }
-    }
-    
-    @media (max-width: 480px) {
-      th, td {
-        padding: 6px 3px;
-        
-                                    <th>İsim</th>
-                                    <th class="col-tc">TC</th>
-                                    font-size: 12px;
-      }
-      
-      .col-tc {
-        max-width: <th class="col-phone">Telefon</th>
-                                    <th class="col-reason">NedendByCols.forEach(col => {
-          col.classList.toggle('hidden', currentUser.role !== 'admin');
-        });
-        
-      } catch (error) {
-        console.error('❌ Kara liste tablosu güncelleme hatası:', error</th>
-                                    <th class="col-reason">Silme Nedeni</th>
-                                    <th>Silinme Tarihi</th>
-                                    <th id="deletedByCol" class="hidden">Silen);
-      }
-    }
-
-    function updateHistoryTable() {
-      try {
-        const tbody = document.getElementById('historyBody');
-        tbody.innerHTML = '';
-        
-        deletedRecords.slice().reverse().forEach(record => {
-          const deletedDate = new Date(recor70px;
-      }
-      
-      .col-phone {
-        max-width: 80px;
-      }
-      
-      .col-reason {
-        max-width: 100px;
-      }</th>
-                                </tr>
     }
   </style>
 </head>
 <body>
-  <!-- Login Section -->
+  <!-- Login -->
   <div id="loginSection" class="container">
-    <h2>🔐 Kullanıcı Girişid.deletedDate).toLocaleString('tr-TR');
-          const row = `
-            <tr>
-              <td>${record.name}</td>
-              <td class="col-tc">${record.tc}</td>
-              <td class="col-</h2>
-    <input type="text" id="username" placeholder="Kullanıcı Adı" autocomplete="username" />
-    <input type="password" id="passwor
-                            </thead>
-                            <tbody id="deletedTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Global variables
-        let currentphone">${record.phone}</td>
-              <td class="col-reason" title="${record.reason}">${record.reason}</td>
-              <td class="col-reason" title="${record.deleteReason}">${record.deleteReason}</td>
-              <td style="font-size:d" placeholder="Şifre" autocomplete="current-password" /> 12px;">${deletedDate}</td>
-              <tUser = null;
-        let users = [];
-        let blacklistData = [];
-        let deletedRecords = [];
-        let sortField = '';
-        let sortDirection = 'asc';
-
-        // Initialize app
-        
+    <h2>🔐 Giriş</h2>
+    <input type="text" id="username" placeholder="Kullanıcı Adı" />
+    <input type="password" id="password" placeholder="Şifre" />
     <button onclick="login()">Giriş Yap</button>
     <div id="loginMessage"></div>
-    <div style="margin-top: d class="hidden" id="deletedByCol">${record.deletedBy || '-'}</td>
-            </tr>
-          `;
-          tbody.innerHTML += row;
-        });
-        
-        // Show/hide deleted by column based on user role
-        const deletedByCols = document.querySelectorAll('#deletedByCol');
-        deletedByCols.forEach(col20px; padding: 15 => {
-          col.classList.toggle('hidden', currentUser.role !== 'admin');
-        });
-        
-      } catch (error) {
-        console.error('❌ Geçmiş tablosu güncelleme hatası:', error);
-      }
-    px; background: #f8f9fa; border-radius: 6px; font-size: 14px;">
-      <strong>Demo Giriş Bilgileri:</strong><br>
-      document.addEventListener('DOMContentLoaded', function() {
-            console.log('👤 <strong>Admin:</strong> admin}
-
-    // Search and Filter
-    function filterList() {
-      try {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const rows = document.querySelectorAll('#blacklistBody🚀 Uygulama başlatılıyor...');
-            initializeApp();
-        });
-
-        function initializeApp() {
-            try {
-                loadData();
-                checkLogin();
-                console / 123456<br>
-      👤 <strong>User:</strong> user / 123456
+    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 6px;">
+      <strong>Demo:</strong><br>
+      Admin: admin / 123456<br>
+      User: user / 123456
     </div>
   </div>
 
   <!-- Main Panel -->
   <div id="mainPanel" class="hidden">
-    <!-- User tr');
-        
-        rows.forEach(row => {
-          const text = row.textContent.toLowerCase();
-          row.style.display = text.includes(searchTerm) ? '' : 'none';.log('✅ Uygulama başarıyla başlatıldı');
-            } catch (error) {
-                console.error('❌ Başlatma hatası:', error);
-                showMessage('loginMessage', 'Uygulama başlatılırken hata oluştu.', 'danger');
-            }
-        }
-
-        function loadData() {
-            try {
-                // Default users
-                const defaultUsers = [
-        });
-      } catch (error) {
-        console.error('❌ Arama hatası Info -->
-    <div class="container:', error);
-      }
-    }
-
-    // Sort Table
-    function sortTable(field) {
-      try {
-        if (sortField === field) {
-          sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-          sortField = field;
-          sortDirection = 'asc';
-        }
-        
-        blacklist.sort((a, b) => {
-          let aVal = a[field]">
-      <h2>Kara Liste Yönetim Paneli</h2>
-      <p><strong>Hoşgeldin:</strong> <span id="currentUser"></span> (<span id="currentRole"></span>)</p>
-      
-                    { id: 1, username: 'admin', password: '123456', role: 'admin', lastLogin: null, createdAt: new Date().toISOString() },
-                    { id: 2, username: 'user', password: '123456', role<button onclick="logout()" class="btn-danger">Çıkış Yap</button>
+    <div class="container">
+      <h2>Kara Liste Paneli</h2>
+      <p><strong>Kullanıcı:</strong> <span id="currentUser"></span> (<span id="currentRole"></span>)</p>
+      <button onclick="logout()" class="btn-danger">Çıkış</button>
     </div>
 
     <!-- Admin Section -->
-    <div id="admin: 'user', lastLogin: null, createdAt: new Date().toISOString() }
-                ];
-
-                // Load from localStorage
-                users = JSON.parse(localStorage.getItem('blacklist_users') ||  || '';
-          let bVal = b[field] || '';
-          
-          if (typeof aVal === 'string') {
-            aVal = aVal.toLowerCase();
-            bVal = bVal'null') || defaultUsers;
-                black.toLowerCase();
-          }
-          
-          if (sortDirection === 'asc') {
-            returnSection" class="container hidden">
+    <div id="adminSection" class="container hidden">
       <h3>👥 Kullanıcı Yönetimi</h3>
       <button onclick="showAddUserForm()" class="btn-success">+ Kullanıcı Ekle</button>
       
-      <div id="addUserForm" class="hidden" style="margin-top: 15px; padding: 15listData = JSON.parse(localStorage.getItem('blacklist_data') || '[]');
-                deletedRecords = JSON.parse(localStorage.getItem(' aVal > bVal ? 1 : -1;
-          } else {
-            return aVal < bVal ? 1 : -1;
-          }
-        });
-        
-        updateBlacklistTable();
-        updateSortIndicators();
-        
-      } catch (error) {
-        console.error('❌ Sıralama hatası:', error);
-      }
-    }
-
-    functiondeleted_records') || '[]');
-
-                console.log('📊 Ver updateSortIndicators() {
-      try {
-        // Clear all indicators
-        ['name', 'tc',px; background: #f8f9fa; border-radius: 6px;">
+      <div id="addUserForm" class="hidden" style="margin-top: 15px; padding: 15px; background: #f8f9fa;">
         <input type="text" id="newUsername" placeholder="Kullanıcı adı" />
         <input type="password" id="newPassword" placeholder="Şifre" />
         <select id="newRole">
           <option value="user">User</option>
-          <option valueiler yüklendi:', {
-                    users: users.length,
-                    blacklist: blacklistData.length,
-                    deleted: deletedRecords.length
-                });
-            } catch (error) {
-                console.error('❌ Veri yükleme hatası:', error);
-                // Fallback to defaults
-                users = [
-                    { id: 1 'phone', 'reason'].forEach(field => {
-          const indicator = document.getElementById(`sort-${field}`);
-          if (indicator) {
-            indicator.innerHTML = '';
-          }
-        });
-        
-        // Set current indicator
-        if (sortField) {, username: 'admin', password: '123456="admin">Admin</option>
+          <option value="admin">Admin</option>
         </select>
         <button onclick="addUser()" class="btn-success">Kaydet</button>
-        <button onclick="hideAddUserForm()"', role: 'admin', lastLogin: null, createdAt: new Date().toISOString() },
-                    { id: 2, username: 'user', password: '123456', role: 'user', lastLogin: null, createdAt: new Date().toISOString
-          const indicator = document.getElementById(`sort-${sortField}`);
-          if (indicator) {
-            indicator.innerHTML = sortDirection === 'asc' ? ' ↑' : ' ↓';
-          }
-        }
-      } catch (error) {
-        console.error('❌ Sıralama göstergesi hatası:', error);
-      }
-    }
-
-    // Auto style="background: #6c757d;">Vazgeç</button>
+        <button onclick="hideAddUserForm()" style="background: #6c757d;">İptal</button>
         <div id="addUserMessage"></div>
       </div>
 
       <div class="table-container">
         <table>
           <thead>
-            <tr>
-              <th>Kullanıcı</th>
-              () }
-                ];
-                blacklistData = [];
-                deletedRecords = [];
-            }
-        }
-
-        function saveData() {
-            try {
-                localStorage.setItem('blacklist_users', JSON<th>Rol</th>
-              <th>Son Giriş</th>
-              <th>Durum</th>
-              <th>İşlem</th>
-            </tr>
+            <tr><th>Kullanıcı</th><th>Rol</th><th>Son Giriş</th><th>İşlem</th></tr>
           </thead>
-          .stringify(users));
-                localStorage.setItem('blacklist_data', JSON.stringify(blacklistData));
-                localStorage.setItem('deleted_records', JSON.stringify(deletedRecords));
-                console.log('💾 Veriler kaydedildi');
-            } catch (error) {
-                console.error refresh every 5 minutes
-    setInterval(() => {
-      if (currentUser) {
-        updateBlacklistTable();
-        updateHistoryTable();
-        if (currentUser.role === 'admin') {
-          updateUsersList();
-        }
-      }
-    }, 300000);
-
-    console.log('✅ JavaScript yüklendi ve hazır!');
-  </script>
-</body>
-</html>('❌ Veri kaydetme hatası:', error);
-            }
-        }
-
-        function checkLogin() {
-            const savedUser = localStorage.getItem('current_user');
-            if<tbody id="usersList"></tbody>
+          <tbody id="usersList"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- Add Person Section -->
+    <!-- Add Person -->
     <div class="container">
-      <h3>➕ Kara Listeye Kişi Ekle</h3>
+      <h3>➕ Kişi Ekle</h3>
       <input type="text" id="personName" placeholder="İsim Soyisim" />
-      <input type="text" id="personTC" placeholder="TC Kimlik No" maxlength="11" />
-      <input type="text" id="personPhone" placeholder="Telefon Numarası" />
-      <textarea id="personReason" placeholder=" (savedUser) {
-                try {
-                    currentUser = JSON.parse(savedUser);
-                    showMainPanel();
-                } catch (error) {
-                    console.error('❌ Giriş kontrolü hatası:', error);
-                    showLoginScreen();
-                }
-            } else {
-                showLoginScreen();
-            }
-        }
-
-        function showLoginScreen() {
-            document.getElementById('loginScreen').classList.remove('hidden');
-            document.getElementByINeden kara listeye ald('mainPanel').classList.add('hidden');
-        }
-
-        function showMainPanel() {
-            try {
-                document.getElementById('loginScreen').classList.add('hidden');ındı?" rows="3"></textarea>
-      <button onclick="addPerson()">Listeye Ekle</button>
+      <input type="text" id="personTC" placeholder="TC Kimlik" maxlength="11" />
+      <input type="text" id="personPhone" placeholder="Telefon" />
+      <textarea id="personReason" placeholder="Neden?" rows="3"></textarea>
+      <button onclick="addPerson()">Ekle</button>
       <div id="addPersonMessage"></div>
     </div>
 
-    <!-- Search Section -->
+    <!-- Blacklist -->
     <div class="container">
-      <h3>🔍 Kara Liste
-                document.getElementById('mainPanel').classList.remove('hidden');
-
-                // Update user info
-                document.getElementById('currentUserName').textContent = currentUser.username;
-                document.getElementById('currentUserRole').textContent = currentUser.role === 'admin'</h3>
-      <input type="text" id="searchInput" placeholder="İsim, TC, telefon veya neden ara..." oninput="filterList()" />
+      <h3>🔍 Kara Liste</h3>
+      <input type="text" id="searchInput" placeholder="Ara..." oninput="filterList()" />
       
       <div class="table-container">
-        <table id="blacklistTable">
+        <table>
           <thead>
             <tr>
-              <th onclick="sortTable('name')">İsim <span id="sort-name"></span></th>
-              <th onclick="sortTable('tc')" class="col-tc">TC <span id="sort-tc"></span></th>
-              <th onclick="sortTable ? 'Yönetici' : 'Kullanıcı';
-                document.getElementById('lastLogin').textContent = currentUser.lastLogin ? 
-                    new Date(currentUser.lastLogin).toLocaleString('tr-TR') : 'İlk giriş';
-
-                // Show/hide admin features
-                if (currentUser.role === 'admin') {
-                    document.getElementById('adminPanel').classList.remove('hidden');
-                    document.getElementById('addedByCol').classList.remove('hidden');
-                    document.getElementById('deletedByCol').classList.remove('hidden');
-                    updateUsersTable();
-                } else {
-                ('phone')" class="col-phone">Telefon <span id="sort-phone"></span></th>
-              <th onclick="sortTable('reason')" class="col-reason">Neden <span id="sort-reason"></span></th>
-              <th id="addedByHeader"    document.getElementById('adminPanel').classList.add('hidden');
-                    document.getElementById('addedByCol').classList.add('hidden');
-                    document.getElementById('deletedByCol').classList.add('hidden');
-                }
-
-                updateStatistics();
-                updateBlacklistTable();
-                updateDeletedTable();
-            } catch (error) {
-                console class="hidden">Ekleyen</th>
+              <th onclick="sortTable('name')">İsim</th>
+              <th onclick="sortTable('tc')" class="col-tc">TC</th>
+              <th onclick="sortTable('phone')" class="col-phone">Telefon</th>
+              <th onclick="sortTable('reason')" class="col-reason">Neden</th>
+              <th id="addedByHeader" class="hidden">Ekleyen</th>
               <th>İşlem</th>
             </tr>
           </thead>
@@ -1019,21 +184,296 @@
       </div>
     </div>
 
-    <!-- History Section -->
+    <!-- History -->
     <div class="container">
       <h3>📜 Silinen Kayıtlar</h3>
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              .error('❌ Panel gösterme hatası:', error);
-            }
-        }
+              <th>İsim</th><th class="col-tc">TC</th><th class="col-phone">Telefon</th>
+              <th class="col-reason">Neden</th><th class="col-reason">Silme Nedeni</th>
+              <th>Tarih</th><th id="deletedByHeader" class="hidden">Silen</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-        function handleLogin() {
-            try {
-                const username = document.getElementById('loginUsername').value.trim();
-                const password = document.getElementById('loginPassword').value.trim();
+  <script>
+    let currentUser = null;
+    let users = [
+      { id: 1, username: 'admin', password: '123456', role: 'admin', lastLogin: null },
+      { id: 2, username: 'user', password: '123456', role: 'user', lastLogin: null }
+    ];
+    let blacklist = [];
+    let deletedRecords = [];
+    let sortField = '', sortDirection = 'asc';
 
-                if (!username ||<th>İsim</th>
-              <th class="col-tc">TC</th>
+    window.onload = function() {
+      loadData();
+      checkLogin();
+    };
+
+    function loadData() {
+      const savedUsers = localStorage.getItem('karaliste_users');
+      if (savedUsers) users = JSON.parse(savedUsers);
+      
+      const savedBlacklist = localStorage.getItem('karaliste_blacklist');
+      if (savedBlacklist) blacklist = JSON.parse(savedBlacklist);
+      
+      const savedDeleted = localStorage.getItem('karaliste_deleted');
+      if (savedDeleted) deletedRecords = JSON.parse(savedDeleted);
+    }
+
+    function saveData() {
+      localStorage.setItem('karaliste_users', JSON.stringify(users));
+      localStorage.setItem('karaliste_blacklist', JSON.stringify(blacklist));
+      localStorage.setItem('karaliste_deleted', JSON.stringify(deletedRecords));
+    }
+
+    function checkLogin() {
+      const savedUser = localStorage.getItem('karaliste_currentuser');
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        showMainPanel();
+      } else {
+        showLoginSection();
+      }
+    }
+
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      
+      const user = users.find(u => u.username === username && u.password === password);
+      
+      if (user) {
+        user.lastLogin = new Date().toISOString();
+        currentUser = user;
+        localStorage.setItem('karaliste_currentuser', JSON.stringify(currentUser));
+        saveData();
+        showMessage('loginMessage', 'Giriş başarılı!', 'success');
+        setTimeout(showMainPanel, 1000);
+      } else {
+        showMessage('loginMessage', 'Hatalı giriş!', 'danger');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('karaliste_currentuser');
+      currentUser = null;
+      showLoginSection();
+    }
+
+    function showLoginSection() {
+      document.getElementById('loginSection').classList.remove('hidden');
+      document.getElementById('mainPanel').classList.add('hidden');
+    }
+
+    function showMainPanel() {
+      document.getElementById('loginSection').classList.add('hidden');
+      document.getElementById('mainPanel').classList.remove('hidden');
+      
+      document.getElementById('currentUser').textContent = currentUser.username;
+      document.getElementById('currentRole').textContent = currentUser.role;
+      
+      if (currentUser.role === 'admin') {
+        document.getElementById('adminSection').classList.remove('hidden');
+        document.getElementById('addedByHeader').classList.remove('hidden');
+        document.getElementById('deletedByHeader').classList.remove('hidden');
+        updateUsersList();
+      }
+      
+      updateBlacklistTable();
+      updateHistoryTable();
+    }
+
+    function showAddUserForm() {
+      document.getElementById('addUserForm').classList.remove('hidden');
+    }
+
+    function hideAddUserForm() {
+      document.getElementById('addUserForm').classList.add('hidden');
+    }
+
+    function addUser() {
+      const username = document.getElementById('newUsername').value.trim();
+      const password = document.getElementById('newPassword').value.trim();
+      const role = document.getElementById('newRole').value;
+      
+      if (!username || !password) {
+        showMessage('addUserMessage', 'Eksik bilgi!', 'danger');
+        return;
+      }
+      
+      if (users.find(u => u.username === username)) {
+        showMessage('addUserMessage', 'Kullanıcı mevcut!', 'danger');
+        return;
+      }
+      
+      users.push({
+        id: Date.now(),
+        username: username,
+        password: password,
+        role: role,
+        lastLogin: null
+      });
+      
+      saveData();
+      updateUsersList();
+      hideAddUserForm();
+    }
+
+    function updateUsersList() {
+      const tbody = document.getElementById('usersList');
+      tbody.innerHTML = '';
+      
+      users.forEach(user => {
+        const lastLogin = user.lastLogin ? new Date(user.lastLogin).toLocaleString('tr-TR') : 'Hiç';
+        tbody.innerHTML += `
+          <tr>
+            <td>${user.username}</td>
+            <td>${user.role}</td>
+            <td>${lastLogin}</td>
+            <td>
+              <button onclick="deleteUser(${user.id})" class="btn-small btn-danger">Sil</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function deleteUser(userId) {
+      if (userId === currentUser.id) {
+        alert('Kendi hesabınızı silemezsiniz!');
+        return;
+      }
+      users = users.filter(u => u.id !== userId);
+      saveData();
+      updateUsersList();
+    }
+
+    function addPerson() {
+      const name = document.getElementById('personName').value.trim();
+      const tc = document.getElementById('personTC').value.trim();
+      const phone = document.getElementById('personPhone').value.trim();
+      const reason = document.getElementById('personReason').value.trim();
+      
+      if (!name || !tc || !reason) {
+        showMessage('addPersonMessage', 'İsim, TC ve neden zorunlu!', 'danger');
+        return;
+      }
+      
+      if (tc.length !== 11 || !/^\d+$/.test(tc)) {
+        showMessage('addPersonMessage', 'TC 11 haneli olmalı!', 'danger');
+        return;
+      }
+      
+      if (blacklist.find(p => p.tc === tc)) {
+        showMessage('addPersonMessage', 'TC zaten kayıtlı!', 'danger');
+        return;
+      }
+      
+      blacklist.push({
+        id: Date.now(),
+        name, tc, phone, reason,
+        addedBy: currentUser.username,
+        addedAt: new Date().toISOString()
+      });
+      
+      saveData();
+      updateBlacklistTable();
+      
+      // Clear form
+      ['personName', 'personTC', 'personPhone', 'personReason'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      
+      showMessage('addPersonMessage', 'Eklendi!', 'success');
+    }
+
+    function deletePerson(personId) {
+      const person = blacklist.find(p => p.id === personId);
+      const deleteReason = prompt('Silme nedeni:');
+      
+      if (!deleteReason) return;
+      
+      deletedRecords.push({
+        ...person,
+        deletedBy: currentUser.username,
+        deletedAt: new Date().toISOString(),
+        deleteReason: deleteReason
+      });
+      
+      blacklist = blacklist.filter(p => p.id !== personId);
+      saveData();
+      updateBlacklistTable();
+      updateHistoryTable();
+    }
+
+    function updateBlacklistTable() {
+      const tbody = document.getElementById('blacklistBody');
+      tbody.innerHTML = '';
+      
+      blacklist.forEach(person => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${person.name}</td>
+            <td class="col-tc">${person.tc}</td>
+            <td class="col-phone">${person.phone || '-'}</td>
+            <td class="col-reason">${person.reason}</td>
+            <td class="${currentUser.role === 'admin' ? '' : 'hidden'}">${person.addedBy || '-'}</td>
+            <td><button onclick="deletePerson(${person.id})" class="btn-small btn-danger">Sil</button></td>
+          </tr>
+        `;
+      });
+    }
+
+    function updateHistoryTable() {
+      const tbody = document.getElementById('historyBody');
+      tbody.innerHTML = '';
+      
+      deletedRecords.forEach(record => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${record.name}</td>
+            <td class="col-tc">${record.tc}</td>
+            <td class="col-phone">${record.phone || '-'}</td>
+            <td class="col-reason">${record.reason}</td>
+            <td class="col-reason">${record.deleteReason}</td>
+            <td>${new Date(record.deletedAt).toLocaleString('tr-TR')}</td>
+            <td class="${currentUser.role === 'admin' ? '' : 'hidden'}">${record.deletedBy}</td>
+          </tr>
+        `;
+      });
+    }
+
+    function filterList() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const rows = document.querySelectorAll('#blacklistBody tr');
+      
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(search) ? '' : 'none';
+      });
+    }
+
+    function sortTable(field) {
+      if (sortField === field) {
+        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortField = field;
+        sortDirection = 'asc';
+      }
+      updateBlacklistTable();
+    }
+
+    function showMessage(elementId, message, type) {
+      document.getElementById(elementId).innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+    }
+  </script>
+</body>
+</html>
