@@ -1,497 +1,74 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <title>Kara Liste Sistemi</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <style>
-    body { font-family: sans-serif; max-width: 900px; margin: auto; padding: 20px; background: #f1f1f1;}
-    input, textarea, button {width: 100%; box-sizing: border-box; padding: 12px; margin: 8px 0; font-size: 16px; border: 1px solid #ccc; border-radius: 6px;}
-    button {background-color: #007bff; color: white; border: none; font-size: 16px;}
-    button:hover:not(:disabled) {background-color: #0056b3; cursor: pointer;}
-    button:disabled {background-color: #ccc; cursor: not-allowed;}
-    
-    /* Düzeltme: Tabloyu responsive yap */
-    .tablo-kapsayici {
-      overflow-x: hidden !important;
-      width: 100%;
-    }
-    
-    table {
-      width: 100% !important;
-      margin-top: 20px;
-      border-collapse: collapse;
-      background: white;
-    }
-    
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-      font-size: 15px;
-      white-space: normal !important;
-      word-wrap: break-word;
-    }
-    
-    /* Mobilde tabloyu dikey yap */
-    @media (max-width: 650px) {
-      table, thead, tbody, th, td, tr {
-        display: block !important;
-        width: 100% !important;
-      }
-      
-      thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-      }
-      
-      tr {
-        border: 1px solid #ccc;
-        margin-bottom: 10px;
-      }
-      
-      td {
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-left: 50% !important;
-      }
-      
-      td:before::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 6px;
-        font-weight: bold;
-      }
-      
-      td:nth-of-type(1)::before { content: "İsim"; }
-      td:nth-of-type(2)::before { content: "TC"; }
-      td:nth-of-type(3)::before { content: "Telefon"; }
-      td:nth-of-type(4)::before { content: "Neden"; }
-      td:nth-of-type(5)::before { content: "Ekleyen"; }
-      td:nth-of-type(6)::before { content: "Sil"; }
-    }
-    
-    #cikisBtn {margin-top: 15px; background: #555;}
-    #giris-bolumu, #panel-bolumu {display: none;}
-    #giris-bolumu.active, #panel-bolumu.active {display: block;}
-    #giris-mesaj, #sonuc {text-align: center; font-weight: bold; margin-top: 10px;}
-    #giris-mesaj {color: darkred;}
-    #sonuc {color: darkred;}
-    .islem-td {color: #444; font-size: 13px;}
-    #admin-yonetim {margin-top: 40px;}
-    #yeniKullaniciForm {margin: 10px 0; background: #f7f7fc; border-radius: 7px; padding: 10px; display: none;}
-  </style>
-</head>
-<body>
-  <!-- Giriş Bölümü -->
-  <div id="giris-bolumu" class="active">
-    <h2>🔐 Kullanıcı Girişi</h2>
-    <input type="text" id="kullaniciAdi" placeholder="Kullanıcı Adı" autocomplete="username"/>
-    <input type="password" id="sifre" placeholder="Şifre" autocomplete="current-password"/>
-    <button id="girisBtn">Giriş Yap</button>
-    <p id="giris-mesaj"></p>
+<!-- Admin Panel: Kullanıcı Yönetimi -->
+<div id="admin-yonetim" style="display:none;">
+  <h3>Kullanıcı Yönetimi</h3>
+  <button class="admin-btn" onclick="yeniKullaniciFormGoster()">+ Kullanıcı Ekle</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Kullanıcı Adı</th>
+        <th>Rol</th>
+        <th>Son Giriş</th>
+        <th>Oturum</th>
+        <th>İşlem</th>
+      </tr>
+    </thead>
+    <tbody id="kullaniciListesi"></tbody>
+  </table>
+  <div id="yeniKullaniciForm">
+    <input type="text" id="yeni_kullanici_adi" placeholder="Kullanıcı adı">
+    <input type="password" id="yeni_kullanici_sifre" placeholder="Şifre">
+    <select id="yeni_kullanici_rol">
+      <option value="user">user</option>
+      <option value="admin">admin</option>
+    </select>
+    <button onclick="yeniKullaniciEkle()" class="admin-btn">Kaydet</button>
+    <button onclick="yeniKullaniciFormGizle()" class="admin-btn" style="background:#ccc;color:#222;">Vazgeç</button>
+    <div id="yeniKullaniciHata" style="color:#b00;font-size:15px;text-align:center"></div>
   </div>
+</div>
 
-  <!-- Panel Bölümü -->
-  <div id="panel-bolumu">
-    <h2>Kara Liste Yönetim Paneli</h2>
-    <p><strong>Hoşgeldin:</strong> <span id="girenKullanici"></span> (<span id="girenRol"></span>)</p>
-    <button id="cikisBtn">Çıkış Yap</button>
+<div id="eklemeAlani">
+  <h3>Kara Listeye Kişi Ekle</h3>
+  <input type="text" id="isim" placeholder="İsim" />
+  <input type="text" id="tc" placeholder="TC Kimlik No" maxlength="11" />
+  <input type="text" id="telefon" placeholder="Telefon" />
+  <textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
+  <button id="ekleBtn">Ekle</button>
+  <p id="sonuc"></p>
+</div>
 
-    <!-- Admin Panel: Kullanıcı Yönetimi -->
-    <div id="admin-yonetim" style="display:none;">
-      <h3>Kullanıcı Yönetimi</h3>
-      <button class="admin-btn" onclick="yeniKullaniciFormGoster()">+ Kullanıcı Ekle</button>
-      <table>
-        <thead>
-          <tr>
-            <th>Kullanıcı Adı</th>
-            <th>Rol</th>
-            <th>Son Giriş</th>
-            <th>Oturum</th>
-            <th>İşlem</th>
-          </tr>
-        </thead>
-        <tbody id="kullaniciListesi"></tbody>
-      </table>
-      <div id="yeniKullaniciForm">
-        <input type="text" id="yeni_kullanici_adi" placeholder="Kullanıcı adı">
-        <input type="password" id="yeni_kullanici_sifre" placeholder="Şifre">
-        <select id="yeni_kullanici_rol">
-          <option value="user">user</option>
-          <option value="admin">admin</option>
-        </select>
-        <button onclick="yeniKullaniciEkle()" class="admin-btn">Kaydet</button>
-        <button onclick="yeniKullaniciFormGizle()" class="admin-btn" style="background:#ccc;color:#222;">Vazgeç</button>
-        <div id="yeniKullaniciHata" style="color:#b00;font-size:15px;text-align:center"></div>
-      </div>
-    </div>
+<h3>Liste</h3>
+<input type="text" id="arama" placeholder="İsim, TC, telefon veya neden ara..." oninput="filtreleGercek()"/>
+<div class="tablo-kapsayici">
+  <table id="listeTablosu">
+    <thead>
+      <tr>
+        <th data-alan="isim">İsim <span id="ok-isim"></span></th>
+        <th data-alan="tc">TC <span id="ok-tc"></span></th>
+        <th data-alan="telefon">Telefon <span id="ok-telefon"></span></th>
+        <th data-alan="neden">Neden <span id="ok-neden"></span></th>
+        <th id="ekleyen_th" style="display:none">Ekleyen</th>
+        <th>Sil</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
 
-    <div id="eklemeAlani">
-      <h3>Kara Listeye Kişi Ekle</h3>
-      <input type="text" id="isim" placeholder="İsim" />
-      <input type="text" id="tc" placeholder="TC Kimlik No" maxlength="11" />
-      <input type="text" id="telefon" placeholder="Telefon" />
-      <textarea id="neden" placeholder="Neden kara listeye alındı?"></textarea>
-      <button id="ekleBtn">Ekle</button>
-      <p id="sonuc"></p>
-    </div>
-
-    <h3>Liste</h3>
-    <input type="text" id="arama" placeholder="İsim, TC, telefon veya neden ara..." oninput="filtreleGercek()"/>
-    <div class="tablo-kapsayici">
-      <table id="listeTablosu">
-        <thead>
-          <tr>
-            <th data-alan="isim">İsim <span id="ok-isim"></span></th>
-            <th data-alan="tc">TC <span id="ok-tc"></span></th>
-            <th data-alan="telefon">Telefon <span id="ok-telefon"></span></th>
-            <th data-alan="neden">Neden <span id="ok-neden"></span></th>
-            <th id="ekleyen_th" style="display:none">Ekleyen</th>
-            <th>Sil</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <h3>📜 Silinen Kayıtlar (Geçmiş)</h3>
-    <div class="tablo-kapsayici">
-      <table id="gecmisTablosu">
-        <thead>
-          <tr>
-            <th>İsim</th>
-            <th>TC</th>
-            <th>Telefon</th>
-            <th>Neden</th>
-            <th>Silme Nedeni</th>
-            <th>Tarih</th>
-            <th id="silen_th" style="display:none">Silen</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
-
-  <script>
-    // --- SUPABASE AYAR ---
-    const supabaseUrl = "https://agfeuszcreycpandzfij.supabase.co";
-    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZmV1c3pjcmV5Y3BhbmR6ZmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2MjA3NDYsImV4cCI6MjA2NjE5Njc0Nn0.ap9UUJfPECk0Xysn53q8WIBaH1QDKMPrGTCrGzfEn_s";
-    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-    let kisiler = [];
-    let gecmisKisiler = [];
-    let siralamaAlan = "";
-    let siralamaTers = false;
-    let kullanici = null;
-    let kullanicilar = [];
-
-    // --- GİRİŞ & ÇIKIŞ ---
-    const girisBolumu = document.getElementById("giris-bolumu");
-    const panelBolumu = document.getElementById("panel-bolumu");
-    const girisMesaj = document.getElementById("giris-mesaj");
-    const sonucMesaj = document.getElementById("sonuc");
-
-    window.onload = () => {
-      const kayitliKullanici = localStorage.getItem("kullanici");
-      if (kayitliKullanici) {
-        kullanici = JSON.parse(kayitliKullanici);
-        girisBolumu.classList.remove("active");
-        panelBolumu.classList.add("active");
-        panelHazirla();
-      } else {
-        girisBolumu.classList.add("active");
-        panelBolumu.classList.remove("active");
-      }
-    };
-
-    document.getElementById("girisBtn").onclick = async () => {
-      const kullaniciAdi = document.getElementById("kullaniciAdi").value.trim().toLowerCase();
-      const sifre = document.getElementById("sifre").value.trim();
-      girisMesaj.style.color = "black";
-      girisMesaj.innerText = "🔄 Giriş yapılıyor...";
-      const { data, error } = await supabaseClient
-        .from("kullanicilar")
-        .select("*")
-        .eq("kullanici_adi", kullaniciAdi)
-        .eq("sifre", sifre)
-        .maybeSingle();
-      if (error) {
-        girisMesaj.style.color = "darkred";
-        girisMesaj.innerText = "❌ Hata oluştu: " + error.message;
-        return;
-      }
-      if (!data) {
-        girisMesaj.style.color = "darkred";
-        girisMesaj.innerText = "❌ Hatalı kullanıcı adı veya şifre!";
-        return;
-      }
-      kullanici = data;
-      await supabaseClient.from("kullanicilar").update({ son_giris: new Date().toISOString() }).eq("id", data.id);
-      localStorage.setItem("kullanici", JSON.stringify(kullanici));
-      girisBolumu.classList.remove("active");
-      panelBolumu.classList.add("active");
-      panelHazirla();
-    };
-
-    document.getElementById("cikisBtn").onclick = () => {
-      localStorage.removeItem("kullanici");
-      kullanici = null;
-      panelBolumu.classList.remove("active");
-      girisBolumu.classList.add("active");
-      document.getElementById("kullaniciAdi").value = "";
-      document.getElementById("sifre").value = "";
-      girisMesaj.innerText = "";
-      sonucMesaj.innerText = "";
-    };
-
-    // --- PANEL HAZIRLA ---
-    async function panelHazirla() {
-      document.getElementById("girenKullanici").innerText = kullanici.kullanici_adi;
-      document.getElementById("girenRol").innerText = kullanici.rol;
-      document.getElementById("ekleyen_th").style.display = (kullanici.rol === "admin") ? "" : "none";
-      document.getElementById("silen_th").style.display = (kullanici.rol === "admin") ? "" : "none";
-      if (kullanici.rol === "admin") {
-        document.getElementById("admin-yonetim").style.display = "";
-        await kullaniciListesiGuncelle();
-      } else {
-        document.getElementById("admin-yonetim").style.display = "none";
-      }
-      listele();
-      gecmisiYukle();
-      otomatikYenileBaslat();
-    }
-
-    // --- KULLANICI YÖNETİMİ (Admin) ---
-    async function kullaniciListesiGuncelle() {
-      const { data } = await supabaseClient.from("kullanicilar").select("*");
-      kullanicilar = data || [];
-      const tbody = document.getElementById("kullaniciListesi");
-      tbody.innerHTML = "";
-      kullanicilar.forEach(k => {
-        const sonGiris = k.son_giris ? new Date(k.son_giris).toLocaleString() : "-";
-        const aktif = (kullanici && k.kullanici_adi===k.kullanici_adi) ? '<span class="aktif-oturum">AKTİF</span>' : '';
-        tbody.innerHTML += `<tr>
-          <td>${k.kullanici_adi}
-          ${k.rol}</td>
-          <td>${sonGiris}
-          ${aktif}</td>
-          <td>
-            <button onclick="kullaniciSifirla('${k.id}')" class="admin-btn sifirla">Şifre Sıfırla
-            Rolü Değiştir
-            Sil</button>
-          </td>
-        </tr>`;
-      });
-    }
-
-    window.kullaniciSifirla = async function(id) {
-      const sifre = prompt("Yeni şifreyi gir:");
-      if (!sifre) return;
-      await supabaseClient.from("kullanicilar").update({ sifre }).eq("id", id);
-      await kullaniciListesiGuncelle();
-    };
-    window.rolDegistir = async function(id, rol) {
-      const yeniRol = rol === "admin" ? "user" : "admin";
-      await supabaseClient.from("kullanicilar").update({ rol: yeniRol }).eq("id", id);
-      await kullaniciListesiGuncelle();
-    };
-    window.kullaniciSil = async function(id) {
-      if (!confirm("Kullanıcı silinsin mi?")) return;
-      await supabaseClient.from("kullanicilar").delete().eq("id", id);
-      await kullaniciListesiGuncelle();
-    };
-
-    // --- YENİ KULLANICI FORM ---
-    window.yeniKullaniciFormGoster = function() {
-      document.getElementById("yeniKullaniciForm").style.display = "";
-      document.getElementById("yeni_kullanici_adi").value = "";
-      document.getElementById("yeni_kullanici_sifre").value = "";
-      document.getElementById("yeniKullaniciHata").innerText = "";
-    };
-    window.yeniKullaniciFormGizle = function() {
-      document.getElementById("yeniKullaniciForm").style.display = "none";
-    };
-    window.yeniKullaniciEkle = async function() {
-      const adi = document.getElementById("yeni_kullanici_adi").value.trim().toLowerCase();
-      const sifre = document.getElementById("yeni_kullanici_sifre").value;
-      const rol = document.getElementById("yeni_kullanici_rol").value;
-      if (!adi || !sifre) {
-        document.getElementById("yeniKullaniciHata").innerText = "Boş alan bırakmayın."; return;
-      }
-      if (kullanicilar.find(k=>k.kullanici_adi===adi)) {
-        document.getElementById("yeniKullaniciHata").innerText = "Bu kullanıcı zaten var!"; return;
-      }
-      const { error } = await supabaseClient.from("kullanicilar").insert([{ kullanici_adi: adi, sifre, rol }]);
-      if (error) { document.getElementById("yeniKullaniciHata").innerText = "Hata: " + error.message; return;}
-      window.yeniKullaniciFormGizle();
-      await kullaniciListesiGuncelle();
-    };
-
-    // --- KARA LİSTE BÖLÜMÜ ---
-    document.getElementById("ekleBtn").onclick = async () => {
-      const isim = document.getElementById("isim").value.trim();
-      const tc = document.getElementById("tc").value.trim();
-      const telefon = document.getElementById("telefon").value.trim();
-      const neden = document.getElementById("neden").value.trim();
-      sonucMesaj.style.color = "darkred";
-      sonucMesaj.innerText = "";
-      if (!isim || !tc || !neden) {
-        sonucMesaj.innerText = "İsim, TC ve neden zorunludur."; return;
-      }
-      if (tc.length !== 11 || isNaN(tc)) {
-        sonucMesaj.innerText = "TC Kimlik No 11 haneli olmalı."; return;
-      }
-      const { data: mevcut } = await supabaseClient
-        .from("blacklist")
-        .select("id")
-        .eq("tc", tc);
-      if (mevcut.length > 0) {
-        sonucMesaj.innerText = "⚠️ Bu TC zaten kayıtlı."; return;
-      }
-      const { error } = await supabaseClient
-        .from("blacklist")
-        .insert([{ isim, tc, telefon, neden, ekleyen: kullanici.kullanici_adi }]);
-      if (error) {
-        sonucMesaj.innerText = "Hata: " + error.message;
-      } else {
-        sonucMesaj.style.color = "green";
-        sonucMesaj.innerText = "✅ Kayıt eklendi.";
-        document.getElementById("isim").value = "";
-        document.getElementById("tc").value = "";
-        document.getElementById("telefon").value = "";
-        document.getElementById("neden").value = "";
-        listele();
-        gecmisiYukle();
-      }
-    };
-
-    async function listele() {
-      const { data } = await supabaseClient.from("blacklist").select("*");
-      kisiler = data || [];
-      let liste = [...kisiler];
-      if (siralamaAlan) {
-        liste = siraliDizi(liste, siralamaAlan, siralamaTers);
-      }
-      tabloyuYaz(liste);
-      filtreleGercek();
-      siralamaOklariniGuncelle();
-    }
-
-    async function gecmisiYukle() {
-      const { data } = await supabaseClient.from("silinenler").select("*");
-      gecmisKisiler = data || [];
-      gecmisTabloYaz(gecmisKisiler);
-    }
-
-    function tabloyuYaz(liste) {
-      const tbody = document.querySelector("#listeTablosu tbody");
-      tbody.innerHTML = "";
-      liste.forEach((kisi) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td data-label="İsim">${kisi.isim}
-          ${kisi.tc}</td>
-          <td data-label="Telefon">${kisi.telefon}
-          ${kisi.neden}</td>
-          <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}" data-label="Ekleyen">${kisi.ekleyen || '-'}</td>
-          <td data-label="Sil"><button class="sil-btn" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Sil
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function gecmisTabloYaz(liste) {
-      const tbody = document.querySelector("#gecmisTablosu tbody");
-      tbody.innerHTML = "";
-      liste.forEach((kisi) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          ${kisi.isim}</td>
-          <td data-label="TC">${kisi.tc}
-          ${kisi.telefon}</td>
-          <td data-label="Neden">${kisi.neden}
-          ${kisi.silinme_nedeni}</td>
-          <td data-label="Tarih">${new Date(kisi.silinme_tarihi).toLocaleString()}
-          ${kisi.silen || '-'}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    async function sil(id, isim, tc, telefon, neden) {
-      const silmeNedeni = prompt("Bu kişiyi neden siliyorsun?");
-      if (!silmeNedeni || silmeNedeni.trim() === "") {
-        alert("Açıklama zorunludur.");
-        return;
-      }
-      await supabaseClient
-        .from("silinenler")
-        .insert([{ isim, tc, telefon, neden, silinme_nedeni: silmeNedeni, silinme_tarihi: new Date().toISOString(), silen: kullanici.kullanici_adi }]);
-      await supabaseClient.from("blacklist").delete().eq("id", id);
-      listele();
-      gecmisiYukle();
-    }
-
-    function filtreleGercek() {
-      const arama = document.getElementById("arama").value.toLowerCase();
-      const satirlar = document.querySelectorAll("#listeTablosu tbody tr");
-      satirlar.forEach(tr => {
-        const metin = tr.innerText.toLowerCase();
-        tr.style.display = metin.includes(arama) ? "" : "none";
-      });
-    }
-
-    function sirala(alan) {
-      if (siralamaAlan === alan) {
-        siralamaTers = !siralamaTers;
-      } else {
-        siralamaAlan = alan;
-        siralamaTers = false;
-      }
-      let sirali = siraliDizi(kisiler, siralamaAlan, siralamaTers);
-      tabloyuYaz(sirali);
-      filtreleGercek();
-      siralamaOklariniGuncelle();
-    }
-
-    function siraliDizi(liste, alan, ters) {
-      return [...liste].sort((a, b) => {
-        const valA = (a[alan] || "").toString().toLowerCase();
-        const valB = (b[alan] || "").toString().toLowerCase();
-        if (valA < valB) return ters ? 1 : -1;
-        if (valA > valB) return ters ? -1 : 1;
-        return 0;
-      });
-    }
-
-    function siralamaOklariniGuncelle() {
-      ["isim", "tc", "telefon", "neden"].forEach(alan => {
-        const ok = document.getElementById("ok-" + alan);
-        if (siralamaAlan === alan) {
-          ok.innerHTML = siralamaTers ? "&#8595;" : "&#8593;";
-        } else {
-          ok.innerHTML = "";
-        }
-      });
-    }
-
-    function otomatikYenileBaslat() {
-      setInterval(() => {
-        listele();
-        gecmisiYukle();
-        if (kullanici.rol === "admin") kullaniciListesiGuncelle();
-      }, 180000);
-    }
-
-    document.querySelectorAll("#listeTablosu thead th[data-alan]").forEach(th => {
-      th.addEventListener("click", () => {
-        sirala(th.dataset.alan);
-      });
-    });
-  </script>
-</body>
-</html>
+<h3>📜 Silinen Kayıtlar (Geçmiş)</h3>
+<div class="tablo-kapsayici">
+  <table id="gecmisTablosu">
+    <thead>
+      <tr>
+        <th>İsim</th>
+        <th>TC</th>
+        <th>Telefon</th>
+        <th>Neden</th>
+        <th>Silme Nedeni</th>
+        <th>Tarih</th>
+        <th id="silen_th" style="display:none">Silen</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
