@@ -14,7 +14,8 @@
     
     /* Düzeltme: Tabloyu responsive yap */
     .tablo-kapsayici {
-      overflow-x: hidden !important; /* Yatay kaydırma çubuğunu kaldır */
+      overflow-x: hidden !important;
+      width: 100%;
     }
     
     table {
@@ -22,14 +23,25 @@
       margin-top: 20px;
       border-collapse: collapse;
       background: white;
+      table-layout: fixed; /* Tablo genişliğini sabitler */
     }
+    
+    /* Sütun genişliklerini belirle */
+    th:nth-child(1), td:nth-child(1) { width: 25%; } /* İsim */
+    th:nth-child(2), td:nth-child(2) { width: 15%; } /* TC */
+    th:nth-child(3), td:nth-child(3) { width: 15%; } /* Telefon */
+    th:nth-child(4), td:nth-child(4) { width: 30%; } /* Neden */
+    th:nth-child(5), td:nth-child(5) { width: 10%; } /* Ekleyen (admin) */
+    th:nth-child(6), td:nth-child(6) { width: 10%; } /* Sil butonu */
     
     th, td {
       padding: 10px;
       border: 1px solid #ccc;
       font-size: 15px;
-      white-space: normal !important; /* Metni alt satıra geçir */
-      max-width: 150px; /* Sütun genişliğini sınırla */
+      white-space: normal !important;
+      overflow: hidden;
+      text-overflow: ellipsis; /* Uzun metinler için ... */
+      word-wrap: break-word; /* Kelimeleri satır sonunda kes */
     }
     
     th {
@@ -49,7 +61,6 @@
       th, td {
         font-size: 13px;
         padding: 4px;
-        max-width: 120px; /* Mobilde daha dar */
       }
     }
     
