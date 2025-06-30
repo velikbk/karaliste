@@ -29,8 +29,58 @@
     .islem-td {color: #444; font-size: 13px;}
     #admin-yonetim {margin-top: 40px;}
     #yeniKullaniciForm {margin: 10px 0; background: #f7f7fc; border-radius: 7px; padding: 10px; display: none;}
-    @media (max-width:650px){ th,td{font-size:13px; padding:4px;} }
-  </style>
+     }
+  
+    
+      table { font-size: 12px; }
+      th, td { padding: 6px 4px; word-break: break-word; white-space: normal; }
+      input, textarea, button { font-size: 14px; padding: 10px; }
+      .tablo-kapsayici { overflow-x: auto; }
+    }
+
+
+    
+      table { font-size: 11px; }
+      th, td { padding: 6px 4px; word-break: break-word; white-space: normal; }
+      input, textarea, button { font-size: 13px; padding: 10px; }
+      .tablo-kapsayici { overflow-x: auto; }
+    }
+
+
+    
+      table { font-size: 8px; table-layout: fixed; }
+      th, td {
+        padding: 4px 2px;
+        word-break: break-word;
+        white-space: normal;
+      }
+      th:nth-child(2), td:nth-child(2), /* TC */
+      th:nth-child(3), td:nth-child(3)  /* Telefon */ {
+        max-width: 90px;
+        font-size: 6px;
+      }
+      th:nth-child(1), td:nth-child(1) { /* İsim */
+        max-width: 100px;
+      }
+      th:nth-child(4), td:nth-child(4) { /* Neden */
+        max-width: 180px;
+        font-size: 9px;
+      }
+      input, textarea, button { font-size: 11px; padding: 6px; }
+      .tablo-kapsayici { overflow-x: auto; }
+    }
+
+
+  table { font-size: 8px !important; }
+  td:nth-child(2), th:nth-child(2),
+  td:nth-child(3), th:nth-child(3) {
+    font-size: 6px !important;
+  }
+  td:nth-child(4), th:nth-child(4) {
+    font-size: 9px !important;
+  }
+
+</style>
 </head>
 <body>
   <!-- Giriş Bölümü -->
@@ -98,7 +148,7 @@
             <th data-alan="telefon">Telefon <span id="ok-telefon"></span></th>
             <th data-alan="neden">Neden <span id="ok-neden"></span></th>
             <th id="ekleyen_th" style="display:none">Ekleyen</th>
-            <th>Sil</th>
+            <th>&times;</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -230,7 +280,7 @@
           <td>
             <button onclick="kullaniciSifirla('${k.id}')" class="admin-btn sifirla">Şifre Sıfırla</button>
             <button onclick="rolDegistir('${k.id}', '${k.rol}')" class="admin-btn rol">Rolü Değiştir</button>
-            <button onclick="kullaniciSil('${k.id}')" class="admin-btn sil-btn">Sil</button>
+            <button onclick="kullaniciSil('${k.id}')" class="admin-btn sil-btn">&times;</button>
           </td>
         </tr>`;
       });
@@ -341,12 +391,12 @@
       liste.forEach((kisi) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${kisi.isim}</td>
+          <td style="word-break: break-word; white-space: pre-line;">${kisi.isim}</td>
           <td>${kisi.tc}</td>
           <td>${kisi.telefon}</td>
           <td>${kisi.neden}</td>
           <td class="islem-td" style="display:${(kullanici.rol==='admin') ? '' : 'none'}">${kisi.ekleyen || '-'}</td>
-          <td><button class="sil-btn" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">Sil</button></td>
+          <td><button class="sil-btn" style="padding: 3px 7px; font-size: 18px;" onclick="sil('${kisi.id}', '${kisi.isim}', '${kisi.tc}', '${kisi.telefon}', '${kisi.neden}')">&times;</button></td>
         `;
         tbody.appendChild(tr);
       });
@@ -358,7 +408,7 @@
       liste.forEach((kisi) => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${kisi.isim}</td>
+          <td style="word-break: break-word; white-space: pre-line;">${kisi.isim}</td>
           <td>${kisi.tc}</td>
           <td>${kisi.telefon}</td>
           <td>${kisi.neden}</td>
